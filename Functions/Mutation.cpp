@@ -7,11 +7,13 @@ void genome::Mutation(string location)
     //double dublict_nd = 0.0002;   //duplicated a node
     double rwrng_nw_cnnctn = 0.4;
     double rwrng_dl_cnnctn = 0.4;
+    bool saving_is_ncessary = false;
 
     for (int i=0 ; i<n-2 ; i++)             
     {
         if (ran2(&iseed) < nw_wght)                 //chance of new weight
         {
+            saving_is_ncessary = true;
             int f = ran2(&iseed) * gn[i].nghbrs.size();
             f = gn[i].nghbrs[f];
 
@@ -20,6 +22,7 @@ void genome::Mutation(string location)
 
         if (ran2(&iseed) < rwrng_nw_cnnctn)
         {
+            saving_is_ncessary = true;
             int f = ran2(&iseed) * n;
             connect(i, f, gasdev(&iseed));
             gn[f].Connected.push_back(i);
@@ -27,6 +30,7 @@ void genome::Mutation(string location)
 
         if (ran2(&iseed) < rwrng_dl_cnnctn)
         {
+            saving_is_ncessary = true;
             int f = ran2(&iseed) * gn[i].nghbrs.size();
             int FE = gn[i].nghbrs[f];
             gn[i].nghbrs.erase(gn[i].nghbrs.begin() + f);
@@ -59,19 +63,21 @@ void genome::Mutation(string location)
 
     //saving on the txt file as well:
 
-    ofstream sve(location);
-    
-    for (int i=0 ; i<n ; i++)
+    if (saving_is_ncessary)
     {
-        for (int j=0 ; j<n ; j++)
+        ofstream sve(location);
+
+        for (int i=0 ; i<n ; i++)
         {
-            sve<<adjac[i][j]<<'\t';
+            for (int j=0 ; j<n ; j++)
+            {
+                sve<<adjac[i][j]<<'\t';
+            }
+
+            sve<<'\n';
         }
-
-        sve<<'\n';
+        sve.close();
     }
-    sve.close();
-
 
     
 }
