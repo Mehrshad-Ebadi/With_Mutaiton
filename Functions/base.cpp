@@ -77,10 +77,10 @@ void genome::base (int N)
     //ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     //Alive.clear();
 
-    /*
-    for (int ini=1 ; ini < 2000000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    
+    for (int ini=1 ; ini < 20000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
-        double evolve = (ini / 1000000.0) + ref_Envmnt; // input (or environment) value
+        double evolve = (ini / 10000.0) + ref_Envmnt; // input (or environment) value
         last_number_got_filled = 0;
         cout<<"step = " << evolve <<endl;
         alive = 0;
@@ -99,7 +99,7 @@ void genome::base (int N)
             if (checker(location) == true) //reading all survived networks from reference environment ...
             {   
                 Reader(location);
-                Mutation();
+                Mutation(location);
                 Evolution(evolve);
                 double KAPA = evolve - parameters();
                 KAPA = Fitness_func(KAPA);
@@ -148,7 +148,7 @@ void genome::base (int N)
         popul << evolve <<'\t'<< population <<endl;
         //du_Alive << evolve <<'\t'<< du_alive <<endl;
     }
-    */
+    
 
     /*
     //WITH NONLINEAR environmental changes
@@ -234,7 +234,7 @@ void genome::base (int N)
     */
     //oscilating environment ...
     
-    for (int ini=1 ; ini < 2000000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+   /* for (int ini=1 ; ini < 2000000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
         double rate = 1/2000000.0;
         ref_Envmnt += rate;
@@ -307,6 +307,6 @@ void genome::base (int N)
         popul << ref_Envmnt <<'\t'<< population <<endl;
         //du_Alive << evolve <<'\t'<< du_alive <<endl;
     }
-
+    */
     cout<<"done!!"<<endl;                 
 }

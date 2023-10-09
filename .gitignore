@@ -1,1 +1,4 @@
 Results/*.txt
+Exe/*.out
+Outputs/*.txt
+Library/*.a
