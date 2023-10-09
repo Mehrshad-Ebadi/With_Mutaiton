@@ -77,7 +77,7 @@ void genome::base (int N)
     //ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     //Alive.clear();
 
-    
+    /*
     for (int ini=1 ; ini < 20000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
         double evolve = (ini / 10000.0) + ref_Envmnt; // input (or environment) value
@@ -148,7 +148,7 @@ void genome::base (int N)
         popul << evolve <<'\t'<< population <<endl;
         //du_Alive << evolve <<'\t'<< du_alive <<endl;
     }
-    
+    */
 
     /*
     //WITH NONLINEAR environmental changes
@@ -234,7 +234,7 @@ void genome::base (int N)
     */
     //oscilating environment ...
     
-   /* for (int ini=1 ; ini < 2000000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    for (int ini=1 ; ini < 2000000 ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
         double rate = 1/2000000.0;
         ref_Envmnt += rate;
@@ -260,9 +260,15 @@ void genome::base (int N)
             {   
                 Reader(location);
                 Mutation(location);
-                Evolution(ref_Envmnt);
-                double KAPA = ref_Envmnt - parameters();
-                KAPA = Fitness_func(KAPA);
+                double KAPA = 0;
+                
+                if (II != 0)
+                {
+                    Evolution(ref_Envmnt);
+                    cout<<"after evo"<<endl;
+                    double KAPA = ref_Envmnt - parameters();
+                    KAPA = Fitness_func(KAPA);
+                }
                 
                 if (KAPA > ran2(&iseed))
                 {
@@ -286,6 +292,7 @@ void genome::base (int N)
 
         cout<<"alive = "<<alive<<endl;
         int needed_networks = number_networks - alive;
+        cout<<"b chance_repro"<<endl;
         
         if (alive != number_networks && alive != 0)
         {
@@ -297,6 +304,7 @@ void genome::base (int N)
             cout<<"Complete extinsion ..."<<endl;
             break;
         }
+        cout<<"a chance_repro"<<endl;
         Alive.clear();
         Alive.shrink_to_fit();
         ftnss_saver.clear();
@@ -307,6 +315,6 @@ void genome::base (int N)
         popul << ref_Envmnt <<'\t'<< population <<endl;
         //du_Alive << evolve <<'\t'<< du_alive <<endl;
     }
-    */
+    
     cout<<"done!!"<<endl;                 
 }
