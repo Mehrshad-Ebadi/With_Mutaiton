@@ -116,7 +116,7 @@ class genome
     void Reproduce(int);
     double Self_regulation (); //in the fitness function file
     void Evolution(double);
-    void Mutation();
+    void Mutation(string);
     //void du_Evolution(double);
 
         

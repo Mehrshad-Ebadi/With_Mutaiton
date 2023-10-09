@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Mutation()
+void genome::Mutation(string location)
 {
     double nw_wght  = 0.4;    //new weight
     //double delete_nd   = 0.0003;  // delete a node  
@@ -56,6 +56,22 @@ void genome::Mutation()
         }
         */
     }
+
+    //saving on the txt file as well:
+
+    ofstream sve(location);
+    
+    for (int i=0 ; i<n ; i++)
+    {
+        for (int j=0 ; j<n ; j++)
+        {
+            sve<<adjac[i][j]<<'\t';
+        }
+
+        sve<<'\n';
+    }
+    sve.close();
+
 
     
 }
