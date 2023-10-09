@@ -13,7 +13,7 @@ void genome::base (int N)
     self_regulation_limitation_mean_poisson = 460.6;
     
 
-
+    int boz;
     alive = 0;
     du_alive = 0;
     ref_Envmnt = 0.0;  //starting input value, or reference environment value ..
