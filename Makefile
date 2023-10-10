@@ -23,9 +23,7 @@ EXE =./Exe
 Run: FCompile
 	@echo "Clearing Old output files..."
 
-	@rm -r ./Outputs
-
-	@mkdir ./Outputs
+	@rm -f ./Outputs/*.txt
 
 	@echo "Ready to fire..."
 	
