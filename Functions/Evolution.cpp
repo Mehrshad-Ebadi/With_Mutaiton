@@ -3,23 +3,25 @@
 
 void genome::Evolution(double evolve)
 {   
-    selected_node = input[0];
-    for (int i=0 ; i< n ; i++) gn[i].nm_up = 0;
-    gn[selected_node].weights = evolve;
-    
-    
-    for (int i=0 ; i<gn[selected_node].nghbrs.size() ; i++)
+    if (II != 0)
     {
-        int node2 = gn[selected_node].nghbrs[i];
-        double VV = 0;   
-        
-        for (int GH=0 ; GH < gn[node2].Connected.size(); GH++)
+        selected_node = input[0];
+        for (int i=0 ; i< n ; i++) gn[i].nm_up = 0;
+        gn[selected_node].weights = evolve;
+         
+        for (int i=0 ; i<gn[selected_node].nghbrs.size() ; i++)
         {
-            int gh = gn[node2].Connected[GH];
-            VV += double(gn[gh].weights * adjac[gh][node2]);
+            int node2 = gn[selected_node].nghbrs[i];
+            double VV = 0;   
+            
+            for (int GH=0 ; GH < gn[node2].Connected.size(); GH++)
+            {
+                int gh = gn[node2].Connected[GH];
+                VV += double(gn[gh].weights * adjac[gh][node2]);
+            }
+            gn[node2].weights = The_Function(VV);
+            updater (node2);
         }
-        gn[node2].weights = The_Function(VV);
-        updater (node2);
     }
 
 }

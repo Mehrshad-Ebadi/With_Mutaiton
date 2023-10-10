@@ -5,8 +5,8 @@ void genome::Mutation(string location)
     double nw_wght  = 0.4;    //new weight
     //double delete_nd   = 0.0003;  // delete a node  
     //double dublict_nd = 0.0002;   //duplicated a node
-    double rwrng_nw_cnnctn = 0.4;
-    double rwrng_dl_cnnctn = 0.4;
+    double rwrng_nw_cnnctn = 0.01;
+    double rwrng_dl_cnnctn = 0.01;
     bool saving_is_ncessary = false;
 
     for (int i=0 ; i<n-2 ; i++)             

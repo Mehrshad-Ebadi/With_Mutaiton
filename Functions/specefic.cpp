@@ -37,7 +37,7 @@ void genome::specefication()
             input[i_counter] = i;
             i_counter++;
         }
-
+        
         for (int j=0 ; j<n ; j++)
         {
             gn[i].slf_cntrl = Self_regulation();
