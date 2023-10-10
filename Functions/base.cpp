@@ -34,9 +34,7 @@ void genome::base (int N)
                 Mutation(location);
                 Evolution(evolve);
                 double KAPA = evolve - parameters();
-                cout<<KAPA<<endl;
                 KAPA = Fitness_func(KAPA);
-                cout<<"fitness = "<<KAPA<<endl;
                 if (KAPA > ran2(&iseed))
                 {
                     alive ++; 

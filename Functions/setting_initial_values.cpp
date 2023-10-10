@@ -2,7 +2,9 @@
 
 int genome::Setting_initial_values(int N)
 {
-    
+    Sigma = 0.1;
+    Miuw = 0.0;   
+    self_regulation_limitation_mean_poisson = 460.6;
     n = N;
     gn = new gene [n];
     adjac = new double* [n] ;
