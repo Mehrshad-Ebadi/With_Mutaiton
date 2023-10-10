@@ -62,14 +62,6 @@ void genome::base (int N)
     {
         ran2(&iseed);
     }
-
-    
-    
-    
-    /* Reference conditions :
-    **************************************
-    **************************************
-    **************************************
     */
 
     ofstream Alive_counter ("./Outputs/Alive.txt");

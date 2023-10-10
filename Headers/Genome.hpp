@@ -119,6 +119,7 @@ class genome
     void Mutation(string);
     double Environment_changes(int, int);
     //void du_Evolution(double);
+    void Setting_initial_values();
 
         
     genome ()
