@@ -28,8 +28,6 @@ class genome
     double self_regulation_limitation_mean_poisson;
 
     public:
-    int craziness_counter;
-    int du_craziness_counter;
     gene* gn;
     dupli* du;
     double** adjac;
@@ -119,7 +117,7 @@ class genome
     void Mutation(string);
     double Environment_changes(int, int);
     //void du_Evolution(double);
-    void Setting_initial_values();
+    int Setting_initial_values(int);
 
         
     genome ()

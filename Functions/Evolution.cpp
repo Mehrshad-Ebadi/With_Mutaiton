@@ -3,7 +3,7 @@
 
 void genome::Evolution(double evolve)
 {   
-    if (II != 0)
+    if (II > 0)
     {
         selected_node = input[0];
         for (int i=0 ; i< n ; i++) gn[i].nm_up = 0;

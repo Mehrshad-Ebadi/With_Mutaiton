@@ -2,73 +2,13 @@
 
 void genome::base (int N)
 {
-    int number_networks = 10000;
-    n = N;
-    gn = new gene [n];
-    adjac = new double* [n] ;
-    II = 0;
-    UU = 0;
-    Sigma = 0.1;
-    Miuw = 0.0;   
-    self_regulation_limitation_mean_poisson = 460.6;
-    
-
-    alive = 0;
-    du_alive = 0;
-    ref_Envmnt = 0.0;  //starting input value, or reference environment value ..
-    craziness_counter = 30000; //counting number of cicle in a loop, to check if there is any infinite loops or not.
-    du_craziness_counter = 2 * craziness_counter;
-    
-    for (int i=0 ; i<n ; i++)
-    {
-        adjac[i] = new double [n];
-        gn[i].dg_in = 0;
-        gn[i].dg_out = 0;
-        gn[i].weights = 0;
-        gn[i].slf_cntrl = 0;
-    }
-   
-    iseed = 20L * time(0);
-
-    for (int i=0 ; i<n ; i++)
-    {
-        for (int j=0 ; j<n ; j++)
-            adjac[i][j] = 0;
-    }
-
-    //+++++++++++++++++++++++++++++++++ the process of duplications++++++++++++++++++++++++++++++++++++++++++
-    /*
-    nn = 2*n;
-    du_adjac = new double* [nn];
-    du = new dupli [nn];
-    du_II = 0;
-    du_UU = 0;
-    
-    for (int i=0 ; i<nn ; i++)
-    {
-        du_adjac [i] = new double [nn];
-        du[i].dg_in = 0;
-        du[i].dg_out = 0;    
-        du[i].weights = 0;    
-        du[i].slf_cntrl = 0;
-    }
-
-    for (int i=0 ; i<nn ; i++)
-    {    for (int j=0 ; j<nn ; j++)
-            du_adjac[i][j] = 0;
-    }
-
-    for (int i=0 ; i<100 ; i++)
-    {
-        ran2(&iseed);
-    }
-    */
+    int number_networks = Setting_initial_values(N);
 
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream popul ("./Outputs/popul.txt");
     //ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     //Alive.clear();
-
+    cout<<n<<endl;
     int step = 10000;
     
     for (int ini=1 ; step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
@@ -94,8 +34,9 @@ void genome::base (int N)
                 Mutation(location);
                 Evolution(evolve);
                 double KAPA = evolve - parameters();
+                cout<<KAPA<<endl;
                 KAPA = Fitness_func(KAPA);
-                
+                cout<<"fitness = "<<KAPA<<endl;
                 if (KAPA > ran2(&iseed))
                 {
                     alive ++; 
