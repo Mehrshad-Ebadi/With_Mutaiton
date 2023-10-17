@@ -24,6 +24,8 @@ Run: FCompile
 	@echo "Clearing Old output files..."
 
 	@rm -f ./Outputs/*.txt
+	@rm -r ./net_track
+	@mkdir ./net_track
 
 	@echo "Ready to fire..."
 	

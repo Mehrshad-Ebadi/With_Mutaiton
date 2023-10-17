@@ -11,8 +11,15 @@ void genome::base (int N)
     cout<<n<<endl;
     int step = 10000;
     
-    for (int ini=1 ; step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    for (int ini=0 ; step ; ini+=20) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
+        if (ini % 100 == 0)
+        {
+            ofstream temp ("./temp.txt", ios::out | ios::trunc); 
+            temp << (static_cast<double>(ini) / step) <<endl;
+            string pythonScript = "python3 net_char.py";
+            int pythonExitCode = system(pythonScript.c_str());
+        }
         double evolve = Environment_changes(ini, step);
         last_number_got_filled = 0;
         cout<<"step = " << evolve <<endl;
@@ -75,6 +82,6 @@ void genome::base (int N)
         popul << evolve <<'\t'<< population <<endl;
         //du_Alive << evolve <<'\t'<< du_alive <<endl;
     }
-    
+        
     cout<<"done!!"<<endl;                 
 }

@@ -60,5 +60,8 @@ int genome::Setting_initial_values(int N)
     }
     */
    int number_networks = 10000;
+
+    ofstream net_char ("./net_track/00Net_analysis.txt");
+    net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
    return number_networks;
 }
