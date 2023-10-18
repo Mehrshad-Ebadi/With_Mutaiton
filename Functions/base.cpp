@@ -122,7 +122,7 @@ void genome::base (int N)
         }
 
         //now the block of the duplicated network with the same tasks ...
-        
+        {
             if (du_alive != number_networks && du_alive != 0)
             {
                 du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving, number_networks);
@@ -132,7 +132,7 @@ void genome::base (int N)
             {
                 break;
             }
-
+        }
         Alive.clear();
         Alive.shrink_to_fit();
         ftnss_saver.clear();
@@ -144,9 +144,13 @@ void genome::base (int N)
         du_ftnss_saver.shrink_to_fit();
         
         double zz = static_cast <double> (alive) / number_networks;
+        double du_zz = static_cast <double> (du_alive) / number_networks;
+
         Alive_counter << evolve <<'\t'<< zz <<endl;
+        du_Alive_counter << evolve <<'\t'<< du_zz <<endl;
+
         popul << evolve <<'\t'<< population <<endl;
-        //du_Alive << evolve <<'\t'<< du_alive <<endl;
+        du_popul << evolve <<'\t'<< du_population <<endl;
     }
         
     cout<<"done!!"<<endl;                 

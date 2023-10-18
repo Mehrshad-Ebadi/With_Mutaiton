@@ -1,7 +1,7 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_saving, int number_networks)
+void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_saving, int number_networks)
 {
     ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
     tracking_ancestors <<"********************"<<endl;
@@ -53,7 +53,7 @@ void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_savin
 int genome::du_Reproduce(int idl_nt)
 {
     int p = 0;
-    string data = "./Results/Net_du_";
+    string data = "./Results_du/Net_du_";
     string Extension = ".txt";
     string SS = to_string(idl_nt);
     string source = data + SS + Extension;

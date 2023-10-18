@@ -77,30 +77,33 @@ class genome
     int last_number_got_filled;
     int du_last_number_got_filled;
  
- //+++++++++ FUNCTIONS+++++++//
-
-    double gasdev(long*);
-	double ran2 (long*);
-    void base (int); 
+ //+++++++++ FUNCTIONS+++++++// 
+    
     void connect (int, int, double);
     void du_connect (int, int, double);
-    bool checker (string);
-    bool du_checker (string);
+    
+    
     void Reader(string);
     void du_Reader(string);
+    
     void specefication();
     void du_specefication();
-    void duplication ();
+    
     void updater (int);
     void du_updater(int);
+    
     double parameters();
     double du_parameters();
 
     void memory_Deleter();
     void du_memory_Deleter();
+    
     double The_Function (double);
-    
-    
+    void duplication ();
+    bool checker (string);
+    double gasdev(long*);
+	double ran2 (long*);
+    void base (int);    
     
     double phase()    
     {
