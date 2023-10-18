@@ -6,13 +6,21 @@ int genome::Setting_initial_values(int N)
     Sigma = 0.1;
     Miuw = 0.0;   
     self_regulation_limitation_mean_poisson = 460.6;
+    
     n = N;
+    nn = 2*n;
+    
     gn = new gene [n];
+    du = new dupli [nn];
+
     adjac = new double* [n] ;
+    du_adjac = new double* [nn];
+    
     II = 0;
     UU = 0;
-    alive = 0;
-    du_alive = 0;
+    du_II = 0;
+    du_UU = 0;
+
     ref_Envmnt = 0.0;  //starting input value, or reference environment value ..
     iseed = 20L * time(0);
     
@@ -24,22 +32,6 @@ int genome::Setting_initial_values(int N)
         gn[i].weights = 0;
         gn[i].slf_cntrl = 0;
     }
-   
-    
-
-    for (int i=0 ; i<n ; i++)
-    {
-        for (int j=0 ; j<n ; j++)
-            adjac[i][j] = 0;
-    }
-
-    //+++++++++++++++++++++++++++++++++ the process of duplications++++++++++++++++++++++++++++++++++++++++++
-    /*
-    nn = 2*n;
-    du_adjac = new double* [nn];
-    du = new dupli [nn];
-    du_II = 0;
-    du_UU = 0;
     
     for (int i=0 ; i<nn ; i++)
     {
@@ -48,21 +40,25 @@ int genome::Setting_initial_values(int N)
         du[i].dg_out = 0;    
         du[i].weights = 0;    
         du[i].slf_cntrl = 0;
+    } 
+    
+
+    for (int i=0 ; i<n ; i++)
+    {
+        for (int j=0 ; j<n ; j++)
+            adjac[i][j] = 0;
     }
 
     for (int i=0 ; i<nn ; i++)
-    {    for (int j=0 ; j<nn ; j++)
+    {    
+        for (int j=0 ; j<nn ; j++)
             du_adjac[i][j] = 0;
     }
-
-    for (int i=0 ; i<100 ; i++)
-    {
-        ran2(&iseed);
-    }
-    */
-   
-
+    
     ofstream net_char ("./net_track/00Net_analysis.txt");
+    ofstream du_net_char ("./net_track/00_du_Net_analysis.txt");
     net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
-   return number_networks;
+    du_net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
+    
+    return number_networks;
 }

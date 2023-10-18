@@ -26,9 +26,19 @@ void genome::Mutation(string location)
             if (ran2(&iseed) < rwrng_nw_cnnctn)
             {
                 saving_is_ncessary = true;
-                int f = ran2(&iseed) * n;
-                connect(i, f, gasdev(&iseed));
-                gn[f].Connected.push_back(i);
+                bool temmpy = true;
+
+                while (temmpy)
+                {
+                    int f = ran2(&iseed) * n;
+                    if (adjac [i][f] == 0)
+                    {
+                        connect(i, f, gasdev(&iseed));
+                        gn[f].Connected.push_back(i);
+                        temmpy = false;
+                    }                
+                }
+
             }
 
             if (ran2(&iseed) < rwrng_dl_cnnctn)

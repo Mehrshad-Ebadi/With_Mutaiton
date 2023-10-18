@@ -28,7 +28,7 @@ void genome::Evolution(double evolve)
 
 void genome::updater (int nodex)
 {   
-    if (gn[nodex].nm_up < gn[nodex].slf_cntrl)
+    if (gn[nodex].nm_up <= gn[nodex].slf_cntrl)
     {
         for (int i=0 ; i<gn[nodex].nghbrs.size() ; i++)
         {   

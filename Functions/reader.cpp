@@ -13,9 +13,7 @@ void genome::Reader(string location)
 
             if (adjac[j][k] != 0)
             {
-
                 connect (j, k, adjac[j][k]);
-
             }
         }
     }

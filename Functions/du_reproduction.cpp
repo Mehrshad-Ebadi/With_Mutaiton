@@ -12,17 +12,18 @@ void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_savin
     
     while (sum < needed_networks)
     {
-        int idl_cndt = ran2(&iseed) * Alive.size();
-        double fitness_idl_cndt = ftnss_saver[idl_cndt];
-        idl_cndt = Alive[idl_cndt];
+        int idl_cndt = ran2(&iseed) * du_Alive.size();
+        double fitness_idl_cndt = du_ftnss_saver[idl_cndt];
+        
+        idl_cndt = du_Alive[idl_cndt];
         fitness_idl_cndt = round(fitness_idl_cndt *100) / 100.0;
         
         if (fitness_idl_cndt > ran2(&iseed))
         {   
             tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
-            int offspring = Reproduce(idl_cndt);
+            int offspring = du_Reproduce(idl_cndt);
             tracking_ancestors << offspring<<",";
-            population ++;
+            du_population ++;
             sum++;
         }
         
@@ -32,10 +33,10 @@ void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_savin
     tracking_ancestors<<endl;
     
 /*   only hard selection
-    while (sum < alive)
+    while (sum < du_Alive)
     {
-        int idl_cndt = ran2(&iseed) * Alive.size();
-        idl_cndt = Alive[idl_cndt];
+        int idl_cndt = ran2(&iseed) * du_Alive.size();
+        idl_cndt = du_Alive[idl_cndt];
         
         if (ran2(&iseed) > 0.5)
         {    
@@ -49,13 +50,14 @@ void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_savin
 }
 
 
-int genome::Reproduce(int idl_nt)
+int genome::du_Reproduce(int idl_nt)
 {
     int p = 0;
-    string data = "./Results/Net_";
+    string data = "./Results/Net_du_";
     string Extension = ".txt";
     string SS = to_string(idl_nt);
     string source = data + SS + Extension;
+    
     while (p == 0)
     {
         string DD = to_string(last_number_got_filled);
@@ -69,8 +71,8 @@ int genome::Reproduce(int idl_nt)
             p++;
         }
 
-        last_number_got_filled ++ ;
+        du_last_number_got_filled ++ ;
 
     }
-    return (last_number_got_filled - 1);
+    return (du_last_number_got_filled - 1);
 }

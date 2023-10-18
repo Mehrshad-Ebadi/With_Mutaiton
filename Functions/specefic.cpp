@@ -76,20 +76,22 @@ void genome::du_specefication()
 
     for (int i=0 ; i<nn ; i++)
     {
-        if (du[i].dg_in == 0)
-        {
-            du_input[i_counter] = i;
-            i_counter++ ;
-        }
 
         if (du[i].dg_out == 0)
         {
             du_output [u_counter] = i;
             u_counter++ ;
         }
+        
+        if (du[i].dg_in == 0)
+        {
+            du_input[i_counter] = i;
+            i_counter++ ;
+        }
 
         for (int j=0 ; j<nn ; j++)
         {
+            du[i].slf_cntrl = Self_regulation();
             if (du_adjac[j][i] != 0)
             {
                 du[i].Connected.push_back(j);

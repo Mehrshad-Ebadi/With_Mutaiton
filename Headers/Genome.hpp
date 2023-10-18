@@ -23,45 +23,59 @@ class genome
     int nn;
     long int iseed;
     int selected_node;
+    
     vector <int> Alive = {};
+    vector <int> du_Alive = {};
+
     vector <double> ftnss_saver = {};
-    vector <int> offspring = {};
+    vector <double> du_ftnss_saver = {};
+
+    //vector <int> offspring = {};
     double self_regulation_limitation_mean_poisson;
+    double du_self_regulation_limitation_mean_poisson;
 
     public:
     gene* gn;
     dupli* du;
+    
     double** adjac;
     double** du_adjac;
-    double positive_chance;
+    
     double xx;
     double XX;
+    
     double Sigma;
     double Miuw;
+    
     double omega;
     double ref_omega;
+    
     double du_omega;
     double du_ref_omega;
+    
     int du_ref_alive;
     int ref_alive;
+    
     int alive;
     int du_alive;
+    
     int population;
+    int du_population;
+    
     double ref_Envmnt;
+    
     int * output;
     int * input;
     int * du_output;
     int * du_input;
+    
     int II;
     int UU;
     int du_II;
     int du_UU;
-    int last_number_got_filled;
-
-
- //+++++++++ Mutation update+++++++//
-
     
+    int last_number_got_filled;
+    int du_last_number_got_filled;
  
  //+++++++++ FUNCTIONS+++++++//
 
@@ -112,10 +126,19 @@ class genome
 //+++++++++ FUNCTIONS_mutation update+++++++//
 
     void Chance_of_repro(int, int, string, int);
-    int Reproduce(int, string);
+    void du_Chance_of_repro(int, int, string, int);
+
+    int Reproduce(int);
+    int du_Reproduce(int);
+
     double Self_regulation (); //in the fitness function file
+
     void Evolution(double);
+    void du_Evolution(double);
+    
     void Mutation(string);
+    void du_Mutation(string);
+    
     double Environment_changes(int, int);
     //void du_Evolution(double);
     int Setting_initial_values(int);
@@ -124,8 +147,12 @@ class genome
     genome ()
     {
         Alive.clear();
+        du_Alive.clear();
+
         ftnss_saver.clear();
-        offspring.clear();
+        du_ftnss_saver.clear();
+
+        //offspring.clear();
     }
 
     ~genome()
