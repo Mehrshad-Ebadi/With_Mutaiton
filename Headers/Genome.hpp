@@ -25,6 +25,7 @@ class genome
     int selected_node;
     vector <int> Alive = {};
     vector <double> ftnss_saver = {};
+    vector <int> offspring = {};
     double self_regulation_limitation_mean_poisson;
 
     public:
@@ -110,8 +111,8 @@ class genome
 
 //+++++++++ FUNCTIONS_mutation update+++++++//
 
-    void Chance_of_repro(int);
-    void Reproduce(int);
+    void Chance_of_repro(int, int, string, int);
+    int Reproduce(int, string);
     double Self_regulation (); //in the fitness function file
     void Evolution(double);
     void Mutation(string);
@@ -124,6 +125,12 @@ class genome
     {
         Alive.clear();
         ftnss_saver.clear();
+        offspring.clear();
+    }
+
+    ~genome()
+    {
+
     }
 
 };

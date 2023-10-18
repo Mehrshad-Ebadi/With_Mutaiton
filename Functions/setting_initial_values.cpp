@@ -2,6 +2,7 @@
 
 int genome::Setting_initial_values(int N)
 {
+    int number_networks = 10000;
     Sigma = 0.1;
     Miuw = 0.0;   
     self_regulation_limitation_mean_poisson = 460.6;
@@ -59,7 +60,7 @@ int genome::Setting_initial_values(int N)
         ran2(&iseed);
     }
     */
-   int number_networks = 10000;
+   
 
     ofstream net_char ("./net_track/00Net_analysis.txt");
     net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;

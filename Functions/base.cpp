@@ -3,7 +3,6 @@
 void genome::base (int N)
 {
     int number_networks = Setting_initial_values(N);
-
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream popul ("./Outputs/popul.txt");
     //ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
@@ -20,12 +19,15 @@ void genome::base (int N)
             string pythonScript = "python3 net_char.py";
             int pythonExitCode = system(pythonScript.c_str());
         }
+
         double evolve = Environment_changes(ini, step);
         last_number_got_filled = 0;
         cout<<"step = " << evolve <<endl;
         alive = 0;
         population = 0;
-        
+        double KAPA = 0;
+        string ancestor_saving = "./net_track/inheritate.txt";
+
         for (int SH=0 ; SH<number_networks ; SH++)
         {
             string data = "./Results/Net_";
@@ -40,8 +42,9 @@ void genome::base (int N)
                 Reader(location);
                 Mutation(location);
                 Evolution(evolve);
-                double KAPA = evolve - parameters();
+                KAPA = evolve - parameters();
                 KAPA = Fitness_func(KAPA);
+                
                 if (KAPA > ran2(&iseed))
                 {
                     alive ++; 
@@ -65,13 +68,14 @@ void genome::base (int N)
         
         if (alive != number_networks && alive != 0)
         {
-            Chance_of_repro(needed_networks);
+            Chance_of_repro(needed_networks, ini, ancestor_saving, number_networks);
         }
 
         else if (alive == 0)
         {
             break;
         }
+        
         Alive.clear();
         Alive.shrink_to_fit();
         ftnss_saver.clear();
