@@ -48,7 +48,7 @@ for I in range (0,10000):
     
     with open(save_path, 'a') as file:
            
-        file.write(f"{step},{I},{average_in_degree},{average_out_degree},{diameter},{clustering_coefficient}")
+        file.write(f"{step}'\t'{I},{average_in_degree}'\t'{average_out_degree}'\t'{diameter}'\t'{clustering_coefficient}")
     del G
     file = open(save_path, 'a')
     file.write('\n')
