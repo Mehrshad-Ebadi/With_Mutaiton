@@ -37,8 +37,8 @@ void genome::base (int N)
         du_alive = 0;
 
         double KAPA = 0;
-        string ancestor_saving = "./net_track/inheritate.txt";
-        string du_ancestor_saving = "./net_track/du_inheritate.txt";
+        string ancestor_saving = "./Outputs/inheritate.txt";
+        string du_ancestor_saving = "./Outputs/du_inheritate.txt";
 
         for (int SH=0 ; SH<number_networks ; SH++)
         {
