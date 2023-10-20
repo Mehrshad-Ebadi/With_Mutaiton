@@ -10,13 +10,13 @@ with open('./temp.txt', 'r') as file:
 print ('content=',step)
 
 exten = '.txt'
-Restuls = './Results/Net_'
+Results = './Results/Net_'
 save_path = './net_track/00Net_analysis.txt'
 
 for I in range (0,10000):
 
     i = str(I)
-    file_path = Restuls + i + exten
+    file_path = Results + i + exten
     
     adjacency_matrix = np.loadtxt(file_path)
     adjacency_matrix = np.abs(adjacency_matrix)
