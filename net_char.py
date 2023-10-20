@@ -7,8 +7,6 @@ with open('./temp.txt', 'r') as file:
     content = file.read()
     step = float(content)
 
-print ('content=',step)
-
 exten = '.txt'
 Results = './Results/Net_'
 save_path = './net_track/00Net_analysis.txt'
