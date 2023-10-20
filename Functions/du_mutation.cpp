@@ -3,13 +3,13 @@
 void genome::du_Mutation(string du_location)
 {
     double equ_mt= 2;  //by dividing all mutation rate of the single networks by this value, we make the mutaiton rate of the single and doubles identical to each other
-    double nw_wght  = 0.01 / equ_mt;    //new weight
+    double nw_wght  = chance_changing_weight / equ_mt;    //new weight
     
     //double delete_nd   = 0.0003 / equ_mt;  // delete a node  
     //double dublict_nd = 0.0002 / equ_mt;   //duplicated a node
     
-    double rwrng_nw_cnnctn = 0.01 / equ_mt;
-    double rwrng_dl_cnnctn = 0.01 / equ_mt;
+    double rwrng_nw_cnnctn = chance_of_new_connetion / equ_mt;
+    double rwrng_dl_cnnctn = chance_of_del_connection / equ_mt;
     bool saving_is_ncessary = false;
 
     for (int i=0 ; i<nn ; i++)             

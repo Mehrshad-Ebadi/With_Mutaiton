@@ -3,15 +3,18 @@ import networkx as nx
 from igraph import Graph
 
 step = 0
-with open('./temp.txt', 'r') as file:
+number_networks = 0
+
+with open('./Outputs/temp.txt', 'r') as file:
+    step = float(file.readline().strip())
+    number_networks = int(file.readline().strip())
     content = file.read()
-    step = float(content)
 
 exten = '.txt'
 Results = './Results/Net_'
-save_path = './net_track/00Net_analysis.txt'
+save_path = './Outputs/00Net_analysis.txt'
 
-for I in range (0,10000):
+for I in range (0, number_networks):
 
     i = str(I)
     file_path = Results + i + exten
@@ -48,7 +51,7 @@ for I in range (0,10000):
     
     with open(save_path, 'a') as file:
            
-        file.write(f"{step}'\t'{I},{average_in_degree}'\t'{average_out_degree}'\t'{diameter}'\t'{clustering_coefficient}")
+        file.write(f"{step},{I},{average_in_degree},{average_out_degree},{diameter},{clustering_coefficient}")
     del G
     file = open(save_path, 'a')
     file.write('\n')

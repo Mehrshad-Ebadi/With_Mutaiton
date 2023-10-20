@@ -2,7 +2,12 @@
 
 int genome::Setting_initial_values(int N)
 {
-    int number_networks = 10000;
+    int number_networks = 100;
+    
+    chance_changing_weight = 0.001;
+    chance_of_del_connection = 0.001;
+    chance_of_new_connetion = 0.001;
+    
     Sigma = 0.1;
     Miuw = 0.0;   
     self_regulation_limitation_mean_poisson = 460.6;
@@ -55,8 +60,8 @@ int genome::Setting_initial_values(int N)
             du_adjac[i][j] = 0;
     }
     
-    ofstream net_char ("./net_track/00Net_analysis.txt");
-    ofstream du_net_char ("./net_track/00_du_Net_analysis.txt");
+    ofstream net_char ("./Outputs/00Net_analysis.txt");
+    ofstream du_net_char ("./Outputs/00_du_Net_analysis.txt");
     net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
     du_net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
     

@@ -9,14 +9,15 @@ void genome::base (int N)
     ofstream popul ("./Outputs/popul.txt");
     ofstream du_popul ("./Outputs/du_popul.txt");
     
-    int step = 10000;
+    int step = 20000;
     
-    for (int ini=0 ; step ; ini+=20) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    for (int ini=5000 ; step ; ini+=20) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
-        if (ini % 100 == 0)
+        if ((ini % 100) == 0)
         {
-            ofstream temp ("./temp.txt", ios::out | ios::trunc); 
+            ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << (static_cast<double>(ini) / step) <<endl;
+            temp << number_networks <<endl;
             
             string pythonScript = "python3 net_char.py";
             int pythonExitCode = system(pythonScript.c_str());

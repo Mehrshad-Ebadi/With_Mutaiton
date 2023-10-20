@@ -34,6 +34,10 @@ class genome
     double self_regulation_limitation_mean_poisson;
     double du_self_regulation_limitation_mean_poisson;
 
+    double chance_changing_weight;
+    double chance_of_new_connetion;
+    double chance_of_del_connection;
+
     public:
     gene* gn;
     dupli* du;
