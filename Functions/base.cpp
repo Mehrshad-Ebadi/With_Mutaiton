@@ -11,7 +11,7 @@ void genome::base (int N)
     
     int step = 20000;
     
-    for (int ini=5000 ; step ; ini+=20) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    for (int ini=1 ; step ; ini+=20) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
         if ((ini % 100) == 0)
         {
