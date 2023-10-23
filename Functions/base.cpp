@@ -9,7 +9,7 @@ void genome::base (int N)
     
     for (int ini=0 ; step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
-        /*if ((ini % 100) == 0)
+        if ((ini % 100) == 0)
         {
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << (static_cast<double>(ini) / step) <<endl;
@@ -22,7 +22,7 @@ void genome::base (int N)
             int du_pythonExitCode = system(du_pythonScript.c_str());
 
         }
-        */
+        
         double evolve = Environment_changes(ini, step);
         last_number_got_filled = 0;
         du_last_number_got_filled = 0;
