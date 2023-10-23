@@ -5,7 +5,6 @@ void genome::base (int N)
     int number_networks = Setting_initial_values(N);
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
-    
     int step = 20000;
     
     for (int ini=0 ; step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
@@ -104,7 +103,6 @@ void genome::base (int N)
         int needed_networks = (number_networks-1) - alive;
         int du_needed_networks = (number_networks-1) - du_alive;
         
-        cout<<"alive = "<<alive<<" needed = "<<needed_networks<<endl;
         //the whole block is for single networks ...
         {
             if (needed_networks != 0 && alive != 0)
