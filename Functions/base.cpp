@@ -66,9 +66,9 @@ void genome::base (int N)
                 
                 else 
                 {
-                    char arr[location.length() + 1]; 
-                    strcpy(arr, location.c_str()); 
-                    remove(arr);
+                    string command = "rm " + location;
+                    system(command.c_str());
+
                 }
 
                 memory_Deleter();
@@ -93,21 +93,21 @@ void genome::base (int N)
                 
                 else 
                 {
-                    char arr[du_location.length() + 1]; 
-                    strcpy(arr, du_location.c_str()); 
-                    remove(arr);
+                    string command = "rm " + du_location;
+                    system(command.c_str());
                 }
 
                 du_memory_Deleter();
             }          
         }
-
-        int needed_networks = number_networks - alive;
-        int du_needed_networks = number_networks - du_alive;
+        
+        int needed_networks = (number_networks-1) - alive;
+        int du_needed_networks = (number_networks-1) - du_alive;
+        
         cout<<"alive = "<<alive<<" needed = "<<needed_networks<<endl;
         //the whole block is for single networks ...
         {
-            if (alive != number_networks && alive != 0)
+            if (needed_networks != 0 && alive != 0)
             {
                 Chance_of_repro(needed_networks, ini, ancestor_saving);
             }
@@ -120,7 +120,7 @@ void genome::base (int N)
 
         //now the block of the duplicated network with the same tasks ...
         {
-            if (du_alive != number_networks && du_alive != 0)
+            if (du_needed_networks != 0 && du_alive != 0)
             {
                 du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving);
             }
@@ -130,16 +130,19 @@ void genome::base (int N)
                 break;
             }
         }
+        
         Alive.clear();
-        Alive.shrink_to_fit();
-        ftnss_saver.clear();
-        ftnss_saver.shrink_to_fit();
-        
         du_Alive.clear();
-        du_Alive.shrink_to_fit();
-        du_ftnss_saver.clear();
-        du_ftnss_saver.shrink_to_fit();
         
+        Alive.shrink_to_fit();
+        du_Alive.shrink_to_fit();
+        
+        ftnss_saver.clear();
+        du_ftnss_saver.clear();
+
+        ftnss_saver.shrink_to_fit();
+        du_ftnss_saver.shrink_to_fit();
+
         double zz = static_cast <double> (alive) / number_networks;
         double du_zz = static_cast <double> (du_alive) / number_networks;
 

@@ -14,7 +14,6 @@ void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_sa
     {
         int idl_cndt = ran2(&iseed) * du_Alive.size();
         double fitness_idl_cndt = du_ftnss_saver[idl_cndt];
-        
         idl_cndt = du_Alive[idl_cndt];
         fitness_idl_cndt = round(fitness_idl_cndt *100) / 100.0;
         
@@ -24,9 +23,7 @@ void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_sa
             int offspring = du_Reproduce(idl_cndt);
             tracking_ancestors << offspring<<",";
             sum++;
-        }
-        
-        
+        } 
     }
     
     tracking_ancestors<<endl;
