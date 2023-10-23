@@ -6,14 +6,11 @@ void genome::base (int N)
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     
-    ofstream popul ("./Outputs/popul.txt");
-    ofstream du_popul ("./Outputs/du_popul.txt");
-    
     int step = 20000;
     
-    for (int ini=1 ; step ; ini+=20) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    for (int ini=0 ; step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
-        if ((ini % 100) == 0)
+        /*if ((ini % 100) == 0)
         {
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << (static_cast<double>(ini) / step) <<endl;
@@ -26,11 +23,10 @@ void genome::base (int N)
             int du_pythonExitCode = system(du_pythonScript.c_str());
 
         }
-
+        */
         double evolve = Environment_changes(ini, step);
         last_number_got_filled = 0;
         du_last_number_got_filled = 0;
-
         cout<<"step = " << ini <<endl;
         
         alive = 0;
@@ -40,13 +36,14 @@ void genome::base (int N)
         string ancestor_saving = "./Outputs/inheritate.txt";
         string du_ancestor_saving = "./Outputs/du_inheritate.txt";
 
-        for (int SH=0 ; SH<number_networks ; SH++)
+        for (int SH=1 ; SH<number_networks ; SH++)
         {
             string data = "./Results/Net_";
             string du_data = "./Results_du/Net_du_";
             
             string Extension = ".txt";
             string HH = to_string(SH);
+            
             string location = data + HH + Extension;
             string du_location = du_data + HH + Extension;       
 
@@ -63,7 +60,6 @@ void genome::base (int N)
                 if (KAPA > ran2(&iseed))
                 {
                     alive ++; 
-                    population ++;
                     Alive.push_back(SH);
                     ftnss_saver.push_back(KAPA);
                 }
@@ -74,6 +70,7 @@ void genome::base (int N)
                     strcpy(arr, location.c_str()); 
                     remove(arr);
                 }
+
                 memory_Deleter();
             }
             
@@ -90,7 +87,6 @@ void genome::base (int N)
                 if (KAPA > ran2(&iseed))
                 {
                     du_alive ++; 
-                    du_population ++;
                     du_Alive.push_back(SH);
                     du_ftnss_saver.push_back(KAPA);
                 }
@@ -108,12 +104,12 @@ void genome::base (int N)
 
         int needed_networks = number_networks - alive;
         int du_needed_networks = number_networks - du_alive;
-        
+        cout<<"alive = "<<alive<<" needed = "<<needed_networks<<endl;
         //the whole block is for single networks ...
         {
             if (alive != number_networks && alive != 0)
             {
-                Chance_of_repro(needed_networks, ini, ancestor_saving, number_networks);
+                Chance_of_repro(needed_networks, ini, ancestor_saving);
             }
 
             else if (alive == 0)
@@ -126,7 +122,7 @@ void genome::base (int N)
         {
             if (du_alive != number_networks && du_alive != 0)
             {
-                du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving, number_networks);
+                du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving);
             }
 
             else if (du_alive == 0)
@@ -149,9 +145,6 @@ void genome::base (int N)
 
         Alive_counter << evolve <<'\t'<< zz <<endl;
         du_Alive_counter << evolve <<'\t'<< du_zz <<endl;
-
-        popul << evolve <<'\t'<< population <<endl;
-        du_popul << evolve <<'\t'<< du_population <<endl;
     }
         
     cout<<"done!!"<<endl;                 

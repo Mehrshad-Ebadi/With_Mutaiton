@@ -2,10 +2,6 @@
 
 void genome::specefication()
 {
-
-    II = 0;
-    UU = 0;
-
     for (int i=0 ; i<n ; i++)
     {
         if (gn[i].dg_in == 0)
@@ -26,6 +22,8 @@ void genome::specefication()
 
     for (int i=0 ; i<n ; i++)
     {
+        gn[i].slf_cntrl = Self_regulation();
+        
         if (gn[i].dg_out == 0)
         {
             output[u_counter] = i;
@@ -37,25 +35,12 @@ void genome::specefication()
             input[i_counter] = i;
             i_counter++;
         }
-        
-        for (int j=0 ; j<n ; j++)
-        {
-            gn[i].slf_cntrl = Self_regulation();
-
-            if (adjac[j][i] != 0)
-            {
-                gn[i].Connected.push_back(j);
-            }
-        }
     }
 }
 
 
 void genome::du_specefication()
 {
-    du_II = 0;
-    du_UU = 0;
-
     for (int i=0 ; i<nn ; i++)
     {
         if (du[i].dg_in == 0)
@@ -76,6 +61,7 @@ void genome::du_specefication()
 
     for (int i=0 ; i<nn ; i++)
     {
+        du[i].slf_cntrl = Self_regulation();
 
         if (du[i].dg_out == 0)
         {
@@ -88,15 +74,5 @@ void genome::du_specefication()
             du_input[i_counter] = i;
             i_counter++ ;
         }
-
-        for (int j=0 ; j<nn ; j++)
-        {
-            du[i].slf_cntrl = Self_regulation();
-            if (du_adjac[j][i] != 0)
-            {
-                du[i].Connected.push_back(j);
-            }
-        }
     }
-
 }

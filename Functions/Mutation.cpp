@@ -9,7 +9,7 @@ void genome::Mutation(string location)
     double rwrng_dl_cnnctn = chance_of_del_connection;
     bool saving_is_ncessary = false;
 
-    for (int i=0 ; i<n-2 ; i++)             
+    for (int i=0 ; i<n ; i++)             
     {
         if (gn[i].nghbrs.size() != 0)
         {
@@ -34,7 +34,6 @@ void genome::Mutation(string location)
                     if (adjac [i][f] == 0)
                     {
                         connect(i, f, gasdev(&iseed));
-                        gn[f].Connected.push_back(i);
                         temmpy = false;
                     }                
                 }

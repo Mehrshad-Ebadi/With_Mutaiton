@@ -1,7 +1,7 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_saving, int number_networks)
+void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_saving)
 {
     ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
     tracking_ancestors <<"********************"<<endl;
@@ -23,7 +23,6 @@ void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_sa
             tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
             int offspring = du_Reproduce(idl_cndt);
             tracking_ancestors << offspring<<",";
-            du_population ++;
             sum++;
         }
         

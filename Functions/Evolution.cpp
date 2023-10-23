@@ -6,7 +6,6 @@ void genome::Evolution(double evolve)
     if (II > 0)
     {
         selected_node = input[0];
-        for (int i=0 ; i< n ; i++) gn[i].nm_up = 0;
         gn[selected_node].weights = evolve;
          
         for (int i=0 ; i<gn[selected_node].nghbrs.size() ; i++)
@@ -19,7 +18,9 @@ void genome::Evolution(double evolve)
                 int gh = gn[node2].Connected[GH];
                 VV += double(gn[gh].weights * adjac[gh][node2]);
             }
+            
             gn[node2].weights = The_Function(VV);
+            gn[node2].nm_up ++;
             updater (node2);
         }
     }

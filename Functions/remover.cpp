@@ -13,6 +13,7 @@ void genome::memory_Deleter()
         gn[F].nghbrs.clear();
         gn[F].Connected.clear();
         gn[F].weights = 0;
+        gn[F].nm_up = 0;
 
         for (int j=0 ; j<n ; j++)
         { adjac[F][j] = 0; }
@@ -40,6 +41,7 @@ void genome::du_memory_Deleter()
         du[F].nghbrs.shrink_to_fit();
         du[F].Connected.shrink_to_fit();
         du[F].weights = 0;
+        du[F].nm_up = 0;
 
         for (int j=0 ; j<nn ; j++)
         { du_adjac[F][j] = 0; }

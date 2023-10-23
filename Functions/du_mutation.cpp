@@ -37,7 +37,6 @@ void genome::du_Mutation(string du_location)
                     if (du_adjac [i][f] == 0)
                     {
                         du_connect(i, f, gasdev(&iseed));
-                        du[f].Connected.push_back(i);
                         temmpy = false;
                     }                
                 }

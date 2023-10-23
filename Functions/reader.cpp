@@ -11,10 +11,7 @@ void genome::Reader(string location)
         {
             NetWork>>adjac[j][k];
 
-            if (adjac[j][k] != 0)
-            {
-                connect (j, k, adjac[j][k]);
-            }
+            if (adjac[j][k] != 0)   connect (j, k, adjac[j][k]);
         }
     }
 
@@ -32,10 +29,7 @@ void genome::du_Reader(string du_location)
         {
             NetWork>>du_adjac[j][k];
             
-            if (du_adjac[j][k] != 0)
-            {
-                du_connect (j, k, du_adjac[j][k]);
-            }
+            if (du_adjac[j][k] != 0)    du_connect (j, k, du_adjac[j][k]);
         }
     }
     

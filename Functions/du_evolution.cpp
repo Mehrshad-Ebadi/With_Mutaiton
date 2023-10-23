@@ -4,11 +4,7 @@
 void genome::du_Evolution(double evolve)
 {   
     if (du_II > 0)
-    {
-        selected_node = du_input[0];
-        
-        for (int i=0 ; i< nn ; i++) du[i].nm_up = 0;
-        
+    {        
         du[selected_node].weights = evolve;
          
         for (int i=0 ; i<du[selected_node].nghbrs.size() ; i++)
@@ -21,7 +17,9 @@ void genome::du_Evolution(double evolve)
                 int gh = du[node2].Connected[GH];
                 VV += double(du[gh].weights * du_adjac[gh][node2]);
             }
+            
             du[node2].weights = The_Function(VV);
+            du[node2].nm_up++;
             du_updater (node2);
         }
     }

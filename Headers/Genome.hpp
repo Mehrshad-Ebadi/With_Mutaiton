@@ -30,13 +30,10 @@ class genome
     vector <double> ftnss_saver = {};
     vector <double> du_ftnss_saver = {};
 
-    //vector <int> offspring = {};
-    double self_regulation_limitation_mean_poisson;
-    double du_self_regulation_limitation_mean_poisson;
-
     double chance_changing_weight;
     double chance_of_new_connetion;
     double chance_of_del_connection;
+
 
     public:
     gene* gn;
@@ -62,9 +59,6 @@ class genome
     
     int alive;
     int du_alive;
-    
-    int population;
-    int du_population;
     
     double ref_Envmnt;
     
@@ -132,8 +126,8 @@ class genome
 
 //+++++++++ FUNCTIONS_mutation update+++++++//
 
-    void Chance_of_repro(int, int, string, int);
-    void du_Chance_of_repro(int, int, string, int);
+    void Chance_of_repro(int, int, string);
+    void du_Chance_of_repro(int, int, string);
 
     int Reproduce(int);
     int du_Reproduce(int);
