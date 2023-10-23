@@ -60,7 +60,7 @@ int genome::du_Reproduce(int idl_nt)
     
     while (p == 0)
     {
-        string DD = to_string(last_number_got_filled);
+        string DD = to_string(du_last_number_got_filled);
         string dest = data + DD + Extension;
         
         if (checker(dest) == false)

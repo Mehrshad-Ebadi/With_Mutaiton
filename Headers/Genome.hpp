@@ -162,9 +162,4 @@ class genome
         //offspring.clear();
     }
 
-    ~genome()
-    {
-
-    }
-
 };
