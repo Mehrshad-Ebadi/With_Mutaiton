@@ -2,13 +2,23 @@
 
 void genome::base (int N)
 {
+
+    vector <int> Alive = {};
+    vector <int> du_Alive = {};
+
+    vector <float> ftnss_saver = {};
+    vector <float> du_ftnss_saver = {};
+
     int number_networks = Setting_initial_values(N);
+    
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
-    int step = 20000;
     
-    for (int ini=0 ; step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    int step = 200000;
+    
+    for (int ini=1 ; ini < step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
     {
+
         if ((ini % 100) == 0)
         {
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
@@ -97,7 +107,7 @@ void genome::base (int N)
                 }
 
                 du_memory_Deleter();
-            }          
+            }         
         }
         
         int needed_networks = (number_networks-1) - alive;
@@ -107,7 +117,7 @@ void genome::base (int N)
         {
             if (needed_networks != 0 && alive != 0)
             {
-                Chance_of_repro(needed_networks, ini, ancestor_saving);
+                Chance_of_repro(needed_networks, ini, ancestor_saving, Alive, ftnss_saver);
             }
 
             else if (alive == 0)
@@ -120,7 +130,7 @@ void genome::base (int N)
         {
             if (du_needed_networks != 0 && du_alive != 0)
             {
-                du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving);
+                du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving, du_Alive, du_ftnss_saver);
             }
 
             else if (du_alive == 0)
@@ -129,17 +139,11 @@ void genome::base (int N)
             }
         }
         
+
         Alive.clear();
         du_Alive.clear();
-        
-        Alive.shrink_to_fit();
-        du_Alive.shrink_to_fit();
-        
         ftnss_saver.clear();
         du_ftnss_saver.clear();
-
-        ftnss_saver.shrink_to_fit();
-        du_ftnss_saver.shrink_to_fit();
 
         double zz = static_cast <double> (alive) / number_networks;
         double du_zz = static_cast <double> (du_alive) / number_networks;
@@ -147,6 +151,6 @@ void genome::base (int N)
         Alive_counter << evolve <<'\t'<< zz <<endl;
         du_Alive_counter << evolve <<'\t'<< du_zz <<endl;
     }
-        
+    
     cout<<"done!!"<<endl;                 
 }
