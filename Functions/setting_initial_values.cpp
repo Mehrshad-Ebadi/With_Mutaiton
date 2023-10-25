@@ -4,9 +4,9 @@ int genome::Setting_initial_values(int N)
 {
     int number_networks = 10000;
     
-    chance_changing_weight = 0.001;
-    chance_of_del_connection = 0.001;
-    chance_of_new_connetion = 0.001;
+    chance_changing_weight = 0.01;
+    chance_of_del_connection = 0.01;
+    chance_of_new_connetion = 0.01;
     
     Sigma = 0.1;
     Miuw = 0.0;   

@@ -24,11 +24,11 @@ class genome
     long int iseed;
     int selected_node;
     
-    vector <int> Alive = {};
-    vector <int> du_Alive = {};
+    vector <int> Alive;
+    vector <int> du_Alive;
 
-    vector <double> ftnss_saver = {};
-    vector <double> du_ftnss_saver = {};
+    vector <double> ftnss_saver;
+    vector <double> du_ftnss_saver;
 
     double chance_changing_weight;
     double chance_of_new_connetion;
