@@ -38,8 +38,8 @@ void genome::du_memory_Deleter()
         du[F].dg_out = 0;     
         du[F].nghbrs.clear();
         du[F].Connected.clear();
-        du[F].nghbrs.shrink_to_fit();
-        du[F].Connected.shrink_to_fit();
+        //du[F].nghbrs.shrink_to_fit();
+        //du[F].Connected.shrink_to_fit();
         du[F].weights = 0;
         du[F].nm_up = 0;
 

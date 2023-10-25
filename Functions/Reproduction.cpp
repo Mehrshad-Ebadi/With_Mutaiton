@@ -1,7 +1,7 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_saving)
+void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_saving, vector<int>& Alive, vector<float>& ftnss_saver)
 {
     ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
     tracking_ancestors <<"********************"<<endl;

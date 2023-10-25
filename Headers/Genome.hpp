@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdio>
 #include <vector>
+#include <memory>
 #include <ctime>
 #include "./Gene.hpp"
 #include "./duplicated.hpp"
@@ -24,11 +25,12 @@ class genome
     long int iseed;
     int selected_node;
     
-    vector <int> Alive;
-    vector <int> du_Alive;
-
-    vector <double> ftnss_saver;
-    vector <double> du_ftnss_saver;
+    
+    //unique_ptr<vector<int>> Alive;
+    //unique_ptr<vector<int>> du_Alive;
+    //
+    //unique_ptr<vector<float>> ftnss_saver;
+    //unique_ptr<vector<float>> du_ftnss_saver;
 
     double chance_changing_weight;
     double chance_of_new_connetion;
@@ -38,7 +40,11 @@ class genome
     public:
     gene* gn;
     dupli* du;
+    //vector <int> du_Alive;
+ 
     
+    //vector <float> du_ftnss_saver;
+
     double** adjac;
     double** du_adjac;
     
@@ -126,8 +132,8 @@ class genome
 
 //+++++++++ FUNCTIONS_mutation update+++++++//
 
-    void Chance_of_repro(int, int, string);
-    void du_Chance_of_repro(int, int, string);
+    void Chance_of_repro(int, int, string, vector<int> & vec1, vector<float> & vec2);
+    void du_Chance_of_repro(int, int, string, vector<int> & vec3, vector<float> & vec4);
 
     int Reproduce(int);
     int du_Reproduce(int);
@@ -145,15 +151,20 @@ class genome
     int Setting_initial_values(int);
 
         
-    genome ()
+//genome():Alive(make_unique<vector<int>>()), du_Alive(make_unique<vector<int>>()), ftnss_saver(make_unique<vector<float>>()),
+//du_ftnss_saver(make_unique<vector<float>>()) 
+//{   
+//    //Alive.clear();
+//     
+//
+//    // Initialize vectors and other variables here if necessary
+//};
+    genome()
     {
-        Alive.clear();
-        du_Alive.clear();
-
-        ftnss_saver.clear();
-        du_ftnss_saver.clear();
-
-        //offspring.clear();
-    }
+        
+    };
+    ~genome() 
+    {
+    };
 
 };
