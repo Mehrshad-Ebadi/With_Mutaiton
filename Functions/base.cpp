@@ -137,7 +137,7 @@ void genome::base (int N)
             {
                 break;
             }
-        }
+        }   
         
 
         Alive.clear();
