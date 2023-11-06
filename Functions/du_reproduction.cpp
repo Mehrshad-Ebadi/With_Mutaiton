@@ -1,38 +1,49 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_saving, vector <int>& du_Alive, vector <float>& du_ftnss_saver)
+void genome::du_Chance_of_repro(int needed_networks, int Nn)
 {
-    ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
-    tracking_ancestors <<"********************"<<endl;
-    tracking_ancestors <<"step="<<ini<<endl;
-    tracking_ancestors <<"********************"<<endl;
+    //ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
+    //tracking_ancestors <<"********************"<<endl;
+    //tracking_ancestors <<"step="<<ini<<endl;
+    //tracking_ancestors <<"********************"<<endl;
     int sum = 0;    
     //hard and soft selection ...  
     
     while (sum < needed_networks)
     {
-        int idl_cndt = ran2(&iseed) * du_Alive.size();
-        double fitness_idl_cndt = du_ftnss_saver[idl_cndt];
-        idl_cndt = du_Alive[idl_cndt];
-        fitness_idl_cndt = round(fitness_idl_cndt *100) / 100.0;
-        
-        if (fitness_idl_cndt > ran2(&iseed))
-        {   
-            tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
-            int offspring = du_Reproduce(idl_cndt);
-            tracking_ancestors << offspring<<",";
-            sum++;
-        } 
+        int idl_cndt = ran2(&iseed) * Nn;
+
+        if (dn[idl_cndt].living && dn[idl_cndt].fitness > ran2(&iseed))
+        {
+            //tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
+            //tracking_ancestors << offspring<<",";
+            
+            bool get_copied = true;
+            
+            while (get_copied)
+            {
+                int slave = du_last_number_got_filled;
+                if (dn[slave].living == false)
+                {
+                    du_copy(idl_cndt, slave);
+                    get_copied = false;
+                    sum++;
+                }
+
+                du_last_number_got_filled++;
+            }
+            
+        }
     }
     
-    tracking_ancestors<<endl;
+    //tracking_ancestors<<endl;
     
 /*   only hard selection
-    while (sum < du_Alive)
+    while (sum < alive)
     {
-        int idl_cndt = ran2(&iseed) * du_Alive.size();
-        idl_cndt = du_Alive[idl_cndt];
+        int idl_cndt = ran2(&iseed) * Alive.size();
+        idl_cndt = Alive[idl_cndt];
         
         if (ran2(&iseed) > 0.5)
         {    
@@ -45,30 +56,24 @@ void genome::du_Chance_of_repro(int needed_networks, int ini, string ancestor_sa
 */
 }
 
-
-int genome::du_Reproduce(int idl_nt)
+void genome::du_copy(int idl, int slv)
 {
-    int p = 0;
-    string data = "./Results_du/Net_du_";
-    string Extension = ".txt";
-    string SS = to_string(idl_nt);
-    string source = data + SS + Extension;
+    dn[slv].living = true;
+    dn[slv].du_output = dn[idl].du_output;
+    dn[slv].du_input = dn[idl].du_input ;
     
-    while (p == 0)
+    for (int F=0 ; F<n ; F++)
     {
-        string DD = to_string(du_last_number_got_filled);
-        string dest = data + DD + Extension;
-        
-        if (checker(dest) == false)
-        {
-            string offspring = "Net_" + DD;
-            string command = "cp " + source + " " + dest;
-            system(command.c_str());
-            p++;
-        }
-
-        du_last_number_got_filled ++ ;
-
+        dn[slv].du[F].dg_in = dn[idl].du[F].dg_in;
+        dn[slv].du[F].dg_out = dn[idl].du[F].dg_out;
+        dn[slv].du[F].nghbrs = dn[idl].du[F].nghbrs;
+        dn[slv].du[F].Connected = dn[idl].du[F].Connected;
+        dn[slv].du[F].weights = dn[idl].du[F].weights;
+        dn[slv].du[F].nm_up = dn[idl].du[F].nm_up;
     }
-    return (du_last_number_got_filled - 1);
+    
+    dn[slv].du_adjac = dn[idl].du_adjac;    
+    dn[slv].du_II = dn[idl].du_II;
+    dn[slv].du_UU = dn[idl].du_UU;
+    
 }

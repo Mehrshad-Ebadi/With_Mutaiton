@@ -3,49 +3,47 @@
 
 void genome::memory_Deleter()
 {
-    delete [] output;
-    delete [] input;
+    int s = temp_net;
+    delete [] ne[s].output;
+    delete [] ne[s].input;
     
     for (int F=0 ; F<n ; F++)
     {
-        gn[F].dg_in = 0;
-        gn[F].dg_out = 0;
-        gn[F].nghbrs.clear();
-        gn[F].Connected.clear();
-        gn[F].weights = 0;
-        gn[F].nm_up = 0;
+        ne[s].gn[F].dg_in = 0;
+        ne[s].gn[F].dg_out = 0;
+        ne[s].gn[F].nghbrs.clear();
+        ne[s].gn[F].Connected.clear();
+        ne[s].gn[F].weights = 0;
+        ne[s].gn[F].nm_up = 0;
 
         for (int j=0 ; j<n ; j++)
-        { adjac[F][j] = 0; }
+        { ne[s].adjac[F][j] = 0; }
     }
     
-    II = 0;
-    UU = 0;    
+    ne[s].II = 0;
+    ne[s].UU = 0;    
     
 }
 
 void genome::du_memory_Deleter()
 {
-    delete [] du_input;
-    delete [] du_output;
+    int s = temp_net;
+    delete [] dn[s].du_input;
+    delete [] dn[s].du_output;
 
-    du_II = 0;
-    du_UU = 0;
+    dn[s].du_II = 0;
+    dn[s].du_UU = 0;
     
     for (int F=0 ; F<nn ; F++)
     {
-        du[F].dg_in = 0;
-        du[F].dg_out = 0;     
-        du[F].nghbrs.clear();
-        du[F].Connected.clear();
-        //du[F].nghbrs.shrink_to_fit();
-        //du[F].Connected.shrink_to_fit();
-        du[F].weights = 0;
-        du[F].nm_up = 0;
+        dn[s].du[F].dg_in = 0;
+        dn[s].du[F].dg_out = 0;     
+        dn[s].du[F].nghbrs.clear();
+        dn[s].du[F].Connected.clear();
+        dn[s].du[F].weights = 0;
+        dn[s].du[F].nm_up = 0;
 
         for (int j=0 ; j<nn ; j++)
-        { du_adjac[F][j] = 0; }
+        { dn[s].du_adjac[F][j] = 0; }
     }
-    
-    
 }

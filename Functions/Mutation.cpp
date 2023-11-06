@@ -1,39 +1,36 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Mutation(string location)
+void genome::Mutation()
 {
+    int s = temp_net;
     double nw_wght  = chance_changing_weight;    //new weight
     //double delete_nd   = 0.0003;  // delete a node  
     //double dublict_nd = 0.0002;   //duplicated a node
     double rwrng_nw_cnnctn = chance_of_new_connetion;
     double rwrng_dl_cnnctn = chance_of_del_connection;
-    bool saving_is_ncessary = false;
 
     for (int i=0 ; i<n ; i++)             
     {
-        if (gn[i].nghbrs.size() != 0)
+        if (ne[s].gn[i].nghbrs.size() != 0)
         {
             if (ran2(&iseed) < nw_wght)                 //chance of new weight
             {
-                saving_is_ncessary = true;
-                
-                int f = ran2(&iseed) * gn[i].nghbrs.size();
-                f = gn[i].nghbrs[f];
+                int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
+                f = ne[s].gn[i].nghbrs[f];
 
-                adjac [i][f] = gasdev(&iseed);
+                ne[s].adjac [i][f] = gasdev(&iseed);
             }
 
             if (ran2(&iseed) < rwrng_nw_cnnctn)
             {
-                saving_is_ncessary = true;
                 bool temmpy = true;
 
                 while (temmpy)
                 {
                     int f = ran2(&iseed) * n;
-                    if (adjac [i][f] == 0)
+                    if (ne[s].adjac [i][f] == 0)
                     {
-                        connect(i, f, gasdev(&iseed));
+                        connect(i, f, gasdev(&iseed), s);
                         temmpy = false;
                     }                
                 }
@@ -42,54 +39,17 @@ void genome::Mutation(string location)
 
             if (ran2(&iseed) < rwrng_dl_cnnctn)
             {
-                saving_is_ncessary = true;
-                int f = ran2(&iseed) * gn[i].nghbrs.size();
-                int FE = gn[i].nghbrs[f];
-                gn[i].nghbrs.erase(gn[i].nghbrs.begin() + f);
-                adjac[i][FE] = 0;
+                int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
+                int FE = ne[s].gn[i].nghbrs[f];
+                ne[s].gn[i].nghbrs.erase(ne[s].gn[i].nghbrs.begin() + f);
+                ne[s].adjac[i][FE] = 0;
                 
                 
-                auto it = find (gn[FE].Connected.begin(), gn[FE].Connected.end(), i);
+                auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
                 
-                gn[FE].Connected.erase(it);
+                ne[s].gn[FE].Connected.erase(it);
             }
-
-
-
-
-        /* if (ran2(&iseed) < dlt_nd)                   // chance of delete a connection
-            {
-                for (int f=0 ; f<gn[f].nghbrs.size() ; f++)
-                    adjac [i][f] = 0;
-                
-                for (int f=0 ; f<gn[f].Connected.size() ; f++)
-                    adjac [f][i] = 0;
-            }
-
-            if (ran2(&iseed) < dublict_nd)
-            {
-                ???
-            }
-            */
         }
-    }
-
-    //saving on the txt file as well:
-
-    if (saving_is_ncessary)
-    {
-        ofstream sve(location);
-
-        for (int i=0 ; i<n ; i++)
-        {
-            for (int j=0 ; j<n ; j++)
-            {
-                sve<<adjac[i][j]<<'\t';
-            }
-
-            sve<<'\n';
-        }
-        sve.close();
     }
 
     

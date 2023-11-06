@@ -2,28 +2,31 @@
 
 double genome::parameters ()
 {
-    xx = 0;
-    for (int i=0 ; i<UU ; i++) 
+    int s = temp_net;
+    ne[s].xx = 0;
+
+    for (int i=0 ; i<ne[s].UU ; i++) 
     {
-        int j = output[i];
-        xx += gn[j].weights;
+        int j = ne[s].output[i];
+        ne[s].xx += ne[s].gn[j].weights;
     }
 
-    xx = double (xx / UU);
-    return xx;
+    ne[s].xx = double (ne[s].xx / ne[s].UU);
+    return ne[s].xx;
 }
 
 
 double genome::du_parameters ()
 {
-    XX = 0;
+    int s = temp_net;
+    dn[s].XX = 0;
     
-    for (int i=0 ; i<du_UU ; i++) 
+    for (int i=0 ; i<dn[s].du_UU ; i++) 
     {
-        int j = du_output[i];
-        XX += du[j].weights;
+        int j = dn[s].du_output[i];
+        dn[s].XX += dn[s].du[j].weights;
     }
 
-    XX = double (XX / du_UU);
-    return XX;
+    dn[s].XX = double (dn[s].XX / dn[s].du_UU);
+    return dn[s].XX;
 }    

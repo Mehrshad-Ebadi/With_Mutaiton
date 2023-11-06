@@ -1,73 +1,56 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::Chance_of_repro(int needed_networks, int ini, string ancestor_saving, vector<int>& Alive, vector<float>& ftnss_saver)
+void genome::Chance_of_repro(int needed_networks, int Nn)
 {
-    ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
-    tracking_ancestors <<"********************"<<endl;
-    tracking_ancestors <<"step="<<ini<<endl;
-    tracking_ancestors <<"********************"<<endl;
     int sum = 0;    
-    //hard and soft selection ...  
+    last_number_got_filled = 0;
     
     while (sum < needed_networks)
     {
-        int idl_cndt = ran2(&iseed) * Alive.size();
-        double fitness_idl_cndt = ftnss_saver[idl_cndt];
-        idl_cndt = Alive[idl_cndt];
-        fitness_idl_cndt = round(fitness_idl_cndt *100) / 100.0;
-        
-        if (fitness_idl_cndt > ran2(&iseed))
-        {   
-            tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
-            int offspring = Reproduce(idl_cndt);
-            tracking_ancestors << offspring<<",";
-            sum++;
-        }
-    }
-    
-    tracking_ancestors<<endl;
-    
-/*   only hard selection
-    while (sum < alive)
-    {
-        int idl_cndt = ran2(&iseed) * Alive.size();
-        idl_cndt = Alive[idl_cndt];
-        
-        if (ran2(&iseed) > 0.5)
-        {    
-            Reproduce(idl_cndt);
-            population ++;
-            sum++;
-        }
-    }
+        int idl_cndt = ran2(&iseed) * Nn;
 
-*/
+        if (ne[idl_cndt].living && ne[idl_cndt].fitness > ran2(&iseed))
+        {
+            bool get_copied = true;
+            
+            while (get_copied)
+            {
+                int slave = last_number_got_filled;
+                if (ne[slave].living == false)
+                {
+                    copy(idl_cndt, slave);
+                    get_copied = false;
+                    sum++;
+                }
+
+                last_number_got_filled++;
+            }
+            
+        }
+    }
+    
+
 }
 
-
-int genome::Reproduce(int idl_nt)
+void genome::copy(int idl, int slv)
 {
-    int p = 0;
-    string data = "./Results/Net_";
-    string Extension = ".txt";
-    string SS = to_string(idl_nt);
-    string source = data + SS + Extension;
-    while (p == 0)
+    ne[slv].living = true;
+    ne[slv].output = ne[idl].output;
+    ne[slv].input = ne[idl].input ;
+    
+    for (int F=0 ; F<n ; F++)
     {
-        string DD = to_string(last_number_got_filled);
-        string dest = data + DD + Extension;
-        
-        if (checker(dest) == false)
-        {
-            string offspring = "Net_" + DD;
-            string command = "cp " + source + " " + dest;
-            system(command.c_str());
-            p++;
-        }
-
-        last_number_got_filled ++ ;
-
+        ne[slv].gn[F].dg_in = ne[idl].gn[F].dg_in;
+        ne[slv].gn[F].dg_out = ne[idl].gn[F].dg_out;
+        ne[slv].gn[F].nghbrs = ne[idl].gn[F].nghbrs;
+        ne[slv].gn[F].Connected = ne[idl].gn[F].Connected;
+        ne[slv].gn[F].weights = ne[idl].gn[F].weights;
+        ne[slv].gn[F].nm_up = ne[idl].gn[F].nm_up;
     }
-    return (last_number_got_filled - 1);
+    
+    ne[slv].adjac = ne[idl].adjac;    
+    ne[slv].II = ne[idl].II;
+    ne[slv].UU = ne[idl].UU;
+    
 }

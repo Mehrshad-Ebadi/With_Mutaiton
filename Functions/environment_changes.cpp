@@ -4,7 +4,7 @@ double genome::Environment_changes(int random_value, int step)
 {
 
     //linear environment:
-    double evolve = (static_cast<double>(random_value) / step) + ref_Envmnt; 
+    double evolve = (static_cast<double>(random_value) / step) + ref_Envmnt + 0.2; 
     return evolve;
 
     //Gaussian distribution as environmental changes:

@@ -2,155 +2,131 @@
 
 void genome::base (int N)
 {
-
-    vector <int> Alive = {};
-    vector <int> du_Alive = {};
-
-    vector <float> ftnss_saver = {};
-    vector <float> du_ftnss_saver = {};
-
     int number_networks = Setting_initial_values(N);
     
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
-    
-    int step = 200000;
-    
-    for (int ini=1 ; ini < step ; ini++) // the simulation continues running until population of single, duplicates or both reach a small amount (less than 10 networks)
+    cout<<"numer"<<number_networks<<endl;
+    int needed_networks;
+    int du_needed_networks;
+    //memorising all networks ....
+
+    for (int i=0 ; i<number_networks; i++)
     {
-
-        if ((ini % 100) == 0)
-        {
-            ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
-            temp << (static_cast<double>(ini) / step) <<endl;
-            temp << number_networks <<endl;
-            
-            string pythonScript = "python3 net_char.py";
-            int pythonExitCode = system(pythonScript.c_str());
-
-            string du_pythonScript = "python3 du_net_char.py";
-            int du_pythonExitCode = system(du_pythonScript.c_str());
-
-        }
+        temp_net = i;
+        string data = "./Results/Net_";
+        string du_data = "./Results_du/Net_du_";
         
-        double evolve = Environment_changes(ini, step);
-        last_number_got_filled = 0;
-        du_last_number_got_filled = 0;
-        cout<<"step = " << ini <<endl;
+        string Extension = ".txt";
+        string HH = to_string(i);
         
-        alive = 0;
-        du_alive = 0;
-
-        double KAPA = 0;
-        string ancestor_saving = "./Outputs/inheritate.txt";
-        string du_ancestor_saving = "./Outputs/du_inheritate.txt";
-
-        for (int SH=1 ; SH<number_networks ; SH++)
-        {
-            string data = "./Results/Net_";
-            string du_data = "./Results_du/Net_du_";
-            
-            string Extension = ".txt";
-            string HH = to_string(SH);
-            
-            string location = data + HH + Extension;
-            string du_location = du_data + HH + Extension;       
-
-            // for single networks ....    
-
-            if (checker(location) == true)          //checking if the single network in that location is available ...
-            {   
-                Reader(location);
-                Mutation(location);
-                Evolution(evolve);
-                KAPA = evolve - parameters();
-                KAPA = Fitness_func(KAPA);
-                
-                if (KAPA > ran2(&iseed))
-                {
-                    alive ++; 
-                    Alive.push_back(SH);
-                    ftnss_saver.push_back(KAPA);
-                }
-                
-                else 
-                {
-                    string command = "rm " + location;
-                    system(command.c_str());
-
-                }
-
-                memory_Deleter();
-            }
-            
-            //now the same upper block, but for the duplications
-            
-            if (checker(du_location) == true)         //checking if the doubled network in that location is available ...
-            {   
-                du_Reader(location);
-                du_Mutation(du_location);
-                du_Evolution(evolve);
-                KAPA = evolve - du_parameters();
-                KAPA = Fitness_func(KAPA);
-                
-                if (KAPA > ran2(&iseed))
-                {
-                    du_alive ++; 
-                    du_Alive.push_back(SH);
-                    du_ftnss_saver.push_back(KAPA);
-                }
-                
-                else 
-                {
-                    string command = "rm " + du_location;
-                    system(command.c_str());
-                }
-
-                du_memory_Deleter();
-            }         
-        }
-        
-        int needed_networks = (number_networks-1) - alive;
-        int du_needed_networks = (number_networks-1) - du_alive;
-        
-        //the whole block is for single networks ...
-        {
-            if (needed_networks != 0 && alive != 0)
-            {
-                Chance_of_repro(needed_networks, ini, ancestor_saving, Alive, ftnss_saver);
-            }
-
-            else if (alive == 0)
-            {
-                break;
-            }
-        }
-
-        //now the block of the duplicated network with the same tasks ...
-        {
-            if (du_needed_networks != 0 && du_alive != 0)
-            {
-                du_Chance_of_repro(du_needed_networks, ini, du_ancestor_saving, du_Alive, du_ftnss_saver);
-            }
-
-            else if (du_alive == 0)
-            {
-                break;
-            }
-        }   
-        
-
-        Alive.clear();
-        du_Alive.clear();
-        ftnss_saver.clear();
-        du_ftnss_saver.clear();
-
-        double zz = static_cast <double> (alive) / number_networks;
-        double du_zz = static_cast <double> (du_alive) / number_networks;
-
-        Alive_counter << evolve <<'\t'<< zz <<endl;
-        du_Alive_counter << evolve <<'\t'<< du_zz <<endl;
+        string location = data + HH + Extension;
+        string du_location = du_data + HH + Extension;    
+        Reader(location);
+        du_Reader(du_location);
     }
     
+    int step = 100;
+    for (int ini=1 ; ini < step ; ini++)
+    {
+        needed_networks = 0;
+        du_needed_networks = 0;
+        double evolve = Environment_changes(ini, step);
+        alive = 0;
+        du_alive = 0;
+        double KAPA = 0;
+        
+        for (int pl=0 ; pl < number_networks; pl++)
+        {
+            
+            //cout<<"evol"<<evolve<<endl;
+            //cout<<"net="<<pl<<" step = " << ini <<endl;
+            
+
+            
+            string ancestor_saving = "./Outputs/inheritate.txt";
+            string du_ancestor_saving = "./Outputs/du_inheritate.txt";
+
+            temp_net = pl;
+
+            // for single networks ....   
+            cout<<"here0"; 
+            if (ne[pl].living == true)          //checking if the single network in that location is available ...
+            {   
+                cout<<"here1";
+                //Mutation();
+                cout<<"here2";
+                Evolution(evolve);
+                cout<<"here3";
+                KAPA = evolve - parameters();
+                ne[pl].fitness = Fitness_func(KAPA);
+                cout<<"here4";
+                if (ne[pl].fitness > ran2(&iseed))
+                {
+                    alive ++; 
+                }
+                
+                else 
+                {
+                    ne[pl].living = false;
+                    needed_networks++;
+                    memory_Deleter();
+                }
+                cout<<"here5";
+            }
+            //now the same upper block, but for the duplications
+            cout<<"dd0"<<"livi"<<dn[pl].living<<endl;
+            if (dn[pl].living == true)         //checking if the doubled network in that location is available ...
+            {   
+                cout<<"dd1";
+                //du_Mutation();
+                cout<<"dd2";
+                du_Evolution(evolve);
+                cout<<"dd3";
+                KAPA = evolve - du_parameters();
+                KAPA = Fitness_func(KAPA);
+                dn[pl].fitness = KAPA;
+                cout<<"dd4";
+                if (KAPA > ran2(&iseed))
+                {
+                    cout<<"dd4.1";
+                    du_alive ++; 
+                }
+                
+                else 
+                {
+                    cout<<"dd4.5";
+                    dn[pl].living = false;
+                    du_needed_networks++;
+                    cout<<"dd5";
+                    du_memory_Deleter();
+                    cout<<"dd6";
+                }
+                
+            }
+            
+            double zz = static_cast <double> (alive) / number_networks;
+            double du_zz = static_cast <double> (du_alive) / number_networks;            
+            Alive_counter << evolve <<'\t'<< zz <<endl;
+            du_Alive_counter << evolve <<'\t'<< du_zz <<endl;         
+        }
+
+            cout<<"sus?"<<endl;
+            //the whole block is for single networks ...
+            
+            if (needed_networks != 0 && alive != 0)
+            {
+                Chance_of_repro(needed_networks, number_networks);
+            }
+            
+            cout<<"sus not"<<endl;
+        cout<<"sus?2"<<endl;
+        //now the block of the duplicated network with the same tasks ...
+            if (du_needed_networks != 0 && du_alive != 0)
+            {
+                du_Chance_of_repro(du_needed_networks, number_networks);
+            }
+        cout<<"sus not2"<<endl;
+    }
     cout<<"done!!"<<endl;                 
 }
