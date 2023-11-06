@@ -90,8 +90,8 @@ class genome
     void memory_Deleter();
     void du_memory_Deleter();
 
-    void copy(int, int);
-    void du_copy(int, int);
+    void Copy(int, int);
+    void du_Copy(int, int);
 
     void Chance_of_repro(int, int);
     void du_Chance_of_repro(int, int);

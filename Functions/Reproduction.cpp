@@ -19,7 +19,7 @@ void genome::Chance_of_repro(int needed_networks, int Nn)
                 int slave = last_number_got_filled;
                 if (ne[slave].living == false)
                 {
-                    copy(idl_cndt, slave);
+                    ne[slave] = ne[idl_cndt];
                     get_copied = false;
                     sum++;
                 }
@@ -33,12 +33,20 @@ void genome::Chance_of_repro(int needed_networks, int Nn)
 
 }
 
-void genome::copy(int idl, int slv)
+void genome::Copy(int idl, int slv)
 {
     ne[slv].living = true;
-    ne[slv].output = ne[idl].output;
-    ne[slv].input = ne[idl].input ;
     
+    ne[slv].output = new int [ne[idl].UU];
+    
+    for (int h=0 ; h<ne[idl].UU ; h++)
+        ne[slv].output [h] = ne[idl].output[h];
+
+    ne[slv].input = new int [ne[idl].II];
+    
+    for (int h=0 ; h<ne[idl].II ; h++)
+        ne[slv].input [h] = ne[idl].input[h];
+
     for (int F=0 ; F<n ; F++)
     {
         ne[slv].gn[F].dg_in = ne[idl].gn[F].dg_in;

@@ -9,6 +9,7 @@ void genome::du_Chance_of_repro(int needed_networks, int Nn)
     //tracking_ancestors <<"********************"<<endl;
     int sum = 0;    
     //hard and soft selection ...  
+    du_last_number_got_filled = 0;
     
     while (sum < needed_networks)
     {
@@ -26,12 +27,15 @@ void genome::du_Chance_of_repro(int needed_networks, int Nn)
                 int slave = du_last_number_got_filled;
                 if (dn[slave].living == false)
                 {
-                    du_copy(idl_cndt, slave);
+                    //du_Copy(idl_cndt, slave);
+                    dn[slave] = dn[idl_cndt];
+                    cout<<idl_cndt<<" get copied to "<<slave<<endl;
                     get_copied = false;
                     sum++;
                 }
 
                 du_last_number_got_filled++;
+                cout<< needed_networks<<'\t'<<sum<<" last number = "<<du_last_number_got_filled<<endl;
             }
             
         }
@@ -56,23 +60,43 @@ void genome::du_Chance_of_repro(int needed_networks, int Nn)
 */
 }
 
-void genome::du_copy(int idl, int slv)
+void genome::du_Copy(int idl, int slv)
 {
     dn[slv].living = true;
-    dn[slv].du_output = dn[idl].du_output;
-    dn[slv].du_input = dn[idl].du_input ;
+    
+    dn[slv].du_output = new int [dn[idl].du_UU];
+    
+    for (int h=0 ; h<dn[idl].du_UU ; h++)
+        dn[slv].du_output [h] = dn[idl].du_output[h];
+
+    dn[slv].du_input = new int [dn[idl].du_II];
+    
+    for (int h=0 ; h<dn[idl].du_II ; h++)
+        dn[slv].du_input [h] = dn[idl].du_input[h];
     
     for (int F=0 ; F<n ; F++)
     {
         dn[slv].du[F].dg_in = dn[idl].du[F].dg_in;
         dn[slv].du[F].dg_out = dn[idl].du[F].dg_out;
-        dn[slv].du[F].nghbrs = dn[idl].du[F].nghbrs;
-        dn[slv].du[F].Connected = dn[idl].du[F].Connected;
+        
+        //for (int h=0 ; h<dn[idl].du[F].nghbrs.size(); h++)
+        //    dn[slv].du[F].nghbrs.push_back(dn[idl].du[F].nghbrs[h]);
+        
+        for (int h=0 ; h<dn[idl].du[F].Connected.size(); h++)
+            dn[slv].du[F].Connected.push_back(dn[idl].du[F].Connected[h]);
+        
         dn[slv].du[F].weights = dn[idl].du[F].weights;
         dn[slv].du[F].nm_up = dn[idl].du[F].nm_up;
     }
     
-    dn[slv].du_adjac = dn[idl].du_adjac;    
+    for (int h=0 ; h<nn ; h++)
+    {
+        for (int g=0 ; g<nn ; g++)
+        {
+            dn[slv].du_adjac [h][g] = dn[idl].du_adjac[h][g];
+        }
+    }
+
     dn[slv].du_II = dn[idl].du_II;
     dn[slv].du_UU = dn[idl].du_UU;
     

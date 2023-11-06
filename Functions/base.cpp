@@ -110,14 +110,14 @@ void genome::base (int N)
             Alive_counter << evolve <<'\t'<< zz <<endl;
             du_Alive_counter << evolve <<'\t'<< du_zz <<endl;         
         }
-
+        
             cout<<"sus?"<<endl;
             //the whole block is for single networks ...
-            
-            if (needed_networks != 0 && alive != 0)
-            {
-                Chance_of_repro(needed_networks, number_networks);
-            }
+            //
+            //if (needed_networks != 0 && alive != 0)
+            //{
+            //    Chance_of_repro(needed_networks, number_networks);
+            //}
             
             cout<<"sus not"<<endl;
         cout<<"sus?2"<<endl;
