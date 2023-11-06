@@ -26,9 +26,10 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
-    int step = 100;
+    int step = 1000000;
     for (int ini=1 ; ini < step ; ini++)
     {
+        //cout<<ini<<endl;
         needed_networks = 0;
         du_needed_networks = 0;
         double evolve = Environment_changes(ini, step);
@@ -50,17 +51,13 @@ void genome::base (int N)
             temp_net = pl;
 
             // for single networks ....   
-            cout<<"here0"; 
             if (ne[pl].living == true)          //checking if the single network in that location is available ...
             {   
-                cout<<"here1";
-                //Mutation();
-                cout<<"here2";
+                Mutation();
                 Evolution(evolve);
-                cout<<"here3";
                 KAPA = evolve - parameters();
                 ne[pl].fitness = Fitness_func(KAPA);
-                cout<<"here4";
+                
                 if (ne[pl].fitness > ran2(&iseed))
                 {
                     alive ++; 
@@ -72,61 +69,51 @@ void genome::base (int N)
                     needed_networks++;
                     memory_Deleter();
                 }
-                cout<<"here5";
             }
+
             //now the same upper block, but for the duplications
-            cout<<"dd0"<<"livi"<<dn[pl].living<<endl;
             if (dn[pl].living == true)         //checking if the doubled network in that location is available ...
             {   
-                cout<<"dd1";
-                //du_Mutation();
-                cout<<"dd2";
+                du_Mutation();
                 du_Evolution(evolve);
-                cout<<"dd3";
                 KAPA = evolve - du_parameters();
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
-                cout<<"dd4";
+                
                 if (KAPA > ran2(&iseed))
                 {
-                    cout<<"dd4.1";
                     du_alive ++; 
                 }
                 
                 else 
                 {
-                    cout<<"dd4.5";
                     dn[pl].living = false;
                     du_needed_networks++;
-                    cout<<"dd5";
                     du_memory_Deleter();
-                    cout<<"dd6";
                 }
                 
             }
-            
-            double zz = static_cast <double> (alive) / number_networks;
-            double du_zz = static_cast <double> (du_alive) / number_networks;            
-            Alive_counter << evolve <<'\t'<< zz <<endl;
-            du_Alive_counter << evolve <<'\t'<< du_zz <<endl;         
+
+    
         }
-        
-            cout<<"sus?"<<endl;
+
+        double zz = static_cast <double> (alive) / number_networks;
+        double du_zz = static_cast <double> (du_alive) / number_networks;            
+        Alive_counter << evolve <<'\t'<< zz <<endl;
+        du_Alive_counter << evolve <<'\t'<< du_zz <<endl;     
             //the whole block is for single networks ...
             //
-            //if (needed_networks != 0 && alive != 0)
-            //{
-            //    Chance_of_repro(needed_networks, number_networks);
-            //}
-            
-            cout<<"sus not"<<endl;
-        cout<<"sus?2"<<endl;
+        if (needed_networks != 0 && alive != 0)
+        {
+            Chance_of_repro(needed_networks, number_networks);
+        }
+        
         //now the block of the duplicated network with the same tasks ...
-            if (du_needed_networks != 0 && du_alive != 0)
-            {
-                du_Chance_of_repro(du_needed_networks, number_networks);
-            }
-        cout<<"sus not2"<<endl;
+        
+        if (du_needed_networks != 0 && du_alive != 0)
+        {
+            du_Chance_of_repro(du_needed_networks, number_networks);
+        }
     }
     cout<<"done!!"<<endl;                 
 }

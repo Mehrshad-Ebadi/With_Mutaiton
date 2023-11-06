@@ -112,8 +112,6 @@ class genome
     };
     ~genome() 
     {
-        delete [] ne;
-        delete [] dn;
     }
 
 };

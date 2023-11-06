@@ -6,9 +6,7 @@ void genome::Evolution(double evolve)
     int s = temp_net;
     if (ne[s].II > 0)
     {
-        cout<<"selec="<<ne[s].input[0]<<endl;
         selected_node = ne[s].input[0];
-        cout<<"A_selec="<<selected_node<<endl;
         ne[s].gn[selected_node].weights = evolve;
          
         for (int i=0 ; i<ne[s].gn[selected_node].nghbrs.size() ; i++)

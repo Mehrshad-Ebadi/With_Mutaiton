@@ -14,7 +14,8 @@ void genome::Reader(string location)
             if (ne[temp_net].adjac[j][k] != 0)   connect (j, k, ne[temp_net].adjac[j][k], temp_net);
         }
     }
-
+    
+    NetWork.close();
     ne[temp_net].living = true;
     specefication();
 
@@ -34,6 +35,7 @@ void genome::du_Reader(string du_location)
         }
     }
     
+    NetWork.close();
     dn[temp_net].living = true;
     du_specefication();
 }

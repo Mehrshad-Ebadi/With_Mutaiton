@@ -27,7 +27,7 @@ void genome::memory_Deleter()
 
 void genome::du_memory_Deleter()
 {
-    /*int s = temp_net;
+    int s = temp_net;
     delete [] dn[s].du_input;
     delete [] dn[s].du_output;
 
@@ -46,5 +46,5 @@ void genome::du_memory_Deleter()
         for (int j=0 ; j<nn ; j++)
         { dn[s].du_adjac[F][j] = 0; }
     }
-    */
+    
 }

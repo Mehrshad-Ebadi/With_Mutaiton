@@ -54,7 +54,7 @@ void genome::du_specefication()
         }
     }
 
-    cout<<"du.."<<dn[temp_net].du_II<<'\t'<<dn[temp_net].du_UU<<'\t'<<temp_net<<endl;
+    //cout<<"du.."<<dn[temp_net].du_II<<'\t'<<dn[temp_net].du_UU<<'\t'<<temp_net<<endl;
     dn[temp_net].du_input = new int [dn[temp_net].du_II];
     dn[temp_net].du_output = new int [dn[temp_net].du_UU];
     int i_counter = 0;
