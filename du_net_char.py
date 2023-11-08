@@ -10,7 +10,7 @@ with open('./Outputs/temp.txt', 'r') as file:
     number_networks = int(file.readline().strip())
 
 exten = '.txt'
-Results = './Results_du/Net_du_'
+Results = './History/Net_du_'
 save_path = './Outputs/00_du_Net_analysis.txt'
 
 for I in range (0, number_networks):

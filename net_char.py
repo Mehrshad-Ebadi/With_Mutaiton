@@ -11,7 +11,7 @@ with open('./Outputs/temp.txt', 'r') as file:
     content = file.read()
 
 exten = '.txt'
-Results = './Results/Net_'
+Results = './History/Net_'
 save_path = './Outputs/00Net_analysis.txt'
 
 for I in range (0, number_networks):

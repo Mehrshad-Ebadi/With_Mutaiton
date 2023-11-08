@@ -39,7 +39,12 @@ void genome::base (int N)
 
         if (ini%100 == 0)
         {
+            ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
+            temp << (static_cast<double>(ini) / step) <<endl;
+            temp << number_networks <<endl;
+            
             save(number_networks);
+            
             string py = "python3 ./net_char.py";
             string du_py = "python3 ./du_net_char.py";
             
