@@ -24,6 +24,7 @@ Run: FCompile
 	@echo "Clearing Old output files..."
 
 	@rm -f ./Outputs/*.txt
+	@rm -f ./History/*.txt
 
 	@echo "Ready to fire..."
 	

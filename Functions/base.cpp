@@ -27,7 +27,7 @@ void genome::base (int N)
     }
     
     int step = 20000;
-    for (int ini=1 ; ini < step ; ini+=100)
+    for (int ini=1 ; ini < step ; ini++)
     {
         cout<<ini<<endl;
         needed_networks = 0;
