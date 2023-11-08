@@ -27,12 +27,12 @@ void genome::base (int N)
     }
     
     int step = 20000;
-    for (int ini=1 ; ini < step ; ini++)
+    for (int ini=1 ; ini < (2*step) ; ini++)
     {
         cout<<ini<<endl;
         needed_networks = 0;
         du_needed_networks = 0;
-        double evolve = 2 * Environment_changes(ini, step) ;
+        double evolve = Environment_changes(ini, step) ;
         alive = 0;
         du_alive = 0;
         double KAPA = 0;
