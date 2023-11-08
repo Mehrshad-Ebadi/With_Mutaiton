@@ -2,7 +2,7 @@
 
 int genome::Setting_initial_values(int N)
 {
-    int number_networks = 5000;
+    int number_networks = 1000;
     
     chance_changing_weight = 0.01;
     chance_of_del_connection = 0.01;
