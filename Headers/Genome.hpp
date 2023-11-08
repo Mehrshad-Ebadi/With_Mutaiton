@@ -100,7 +100,8 @@ class genome
     int du_Reproduce(int);
 
     double gasdev(long*);
-	double ran2 (long*);       
+	double ran2 (long*);    
+    void save(int);   
 
     
     double Environment_changes(int, int);

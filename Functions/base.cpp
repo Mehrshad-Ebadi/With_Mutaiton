@@ -36,6 +36,16 @@ void genome::base (int N)
         alive = 0;
         du_alive = 0;
         double KAPA = 0;
+
+        if (ini%100 == 0)
+        {
+            save(number_networks);
+            string py = "python3 ./net_char.py";
+            string du_py = "python3 ./du_net_char.py";
+            
+            system (py.c_str());
+            system (du_py.c_str());
+        }
         
         for (int pl=0 ; pl < number_networks; pl++)
         {
