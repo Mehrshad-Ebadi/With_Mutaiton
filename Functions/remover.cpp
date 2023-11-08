@@ -11,8 +11,12 @@ void genome::memory_Deleter()
     {
         ne[s].gn[F].dg_in = 0;
         ne[s].gn[F].dg_out = 0;
+
         ne[s].gn[F].nghbrs.clear();
+        ne[s].gn[F].nghbrs.shrink_to_fit();
+
         ne[s].gn[F].Connected.clear();
+        ne[s].gn[F].Connected.shrink_to_fit();
         ne[s].gn[F].weights = 0;
         ne[s].gn[F].nm_up = 0;
 
@@ -38,8 +42,13 @@ void genome::du_memory_Deleter()
     {
         dn[s].du[F].dg_in = 0;
         dn[s].du[F].dg_out = 0;     
+        
         dn[s].du[F].nghbrs.clear();
+        dn[s].du[F].nghbrs.shrink_to_fit();
+        
         dn[s].du[F].Connected.clear();
+        dn[s].du[F].Connected.shrink_to_fit();
+        
         dn[s].du[F].weights = 0;
         dn[s].du[F].nm_up = 0;
 

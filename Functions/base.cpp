@@ -26,13 +26,13 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
-    int step = 1000000;
-    for (int ini=1 ; ini < step ; ini++)
+    int step = 20000;
+    for (int ini=1 ; ini < step ; ini+=100)
     {
-        //cout<<ini<<endl;
+        cout<<ini<<endl;
         needed_networks = 0;
         du_needed_networks = 0;
-        double evolve = Environment_changes(ini, step);
+        double evolve = 2 * Environment_changes(ini, step) ;
         alive = 0;
         du_alive = 0;
         double KAPA = 0;

@@ -21,7 +21,7 @@ void genome::du_Mutation()
                 dn[s].du_adjac [i][f] = gasdev(&iseed);
             }
 
-            if (ran2(&iseed) < rwrng_nw_cnnctn)
+            if (ran2(&iseed) < rwrng_nw_cnnctn && dn[s].du[i].nghbrs.size() < n)
             {
                 bool temmpy = true;
 
