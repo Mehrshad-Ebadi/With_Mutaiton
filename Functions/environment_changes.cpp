@@ -8,15 +8,15 @@ double genome::Environment_changes(int random_value, int step)
     return evolve;
 
     //Gaussian distribution as environmental changes:
-    /*
-    double mean = 0.009;
-    double variance = 0.005;
-    random_device rd;
-    mt19937 gen(rd());
-    normal_distribution<double> distribution(mean, std::sqrt(variance));
-    double evolve = distribution(gen);
-    return evolve;
-    */
+    
+    //double mean = 0.01;
+    //double variance = 0.009;
+    //random_device rd;
+    //mt19937 gen(rd());
+    //normal_distribution<double> distribution(mean, std::sqrt(variance));
+    //double evolve = distribution(gen);
+    //return evolve;
+
 
     //oscilating environment :
     /*

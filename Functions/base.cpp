@@ -26,21 +26,23 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
-    int step = 20000;
+    double evolve = 0;
+    int step = 10000;
     for (int ini=1 ; ini < (2*step) ; ini++)
     {
         cout<<ini<<endl;
         needed_networks = 0;
         du_needed_networks = 0;
-        double evolve = Environment_changes(ini, step) ;
+        evolve = Environment_changes(ini, step) ; //for linear and step based increase
+        //evolve = evolve + Environment_changes(ini, step) ;  //for only guassian:
         alive = 0;
         du_alive = 0;
         double KAPA = 0;
 
-        if (ini%100 == 0)
+        if (ini%200 == 0)
         {
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
-            temp << (static_cast<double>(ini) / step) <<endl;
+            temp << evolve <<endl;
             temp << number_networks <<endl;
             
             save(number_networks);
@@ -109,6 +111,7 @@ void genome::base (int N)
                 
             }
 
+
     
         }
 
@@ -129,6 +132,9 @@ void genome::base (int N)
         {
             du_Chance_of_repro(du_needed_networks, number_networks);
         }
+
+        if (alive == 0)
+            break;
     }
     cout<<"done!!"<<endl;                 
 }
