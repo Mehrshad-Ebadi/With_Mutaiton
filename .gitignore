@@ -6,3 +6,7 @@ Library/
 Results_du/
 net_track/
 Population_pool/
+.ipynb_checkpoints/
+Network_char_plotter.ipynb
+diameter.jpeg
+old data/
