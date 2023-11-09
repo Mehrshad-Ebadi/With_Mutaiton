@@ -1,6 +1,5 @@
 Results/
 Exe/
-Outputs/
 Library/
 *.txt
 Results_du/
@@ -9,5 +8,3 @@ Population_pool/
 .ipynb_checkpoints/
 Network_char_plotter.ipynb
 diameter.jpeg
-old data/
-diagrams/
