@@ -27,12 +27,6 @@ void genome::Mutation()
                 int fd=0;
                 while (temmpy)
                 {
-                    fd++;
-                    if (fd > 10000)
-                    {
-                        cout<<"s ="<<s<<" i="<<i<<" node nigh="<<ne[s].gn[i].nghbrs.size()<<endl;
-                        cin>>fd;
-                    }
                     int f = ran2(&iseed) * n;
                     if (ne[s].adjac [i][f] == 0)
                     {

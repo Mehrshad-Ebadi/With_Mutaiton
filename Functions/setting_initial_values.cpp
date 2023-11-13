@@ -3,10 +3,10 @@
 int genome::Setting_initial_values(int N)
 {
     int number_networks = 1000;
-    
-    chance_changing_weight = 0.01;
-    chance_of_del_connection = 0.01;
-    chance_of_new_connetion = 0.01;
+    ref_Envmnt = -0.1;  //starting input value, or reference environment value ..
+    chance_changing_weight = 0.5;
+    chance_of_del_connection = 0.5;
+    chance_of_new_connetion = 0.5;
     
     Sigma = 0.1;
     Miuw = 0.0;   
@@ -64,7 +64,6 @@ int genome::Setting_initial_values(int N)
         }
     }
     
-    ref_Envmnt = 0.0;  //starting input value, or reference environment value ..
     iseed = 20L * time(0);
 
     

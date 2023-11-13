@@ -6,7 +6,7 @@ void genome::base (int N)
     
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
-    cout<<"numer"<<number_networks<<endl;
+    ofstream enviroment ("./Outputs/envi.txt");
     int needed_networks;
     int du_needed_networks;
     //memorising all networks ....
@@ -27,10 +27,10 @@ void genome::base (int N)
     }
     
     double evolve = 0;
-    int step = 10000;
+    int step = 1000;
+    
     for (int ini=1 ; ini < (2*step) ; ini++)
     {
-        cout<<ini<<endl;
         needed_networks = 0;
         du_needed_networks = 0;
         evolve = Environment_changes(ini, step) ; //for linear and step based increase
@@ -39,8 +39,9 @@ void genome::base (int N)
         du_alive = 0;
         double KAPA = 0;
 
-        if (ini%200 == 0)
+        /*if (ini%200 == 0)
         {
+            cout<<ini<<endl;
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << evolve <<endl;
             temp << number_networks <<endl;
@@ -52,19 +53,16 @@ void genome::base (int N)
             
             system (py.c_str());
             system (du_py.c_str());
-        }
+        }*/
         
-        for (int pl=0 ; pl < number_networks; pl++)
+        for (int pl=0 ; pl < number_networks ; pl++)
         {
             
             //cout<<"evol"<<evolve<<endl;
             //cout<<"net="<<pl<<" step = " << ini <<endl;
             
-
-            
             string ancestor_saving = "./Outputs/inheritate.txt";
             string du_ancestor_saving = "./Outputs/du_inheritate.txt";
-
             temp_net = pl;
 
             // for single networks ....   
@@ -97,7 +95,7 @@ void genome::base (int N)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if (KAPA > ran2(&iseed))
+                if (dn[pl].fitness > ran2(&iseed))
                 {
                     du_alive ++; 
                 }
@@ -116,11 +114,14 @@ void genome::base (int N)
         }
 
         double zz = static_cast <double> (alive) / number_networks;
-        double du_zz = static_cast <double> (du_alive) / number_networks;            
-        Alive_counter << evolve <<'\t'<< zz <<endl;
-        du_Alive_counter << evolve <<'\t'<< du_zz <<endl;     
+        double du_zz = static_cast <double> (du_alive) / number_networks;
+
+        Alive_counter << ini <<'\t'<< zz <<endl;
+        du_Alive_counter << ini <<'\t'<< du_zz <<endl;
+        enviroment << ini <<'\t'<< evolve <<endl;     
             //the whole block is for single networks ...
             //
+        
         if (needed_networks != 0 && alive != 0)
         {
             Chance_of_repro(needed_networks, number_networks);
