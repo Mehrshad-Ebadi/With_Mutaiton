@@ -9,6 +9,7 @@ void genome::base (int N)
     ofstream enviroment ("./Outputs/envi.txt");
     int needed_networks;
     int du_needed_networks;
+    double evolve = 0;
     //memorising all networks ....
 
     for (int i=0 ; i<number_networks; i++)
@@ -26,18 +27,19 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
-    double evolve = 0;
-    int step = 1000;
+    int step = 10000;
     
     for (int ini=1 ; ini < (2*step) ; ini++)
     {
         needed_networks = 0;
         du_needed_networks = 0;
         //evolve = Environment_li(ini, step) ; //for linear and step based increase
-        evolve = Environment_Ga(); //Gaus environment
-        //evolve = Environment_no_l(ini, step); //No linear with gaus jumps environment
+        //evolve = Environment_Ga(); //Gaus environment
+        evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
         alive = 0;
         du_alive = 0;
+        fit = 0;
+        du_fit = 0;
         double KAPA = 0;
 
         /*if (ini%200 == 0)
@@ -74,9 +76,10 @@ void genome::base (int N)
                 KAPA = evolve - parameters();
                 ne[pl].fitness = Fitness_func(KAPA);
                 
-                if (ne[pl].fitness > ran2(&iseed))
+                if (ne[pl].fitness >= ran2(&iseed))
                 {
-                    alive ++; 
+                    alive ++;
+                    fit += ne[pl].fitness; 
                 }
                 
                 else 
@@ -96,9 +99,10 @@ void genome::base (int N)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if (dn[pl].fitness > ran2(&iseed))
+                if (dn[pl].fitness >= ran2(&iseed))
                 {
                     du_alive ++; 
+                    du_fit += dn[pl].fitness;
                 }
                 
                 else 
@@ -107,11 +111,7 @@ void genome::base (int N)
                     du_needed_networks++;
                     du_memory_Deleter();
                 }
-                
             }
-
-
-    
         }
 
         double zz = static_cast <double> (alive) / number_networks;
@@ -120,8 +120,8 @@ void genome::base (int N)
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
         enviroment << ini <<'\t'<< evolve <<endl;     
-            //the whole block is for single networks ...
-            //
+        
+        //the whole block is for single networks ...
         
         if (needed_networks != 0 && alive != 0)
         {
@@ -135,8 +135,9 @@ void genome::base (int N)
             du_Chance_of_repro(du_needed_networks, number_networks);
         }
 
-        if (alive == 0)
+        if (alive == 0 || du_alive == 0)
             break;
     }
-    cout<<"done!!"<<endl;                 
+
+    cout<<"done!!"<<endl;
 }

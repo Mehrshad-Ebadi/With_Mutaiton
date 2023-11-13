@@ -42,6 +42,9 @@ class genome
     int alive;
     int du_alive;
 
+    double fit;
+    double du_fit;
+
     double Sigma;
     double Miuw;
     
