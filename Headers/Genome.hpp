@@ -104,7 +104,9 @@ class genome
     void save(int);   
 
     
-    double Environment_changes(int, int);
+    double Environment_li(int, int);
+    double Environment_Ga();
+    double Environment_no_l(int, int);
     //void du_Evolution(double);
 
     genome()

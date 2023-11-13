@@ -33,8 +33,9 @@ void genome::base (int N)
     {
         needed_networks = 0;
         du_needed_networks = 0;
-        evolve = Environment_changes(ini, step) ; //for linear and step based increase
-        //evolve = evolve + Environment_changes(ini, step) ;  //for only guassian:
+        //evolve = Environment_li(ini, step) ; //for linear and step based increase
+        evolve = Environment_Ga(); //Gaus environment
+        //evolve = Environment_no_l(ini, step); //No linear with gaus jumps environment
         alive = 0;
         du_alive = 0;
         double KAPA = 0;
