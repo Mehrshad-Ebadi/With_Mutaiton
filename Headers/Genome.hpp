@@ -33,7 +33,7 @@ class genome
 
     public:
     //vector <int> du_Alive;
- 
+    int step;
     int temp_net;
     //vector <float> du_ftnss_saver;
     Net* ne;

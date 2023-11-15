@@ -3,13 +3,11 @@
 void genome::base (int N)
 {
     int number_networks = Setting_initial_values(N);
-    
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     ofstream enviroment ("./Outputs/envi.txt");
     ofstream uni ("./Outputs/uni.txt");
     ofstream du_uni ("./Outputs/du_uni.txt"); 
-
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
@@ -29,8 +27,6 @@ void genome::base (int N)
         Reader(location);
         du_Reader(du_location);
     }
-    
-    int step = 5000;
     
     for (int ini=1 ; ini < (2*step) ; ini++)
     {
