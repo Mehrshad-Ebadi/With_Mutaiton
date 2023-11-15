@@ -24,6 +24,7 @@ int genome::Setting_initial_values(int N)
         ne[i].II = 0;
         ne[i].UU = 0;
         ne[i].living = false;
+        ne[i].unique = false;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -40,6 +41,7 @@ int genome::Setting_initial_values(int N)
         dn[i].du_II = 0;
         dn[i].du_UU = 0;
         dn[i].living = false;
+        dn[i].unique = false;
 
         for (int z=0 ; z<nn ; z++)
         {

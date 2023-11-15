@@ -7,6 +7,9 @@ void genome::base (int N)
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     ofstream enviroment ("./Outputs/envi.txt");
+    ofstream uni ("./Outputs/uni.txt");
+    ofstream du_uni ("./Outputs/du_uni.txt"); 
+
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
@@ -27,15 +30,15 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
-    int step = 10000;
+    int step = 5000;
     
     for (int ini=1 ; ini < (2*step) ; ini++)
     {
         needed_networks = 0;
         du_needed_networks = 0;
-        //evolve = Environment_li(ini, step) ; //for linear and step based increase
+        evolve = Environment_li(ini, step) ; //for linear and step based increase
         //evolve = Environment_Ga(); //Gaus environment
-        evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
+        //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
         alive = 0;
         du_alive = 0;
         fit = 0;
@@ -119,8 +122,10 @@ void genome::base (int N)
 
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
-        enviroment << ini <<'\t'<< evolve <<endl;     
-        
+        enviroment << ini <<'\t'<< evolve <<endl;
+        int Un = 0; 
+        int du_Un = 0;
+
         //the whole block is for single networks ...
         
         if (needed_networks != 0 && alive != 0)
@@ -134,7 +139,16 @@ void genome::base (int N)
         {
             du_Chance_of_repro(du_needed_networks, number_networks);
         }
+        
+        for (int a=0 ; a<number_networks ; a++)     
+        {
+            if (ne[a].unique == true)   Un++;
+            
+            if (dn[a].unique == true)   du_Un++;
+        }
 
+        uni << ini << '\t' << Un << endl;
+        du_uni << ini << '\t' << du_Un << endl;
         if (alive == 0 || du_alive == 0)
             break;
     }

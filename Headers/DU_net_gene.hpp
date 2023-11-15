@@ -14,6 +14,7 @@ class dNet
         double XX;
         bool living;
         int nn;
+        bool unique;
         
         dNet(){};
         

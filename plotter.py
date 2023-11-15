@@ -8,6 +8,8 @@ os.mkdir("./diagrams")
 X = np.loadtxt("./Outputs/Alive.txt")
 Y = np.loadtxt("./Outputs/du_Alive.txt")
 Z = np.loadtxt("./Outputs/envi.txt")
+K = np.loadtxt("./Outputs/uni.txt")
+H = np.loadtxt("./Outputs/du_uni.txt")
 
 #for i in range (0,len(X)):
 #    X[i][1] = X[i][1] / 10000
@@ -19,6 +21,8 @@ Z = np.loadtxt("./Outputs/envi.txt")
 
 plt.plot([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue')
 plt.plot([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.6)
+
+
 
 #plt.bar([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue')
 #plt.bar([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.5)
@@ -36,4 +40,15 @@ plt.plot([i[0] for i in Z], [i[1] for i in Z],color='black', lw=0.2)
 plt.xlabel("Time steps")
 plt.ylabel("Input value")
 plt.savefig('./diagrams/env.png',dpi=400)
+plt.close()
+
+
+plt.plot([i[0] for i in K], [i[1] for i in K],label='non-duplicated',color='blue')
+plt.plot([i[0] for i in H], [i[1] for i in H],label='duplicated',color='orange', alpha=0.6)
+plt.yscale('log')
+plt.xscale('log')
+#plt.xlim(0,400)
+plt.xlabel("log [Time steps]")
+plt.ylabel("log[Number of Unique networks]")
+plt.savefig('./diagrams/un.png',dpi=400)
 plt.close()

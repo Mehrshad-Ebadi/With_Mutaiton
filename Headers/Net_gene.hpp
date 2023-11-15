@@ -12,6 +12,7 @@ public:
     double xx;
     bool living;
     int n;
+    bool unique;
     
     Net(){};
 

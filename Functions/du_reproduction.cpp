@@ -67,7 +67,7 @@ void genome::du_Copy(int idl, int slv)
 
     dn[slv].du_input = new int [dn[idl].du_II];
     std::copy(dn[idl].du_input, dn[idl].du_input + dn[idl].du_II, dn[slv].du_input);
-
+    dn[slv].unique = false;
     
     for (int F=0 ; F<nn ; F++)
     {

@@ -67,7 +67,7 @@ void genome::Copy(int idl, int slv)
 
     ne[slv].input = new int [ne[idl].II];
     std::copy(ne[idl].input, ne[idl].input + ne[idl].II, ne[slv].input);
-
+    ne[slv].unique = false;
     
     for (int F=0 ; F<n ; F++)
     {
