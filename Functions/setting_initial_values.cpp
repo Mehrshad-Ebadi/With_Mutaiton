@@ -2,6 +2,10 @@
 
 int genome::Setting_initial_values(int N)
 {
+    string rem = "rm ./Outputs/*.txt";
+    string hem = "rm ./History/*.txt";
+    system (rem.c_str());
+    system (hem.c_str());
     ifstream INPUT ("./input/parameters.csv");
     int number_networks;
     double mutation_rate;
@@ -71,11 +75,9 @@ int genome::Setting_initial_values(int N)
     }
     
     iseed = 20L * time(0); 
-    cout<<"st="<<step << '\t' << number_networks << '\t' << mutation_rate<< '\t' << ref_Envmnt;
-    
     ofstream net_char ("./Outputs/00Net_analysis.txt");
     ofstream du_net_char ("./Outputs/00_du_Net_analysis.txt");
-    net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
-    du_net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
+    net_char << "step" <<','<<"net"<<','<<"Mn_ideg"<<","<<"Mn_odeg"<<","<<"cl_c"<<endl;
+    du_net_char << "step" <<','<<"net"<<','<<"Mn_ideg"<<","<<"Mn_odeg"<<","<<"cl_c"<<endl;
     return number_networks;
 }

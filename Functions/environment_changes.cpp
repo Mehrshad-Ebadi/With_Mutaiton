@@ -31,3 +31,10 @@ double genome::Environment_no_l(int random_value, int step)
 
     return evolve;
 }
+
+
+double genome::Environment_neg(int random_value, int step)
+{
+    double evolve = ref_Envmnt  - (static_cast<double>(random_value) / step); 
+    return evolve;
+}

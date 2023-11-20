@@ -1,56 +1,138 @@
-import numpy as np
 import networkx as nx
-from igraph import Graph
+import matplotlib.pyplot as plt
+import os
+import warnings
 
-step = 0
-number_networks = 0
+class Network:
+    def __init__(self, name, adjacency_matrix):
+        self.name = name
+        self.adjacency_matrix = adjacency_matrix
+        self.graph = self.create_graph()
 
-with open('./Outputs/temp.txt', 'r') as file:
-    step = float(file.readline().strip())
-    number_networks = int(file.readline().strip())
+    def create_graph(self):
+        # Convert adjacency matrix to a directed networkx graph
+        edges = []
+        for i in range(len(self.adjacency_matrix)):
+            for j in range(len(self.adjacency_matrix[i])):
+                if self.adjacency_matrix[i][j] != 0:
+                    edges.append((i, j, self.adjacency_matrix[i][j]))
+        graph = nx.DiGraph()
+        graph.add_weighted_edges_from(edges)
+        return graph
 
-exten = '.txt'
-Results = './History/Net_du_'
-save_path = './Outputs/00_du_Net_analysis.txt'
+    def calculate_mean_degree(self, degree_type):
+        # Calculate the mean degree for the specified type (in-degree or out-degree)
+        degrees = getattr(self.graph, degree_type)()
+        if len(degrees) == 0:
+            return 0  # Avoid division by zero, return 0 if no nodes
+        mean_degree = sum(dict(degrees).values()) / len(degrees)
+        return round(mean_degree, 3)
 
-for I in range (0, number_networks):
+    def plot_network(self, step, output_directory='./du_graph/'):
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", category=DeprecationWarning)
+            plt.figure(figsize=(8, 6))
+            pos = nx.spring_layout(self.graph)  # You can use other layouts based on your preference
 
-    i = str(I)
-    file_path = Results + i + exten
+            # Draw nodes
+            nx.draw(self.graph, pos, with_labels=True, node_color='skyblue', node_size=200, font_size=10, font_color='black')
+
+            # Set edge colors based on weight sign
+            edge_colors = ['red' if self.graph[i][j]['weight'] < 0 else 'black' if self.graph[i][j]['weight'] == 0 else 'blue' for i, j in self.graph.edges()]
+
+            # Draw edges with labels
+            edge_labels = {(i, j): self.graph[i][j]['weight'] for i, j in self.graph.edges()}
+            nx.draw_networkx_edges(self.graph, pos, edgelist=list(self.graph.edges()), edge_color=edge_colors)
+            nx.draw_networkx_edge_labels(self.graph, pos, edge_labels=edge_labels, font_color='black', font_size=8, verticalalignment='bottom')  # Set verticalalignment to 'bottom'
+
+            plt.title(f"{self.name} Network - Step {step}")
+            plt.savefig(os.path.join(output_directory, f"{self.name}_network_step_{step}.png"))
+            plt.close()
+
+    def calculate_cluster_coefficient(self):
+        if len(self.graph.nodes) == 0:
+            return 0  # Return 0 if the graph is empty
+
+        cluster_coefficient = nx.average_clustering(self.graph)
+        return round(cluster_coefficient, 3)
+
+def plot_specific_network(networks_by_step, step_to_plot, network_number_to_plot):
+    for step, network_instance_list in networks_by_step.items():
+        if step == step_to_plot:
+            for i, network_instance in enumerate(network_instance_list):
+                if i + 1 == network_number_to_plot:
+                    network_instance.plot_network(step)
+
+def write_network_analysis(file_path, networks_by_step, step_to_plot, network_number_to_plot):
+    with open(file_path, 'a') as output_file:
+        output_file.write("step,net,Mn_ideg,Mn_odeg,cl_c\n")
+
+        for step, network_instances in networks_by_step.items():
+            for network_instance in network_instances:
+                average_in_degree = network_instance.calculate_mean_degree('in_degree')
+                average_out_degree = network_instance.calculate_mean_degree('out_degree')
+                cluster_coefficient = network_instance.calculate_cluster_coefficient()
+                #output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{diameter},{cluster_coefficient}\n")
+                output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{cluster_coefficient}\n")
     
-    adjacency_matrix = np.loadtxt(file_path)
-    adjacency_matrix = np.abs(adjacency_matrix)
-    G = nx.DiGraph(adjacency_matrix)
-    num_nodes = len(G.nodes())
-    num_edges = len(G.edges())
-    
-    average_in_degree = round(sum(dict(G.in_degree(weight='weight')).values()) / num_nodes, 3)
-    average_out_degree = round(sum(dict(G.out_degree(weight='weight')).values()) / num_nodes, 3)
+    plot_specific_network(networks_by_step, step_to_plot, network_number_to_plot)
 
-    try:
-        average_degree = round(sum(dict(G.degree()).values()) / num_nodes, 3)
-    except:
-        average_degree = None
-    
-    try:
-        clustering_coefficient = round(nx.average_clustering(G), 3)
-    except:
-        clustering_coefficient = None
-    
-    try:
-        diameter = round(nx.diameter(G), 3)
+def read_multiple_networks(file_path):
+    networks = {}
+    current_network = None
+    current_network_name = None
+    current_step = None
 
-    except:
-        diameter=None
-        try:
-            diameter = round(nx.diameter(G.to_undirected(), weight='weight'), 3)
-        except:
-            diameter=None
-        
-    
-    with open(save_path, 'a') as file:
-           
-        file.write(f"{step},{I},{average_in_degree},{average_out_degree},{diameter},{clustering_coefficient}")
-    del G
-    file = open(save_path, 'a')
-    file.write('\n')
+    with open(file_path, 'r') as file:
+        for line in file:
+            line = line.strip()
+            if line.startswith("st."):
+                # Process the previous network (if any) and update the current step
+                if current_network_name and current_network:
+                    network_instance = Network(current_network_name, current_network)
+                    if current_step not in networks:
+                        networks[current_step] = []
+                    networks[current_step].append(network_instance)
+
+                # Update the current step
+                current_step = int(line.split('.')[1])
+                current_network = None
+
+            elif line == '---':
+                # Process the current network
+                if current_network_name and current_network:
+                    network_instance = Network(current_network_name, current_network)
+                    if current_step not in networks:
+                        networks[current_step] = []
+                    networks[current_step].append(network_instance)
+                    current_network = None
+
+            else:
+                if line.startswith("Network"):
+                    current_network_name = line
+                else:
+                    row = [float(value) for value in line.split()]
+                    if current_network is None:
+                        current_network = []
+                    current_network.append(row)
+
+        # Add the last network
+        if current_network_name and current_network:
+            network_instance = Network(current_network_name, current_network)
+            if current_step not in networks:
+                networks[current_step] = []
+            networks[current_step].append(network_instance)
+
+    return networks
+
+file_path = './History/du_Network.txt'
+networks_by_step = read_multiple_networks(file_path)
+
+# Specify the output file path
+output_file_path = './Outputs/00_du_Net_analysis.txt'
+step_to_plot = 2000
+network_number_to_plot = 881
+# Calculate and write the network analysis parameters to the output file
+write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)
+
+

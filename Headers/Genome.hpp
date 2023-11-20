@@ -104,12 +104,13 @@ class genome
 
     double gasdev(long*);
 	double ran2 (long*);    
-    void save(int);   
+    void save(int, int);   
 
     
     double Environment_li(int, int);
     double Environment_Ga();
     double Environment_no_l(int, int);
+    double Environment_neg(int, int);
     //void du_Evolution(double);
 
     genome()

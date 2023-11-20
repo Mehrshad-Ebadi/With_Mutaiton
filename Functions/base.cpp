@@ -11,6 +11,7 @@ void genome::base (int N)
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
+    int net_saver_counter = 0;
     //memorising all networks ....
 
     for (int i=0 ; i<number_networks; i++)
@@ -28,34 +29,36 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
-    for (int ini=1 ; ini < (2*step) ; ini++)
+    for (int ini=0  ; ini < (2*step) ; ini++)
     {
         needed_networks = 0;
         du_needed_networks = 0;
         evolve = Environment_li(ini, step) ; //for linear and step based increase
         //evolve = Environment_Ga(); //Gaus environment
         //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
+        //evolve = Environment_neg(ini, step); //Negative gradients
         alive = 0;
         du_alive = 0;
         fit = 0;
         du_fit = 0;
         double KAPA = 0;
 
-        /*if (ini%200 == 0)
+        if (ini%200 == 0)
         {
-            cout<<ini<<endl;
+            cout<<"saving st="<<ini<<endl;
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << evolve <<endl;
             temp << number_networks <<endl;
             
-            save(number_networks);
+            save(number_networks, ini);
             
             string py = "python3 ./net_char.py";
             string du_py = "python3 ./du_net_char.py";
             
-            system (py.c_str());
-            system (du_py.c_str());
-        }*/
+            //system (py.c_str());
+            //system (du_py.c_str());
+            cout<<"Written!"<<endl;
+        }
         
         for (int pl=0 ; pl < number_networks ; pl++)
         {

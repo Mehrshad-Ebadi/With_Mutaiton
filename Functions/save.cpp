@@ -1,17 +1,19 @@
 #include "../Headers/Genome.hpp"
 
 
-void genome::save(int nN)
+void genome::save(int nN, int ini)
 {
-    string iden = "./History/Net_";
-    string ext = ".txt";
-    
+    ofstream location ("./History/Network.txt", ios::app);
+    ofstream du_location ("./History/du_Network.txt", ios::app);
+    location << "st."<< ini << '\n';
+    du_location << "st."<< ini << '\n';
+
     for (int g=0 ; g<nN ; g++)
     {
-        string G = to_string(g);
-        string saving = iden + G + ext;
-        ofstream location (saving); 
         
+        location << ("Network_" + to_string(g)) << '\n';
+        du_location << ("Network_" + to_string(g)) << '\n';
+
         for (int i=0; i<n ; i++)
         {
             for (int j=0 ; j<n ; j++)
@@ -20,25 +22,20 @@ void genome::save(int nN)
             }
 
             location << endl;
-        }    
-    }
+        }
 
-    string du_iden = "./History/Net_du_";
-    
-    for (int g=0 ; g<nN ; g++)
-    {
-        string G = to_string(g);
-        string saving = du_iden + G + ext;
-        ofstream location (saving); 
-        
+        location << "---" <<'\n';
+
         for (int i=0; i<nn ; i++)
         {
             for (int j=0 ; j<nn ; j++)
             {
-                location << dn[g].du_adjac[i][j]<<'\t';
+                du_location << dn[g].du_adjac[i][j]<<'\t';
             } 
 
-            location << endl;
-        }    
-    }
+            du_location << endl;
+        }
+
+        du_location << "---" << '\n';
+    }    
 }
