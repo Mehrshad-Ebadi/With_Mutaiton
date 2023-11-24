@@ -21,7 +21,7 @@ class Network:
         graph = nx.DiGraph()
         graph.add_weighted_edges_from(edges)
         return graph
-    '''
+    
     def calculate_mean_degree(self, degree_type):
         # Calculate the mean degree for the specified type (in-degree or out-degree)
         degrees = getattr(self.graph, degree_type)()
@@ -57,28 +57,28 @@ class Network:
 
         cluster_coefficient = nx.average_clustering(self.graph)
         return round(cluster_coefficient, 3)
-    '''
-'''def plot_specific_network(networks_by_step, step_to_plot, network_number_to_plot):
+    
+def plot_specific_network(networks_by_step, step_to_plot, network_number_to_plot):
     for step, network_instance_list in networks_by_step.items():
         if step == step_to_plot:
             for i, network_instance in enumerate(network_instance_list):
                 if i + 1 == network_number_to_plot:
                     network_instance.plot_network(step)
-'''
-'''def write_network_analysis(file_path, networks_by_step, step_to_plot, network_number_to_plot):
-    with open(file_path, 'a') as output_file:
-        output_file.write("step,net,Mn_ideg,Mn_odeg,cl_c\n")
 
-        for step, network_instances in networks_by_step.items():
-            for network_instance in network_instances:
-                average_in_degree = network_instance.calculate_mean_degree('in_degree')
-                average_out_degree = network_instance.calculate_mean_degree('out_degree')
-                cluster_coefficient = network_instance.calculate_cluster_coefficient()
-                #output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{diameter},{cluster_coefficient}\n")
-                output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{cluster_coefficient}\n")
+def write_network_analysis(file_path, networks_by_step, step_to_plot, network_number_to_plot):
+    #with open(file_path, 'a') as output_file:
+    #    output_file.write("step,net,Mn_ideg,Mn_odeg,cl_c\n")
+
+        #for step, network_instances in networks_by_step.items():
+        #    for network_instance in network_instances:
+        #        average_in_degree = network_instance.calculate_mean_degree('in_degree')
+        #        average_out_degree = network_instance.calculate_mean_degree('out_degree')
+        #        cluster_coefficient = network_instance.calculate_cluster_coefficient()
+        #        #output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{diameter},{cluster_coefficient}\n")
+        #        output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{cluster_coefficient}\n")
     
     plot_specific_network(networks_by_step, step_to_plot, network_number_to_plot)
-'''
+
 def read_multiple_networks(file_path):
     networks = {}
     current_network = None
@@ -127,6 +127,7 @@ def read_multiple_networks(file_path):
 
     return networks
 
+'''
 def calculate_ged(networks_by_step):
     num_networks = sum(len(networks) for networks in networks_by_step.values())
     ged_matrix = np.zeros((num_networks, num_networks))
@@ -155,19 +156,19 @@ def save_ged_matrix(ged_matrix, output_file_path):
             for value in row:
                 output_file.write(f"{value:.4f}\t")
             output_file.write("\n")
-
+'''
 file_path = './History/Network.txt'
 
 networks_by_step = read_multiple_networks(file_path)
 
 # Specify the output file path
 output_file_path = './Outputs/00Net_analysis.txt'
-step_to_plot = 2000
-network_number_to_plot = 881
+step_to_plot = 1200
+network_number_to_plot = 700
 
 # Calculate and write the network analysis parameters to the output file
-#write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)
+write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)
 
-ged_matrix = calculate_ged(networks_by_step)
-output_ged_file_path = './Outputs/GED_matrix.txt'
-save_ged_matrix(ged_matrix, output_ged_file_path)
+#ged_matrix = calculate_ged(networks_by_step)
+#output_ged_file_path = './Outputs/GED_matrix.txt'
+#save_ged_matrix(ged_matrix, output_ged_file_path)

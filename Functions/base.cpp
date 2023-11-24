@@ -33,10 +33,10 @@ void genome::base (int N)
     {
         needed_networks = 0;
         du_needed_networks = 0;
-        evolve = Environment_li(ini, step) ; //for linear and step based increase
+        //evolve = Environment_li(ini, step) ; //for linear and step based increase
         //evolve = Environment_Ga(); //Gaus environment
         //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
-        //evolve = Environment_neg(ini, step); //Negative gradients
+        evolve = Environment_neg(ini, step); //Negative gradients
         alive = 0;
         du_alive = 0;
         fit = 0;
