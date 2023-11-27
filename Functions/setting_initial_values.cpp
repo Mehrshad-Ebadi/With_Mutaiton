@@ -21,6 +21,9 @@ int genome::Setting_initial_values(int N)
     
     n = N;
     nn = 2*n;
+
+    Nedg = 0;
+    du_Nedg = 0;
     
     ne = new Net [number_networks];
     dn = new dNet [number_networks];

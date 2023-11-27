@@ -15,6 +15,7 @@ class dNet
         bool living;
         int nn;
         bool unique;
+        int edges;
         
         dNet(){};
         

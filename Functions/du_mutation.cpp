@@ -17,7 +17,6 @@ void genome::du_Mutation()
             {
                 int f = ran2(&iseed) * dn[s].du[i].nghbrs.size();
                 f = dn[s].du[i].nghbrs[f];
-
                 dn[s].du_adjac [i][f] = gasdev(&iseed);
             }
 
@@ -32,6 +31,7 @@ void genome::du_Mutation()
                     {
                         du_connect(i, f, gasdev(&iseed),s);
                         temmpy = false;
+                        dn[s].edges ++;
                     }                
                 }
 
@@ -43,7 +43,7 @@ void genome::du_Mutation()
                 int FE = dn[s].du[i].nghbrs[f];
                 dn[s].du[i].nghbrs.erase(dn[s].du[i].nghbrs.begin() + f);
                 dn[s].du_adjac[i][FE] = 0;
-                
+                dn[s].edges --;
                 auto it = find (dn[s].du[FE].Connected.begin(), dn[s].du[FE].Connected.end(), i);
                 
                 dn[s].du[FE].Connected.erase(it);

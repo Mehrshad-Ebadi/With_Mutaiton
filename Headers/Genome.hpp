@@ -39,6 +39,9 @@ class genome
     Net* ne;
     dNet* dn;
     
+    int Nedg;
+    int du_Nedg;
+
     int alive;
     int du_alive;
 

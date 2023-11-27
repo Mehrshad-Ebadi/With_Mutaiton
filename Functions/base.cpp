@@ -29,6 +29,11 @@ void genome::base (int N)
         du_Reader(du_location);
     }
     
+    Nedg = Nedg / number_networks;
+    du_Nedg = du_Nedg / number_networks;
+    du_Nedg = du_Nedg/2;
+    Nedg = Nedg / 2;
+
     for (int ini=0  ; ini < (2*step) ; ini++)
     {
         needed_networks = 0;
@@ -78,7 +83,7 @@ void genome::base (int N)
                 KAPA = evolve - parameters();
                 ne[pl].fitness = Fitness_func(KAPA);
                 
-                if (ne[pl].fitness >= ran2(&iseed))
+                if ((ne[pl].fitness >= ran2(&iseed)) && (ne[pl].edges > Nedg))
                 {
                     alive ++;
                     fit += ne[pl].fitness; 
@@ -93,7 +98,7 @@ void genome::base (int N)
             }
 
             //now the same upper block, but for the duplications
-            if (dn[pl].living == true)         //checking if the doubled network in that location is available ...
+            if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
             {   
                 du_Mutation();
                 du_Evolution(evolve);
@@ -101,7 +106,7 @@ void genome::base (int N)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if (dn[pl].fitness >= ran2(&iseed))
+                if ((dn[pl].fitness >= ran2(&iseed)) && (dn[pl].edges > du_Nedg))
                 {
                     du_alive ++; 
                     du_fit += dn[pl].fitness;

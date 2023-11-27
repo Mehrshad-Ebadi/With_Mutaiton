@@ -13,6 +13,7 @@ public:
     bool living;
     int n;
     bool unique;
+    int edges;
     
     Net(){};
 

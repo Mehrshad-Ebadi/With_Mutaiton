@@ -32,6 +32,7 @@ void genome::Mutation()
                     {
                         connect(i, f, gasdev(&iseed), s);
                         temmpy = false;
+                        ne[s].edges ++;
                     }                
                 }
 
@@ -43,7 +44,7 @@ void genome::Mutation()
                 int FE = ne[s].gn[i].nghbrs[f];
                 ne[s].gn[i].nghbrs.erase(ne[s].gn[i].nghbrs.begin() + f);
                 ne[s].adjac[i][FE] = 0;
-                
+                ne[s].edges --;
                 
                 auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
                 
