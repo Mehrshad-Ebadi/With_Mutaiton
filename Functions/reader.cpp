@@ -15,7 +15,6 @@ void genome::Reader(string location)
             {
                 connect (j, k, ne[temp_net].adjac[j][k], temp_net);
                 Nedg++ ;
-                ne[temp_net].edges ++;
             }
         }
     }
@@ -41,7 +40,6 @@ void genome::du_Reader(string du_location)
             {
                 du_connect (j, k, dn[temp_net].du_adjac[j][k], temp_net);
                 du_Nedg++ ;
-                dn[temp_net].edges ++;
             }
         }
     }

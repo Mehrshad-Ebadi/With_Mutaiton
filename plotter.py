@@ -10,7 +10,8 @@ Y = np.loadtxt("./Outputs/du_Alive.txt")
 Z = np.loadtxt("./Outputs/envi.txt")
 K = np.loadtxt("./Outputs/uni.txt")
 H = np.loadtxt("./Outputs/du_uni.txt")
-
+J = np.loadtxt("./Outputs/edge.txt")
+Q = np.loadtxt("./Outputs/du_edge.txt")
 #for i in range (0,len(X)):
 #    X[i][1] = X[i][1] / 10000
 
@@ -51,4 +52,11 @@ plt.xscale('log')
 plt.xlabel("log [Time steps]")
 plt.ylabel("log[Number of Unique networks]")
 plt.savefig('./diagrams/un.png',dpi=400)
+plt.close()
+
+plt.plot([i[0] for i in J], [i[1] for i in J],label='non-duplicated_edges',color='blue')
+plt.plot([i[0] for i in Q], [i[1] for i in Q],label='duplicated_edges',color='orange', alpha=0.6)
+plt.xlabel("Time step")
+plt.ylabel("Edges")
+plt.savefig('./diagrams/edge.png',dpi=400)
 plt.close()

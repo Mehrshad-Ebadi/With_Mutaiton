@@ -6,6 +6,7 @@ void genome::memory_Deleter()
     int s = temp_net;
     delete [] ne[s].output;
     delete [] ne[s].input;
+    ne[s].edges = 0;
     
     for (int F=0 ; F<n ; F++)
     {
@@ -37,7 +38,8 @@ void genome::du_memory_Deleter()
 
     dn[s].du_II = 0;
     dn[s].du_UU = 0;
-    
+    dn[s].edges = 0;
+
     for (int F=0 ; F<nn ; F++)
     {
         dn[s].du[F].dg_in = 0;

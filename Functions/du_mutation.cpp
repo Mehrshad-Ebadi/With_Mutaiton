@@ -31,7 +31,6 @@ void genome::du_Mutation()
                     {
                         du_connect(i, f, gasdev(&iseed),s);
                         temmpy = false;
-                        dn[s].edges ++;
                     }                
                 }
 

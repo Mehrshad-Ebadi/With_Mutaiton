@@ -12,6 +12,9 @@ void genome::base (int N)
     int du_needed_networks;
     double evolve = 0;
     int net_saver_counter = 0;
+    ofstream eg("./Outputs/edge.txt");
+    ofstream du_eg("./Outputs/du_edge.txt");
+
     //memorising all networks ....
 
     for (int i=0 ; i<number_networks; i++)
@@ -31,17 +34,19 @@ void genome::base (int N)
     
     Nedg = Nedg / number_networks;
     du_Nedg = du_Nedg / number_networks;
-    du_Nedg = du_Nedg/2;
-    Nedg = Nedg / 2;
+    du_Nedg = -10;
+    Nedg = 0;
+
+    //cout << Nedg << '\t' << du_Nedg << endl;
 
     for (int ini=0  ; ini < (2*step) ; ini++)
     {
         needed_networks = 0;
         du_needed_networks = 0;
-        //evolve = Environment_li(ini, step) ; //for linear and step based increase
+        evolve = Environment_li(ini, step) ; //for linear and step based increase
         //evolve = Environment_Ga(); //Gaus environment
         //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
-        evolve = Environment_neg(ini, step); //Negative gradients
+        //evolve = Environment_neg(ini, step); //Negative gradients
         alive = 0;
         du_alive = 0;
         fit = 0;
@@ -67,7 +72,6 @@ void genome::base (int N)
         
         for (int pl=0 ; pl < number_networks ; pl++)
         {
-            
             //cout<<"evol"<<evolve<<endl;
             //cout<<"net="<<pl<<" step = " << ini <<endl;
             
@@ -83,7 +87,7 @@ void genome::base (int N)
                 KAPA = evolve - parameters();
                 ne[pl].fitness = Fitness_func(KAPA);
                 
-                if ((ne[pl].fitness >= ran2(&iseed)) && (ne[pl].edges > Nedg))
+                if ((ne[pl].fitness >= ran2(&iseed)))
                 {
                     alive ++;
                     fit += ne[pl].fitness; 
@@ -106,7 +110,7 @@ void genome::base (int N)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if ((dn[pl].fitness >= ran2(&iseed)) && (dn[pl].edges > du_Nedg))
+                if ((dn[pl].fitness >= ran2(&iseed)))
                 {
                     du_alive ++; 
                     du_fit += dn[pl].fitness;
@@ -127,6 +131,7 @@ void genome::base (int N)
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
         enviroment << ini <<'\t'<< evolve <<endl;
+
         int Un = 0; 
         int du_Un = 0;
 
@@ -150,7 +155,18 @@ void genome::base (int N)
             
             if (dn[a].unique == true)   du_Un++;
         }
+        
+        double E=0;
+        double du_E =0;
 
+        for (int po=0 ; po<number_networks ; po++)
+        { 
+            E += ne[po].edges;
+            du_E += dn[po].edges;
+        }
+
+        eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
+        du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
         if (alive == 0 || du_alive == 0)

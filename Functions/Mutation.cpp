@@ -8,7 +8,7 @@ void genome::Mutation()
     //double dublict_nd = 0.0002;   //duplicated a node
     double rwrng_nw_cnnctn = chance_of_new_connetion;
     double rwrng_dl_cnnctn = chance_of_del_connection;
-
+    
     for (int i=0 ; i<n ; i++)             
     {
         if (ne[s].gn[i].nghbrs.size() != 0)
@@ -32,7 +32,6 @@ void genome::Mutation()
                     {
                         connect(i, f, gasdev(&iseed), s);
                         temmpy = false;
-                        ne[s].edges ++;
                     }                
                 }
 

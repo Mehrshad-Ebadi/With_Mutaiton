@@ -91,5 +91,5 @@ void genome::du_Copy(int idl, int slv)
 
     dn[slv].du_II = dn[idl].du_II;
     dn[slv].du_UU = dn[idl].du_UU;
-    
+    dn[slv].edges = dn[idl].edges;
 }

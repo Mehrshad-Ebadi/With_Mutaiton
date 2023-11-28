@@ -9,6 +9,7 @@ void genome::connect (int i, int j, double Wgh, int SH)
     
     ne[SH].gn[j].dg_in++;
     ne[SH].gn[j].Connected.push_back(i);
+    ne[SH].edges ++;
     
 }
 
@@ -21,4 +22,5 @@ void genome::du_connect(int i, int j, double wgh, int SH)
 
     dn[SH].du[j].dg_in++;
     dn[SH].du[j].Connected.push_back(i);
+    dn[SH].edges ++;
 }
