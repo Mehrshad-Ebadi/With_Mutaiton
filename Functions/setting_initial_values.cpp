@@ -36,6 +36,10 @@ int genome::Setting_initial_values(int N)
         ne[i].UU = 0;
         ne[i].living = false;
         ne[i].unique = false;
+        ne[i].n_isolate = 0;
+        ne[i].n = n;
+        ne[i].output = nullptr;
+        ne[i].input = nullptr;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -44,7 +48,7 @@ int genome::Setting_initial_values(int N)
             ne[i].gn[z].dg_out = 0;
             ne[i].gn[z].weights = 0;
             ne[i].gn[z].slf_cntrl = 0;
-            ne[i].n = n;
+            ne[i].gn[z].isolated = false;
         }
 
         dn[i].du = new dupli [nn];
@@ -53,6 +57,10 @@ int genome::Setting_initial_values(int N)
         dn[i].du_UU = 0;
         dn[i].living = false;
         dn[i].unique = false;
+        dn[i].n_isolate = 0;
+        dn[i].nn = nn;
+        dn[i].du_output = nullptr;
+        dn[i].du_input = nullptr;
 
         for (int z=0 ; z<nn ; z++)
         {
@@ -61,7 +69,9 @@ int genome::Setting_initial_values(int N)
             dn[i].du[z].dg_out = 0;    
             dn[i].du[z].weights = 0;    
             dn[i].du[z].slf_cntrl = 0;
-            dn[i].nn = nn;
+            
+            dn[i].du[z].isolated = false;
+            
         } 
 
         for (int z=0 ; z<n ; z++)

@@ -1,41 +1,15 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::Chance_of_repro(int needed_networks, int Nn)
+void genome::Chance_of_repro(const vector <int> &live_list, const vector <int> &dead_list)
 {
-    //ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
-    //tracking_ancestors <<"********************"<<endl;
-    //tracking_ancestors <<"step="<<ini<<endl;
-    //tracking_ancestors <<"********************"<<endl;
-    int sum = 0;    
-    //hard and soft selection ...  
-    last_number_got_filled = 0;
-    
-    while (sum < needed_networks)
+
+    for (int i=0 ; i<dead_list.size(); i++)
     {
-        int idl_cndt = ran2(&iseed) * Nn;
-
-        if (ne[idl_cndt].living && ne[idl_cndt].fitness > ran2(&iseed))
-        {
-            //tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
-            //tracking_ancestors << offspring<<",";
-            
-            bool get_copied = true;
-            
-            while (get_copied)
-            {
-                int slave = last_number_got_filled;
-                if (ne[slave].living == false)
-                {
-                    Copy(idl_cndt, slave);
-                    get_copied = false;
-                    sum++;
-                }
-
-                last_number_got_filled++;
-            }
-            
-        }
+        int idl_cndt = ran2(&iseed) * live_list.size();
+        idl_cndt = live_list[idl_cndt];
+        int slave = dead_list[i];
+        Copy(idl_cndt, slave);   
     }
     
     //tracking_ancestors<<endl;
@@ -92,5 +66,5 @@ void genome::Copy(int idl, int slv)
     ne[slv].II = ne[idl].II;
     ne[slv].UU = ne[idl].UU;
     ne[slv].edges = ne[idl].edges;
-    
+    ne[slv].n_isolate = ne[idl].n_isolate;
 }

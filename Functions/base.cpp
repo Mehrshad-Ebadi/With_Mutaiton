@@ -34,15 +34,22 @@ void genome::base (int N)
     
     Nedg = Nedg / number_networks;
     du_Nedg = du_Nedg / number_networks;
-    du_Nedg = -10;
-    Nedg = 0;
-
+    min_isolated_percent = 10;
+    du_min_isolated_percent = 20;
+    //du_Nedg ;
+    //Nedg;
     //cout << Nedg << '\t' << du_Nedg << endl;
 
     for (int ini=0  ; ini < (2*step) ; ini++)
     {
         needed_networks = 0;
         du_needed_networks = 0;
+        
+        vector <int> dead_list;
+        vector <int> du_dead_list;
+        vector <int> live_list;
+        vector <int> du_live_list;
+        
         evolve = Environment_li(ini, step) ; //for linear and step based increase
         //evolve = Environment_Ga(); //Gaus environment
         //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
@@ -53,20 +60,13 @@ void genome::base (int N)
         du_fit = 0;
         double KAPA = 0;
 
-        if (ini%200 == 0)
+        if (ini % 200 == 0 && ini > 6800)
         {
             cout<<"saving st="<<ini<<endl;
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << evolve <<endl;
             temp << number_networks <<endl;
-            
             save(number_networks, ini);
-            
-            string py = "python3 ./net_char.py";
-            string du_py = "python3 ./du_net_char.py";
-            
-            //system (py.c_str());
-            //system (du_py.c_str());
             cout<<"Written!"<<endl;
         }
         
@@ -74,7 +74,9 @@ void genome::base (int N)
         {
             //cout<<"evol"<<evolve<<endl;
             //cout<<"net="<<pl<<" step = " << ini <<endl;
-            
+                    if (ini % 200 == 0 && ini > 6800)
+        {
+            cout<<"II="<<ne[pl].II<<" UU="<<ne[pl].UU<<endl;}
             string ancestor_saving = "./Outputs/inheritate.txt";
             string du_ancestor_saving = "./Outputs/du_inheritate.txt";
             temp_net = pl;
@@ -86,18 +88,20 @@ void genome::base (int N)
                 Evolution(evolve);
                 KAPA = evolve - parameters();
                 ne[pl].fitness = Fitness_func(KAPA);
-                
-                if ((ne[pl].fitness >= ran2(&iseed)))
+
+                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
                 {
                     alive ++;
                     fit += ne[pl].fitness; 
+                    live_list.push_back(pl);
                 }
                 
                 else 
                 {
-                    ne[pl].living = false;
                     needed_networks++;
+                    ne[pl].living = false;
                     memory_Deleter();
+                    dead_list.push_back(pl);
                 }
             }
 
@@ -110,17 +114,19 @@ void genome::base (int N)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if ((dn[pl].fitness >= ran2(&iseed)))
+                if ((dn[pl].fitness >= ran2(&iseed)) && dn[pl].n_isolate < du_min_isolated_percent)
                 {
-                    du_alive ++; 
+                    du_alive ++;
                     du_fit += dn[pl].fitness;
+                    du_live_list.push_back(pl);
                 }
                 
                 else 
                 {
-                    dn[pl].living = false;
                     du_needed_networks++;
+                    dn[pl].living = false;
                     du_memory_Deleter();
+                    du_dead_list.push_back(pl);
                 }
             }
         }
@@ -139,14 +145,14 @@ void genome::base (int N)
         
         if (needed_networks != 0 && alive != 0)
         {
-            Chance_of_repro(needed_networks, number_networks);
+            Chance_of_repro(live_list, dead_list);
         }
         
         //now the block of the duplicated network with the same tasks ...
         
         if (du_needed_networks != 0 && du_alive != 0)
         {
-            du_Chance_of_repro(du_needed_networks, number_networks);
+            du_Chance_of_repro(du_live_list, du_dead_list);
         }
         
         for (int a=0 ; a<number_networks ; a++)     
@@ -155,10 +161,10 @@ void genome::base (int N)
             
             if (dn[a].unique == true)   du_Un++;
         }
-        
+
         double E=0;
         double du_E =0;
-
+   
         for (int po=0 ; po<number_networks ; po++)
         { 
             E += ne[po].edges;
@@ -169,6 +175,7 @@ void genome::base (int N)
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
+
         if (alive == 0 || du_alive == 0)
             break;
     }

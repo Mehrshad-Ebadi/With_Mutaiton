@@ -3,7 +3,7 @@
 void genome::du_Mutation()
 {
     int s = temp_net;
-    double equ_mt= 2.0;  //by dividing all mutation rate of the single networks by this value, we make the mutaiton rate of the single and doubles identical to each other
+    double equ_mt= 1.0;  //by dividing all mutation rate of the single networks by this value, we make the mutaiton rate of the single and doubles identical to each other
     double nw_wght  = chance_changing_weight / equ_mt;    //new weight
     
     double rwrng_nw_cnnctn = chance_of_new_connetion / equ_mt;
@@ -23,13 +23,14 @@ void genome::du_Mutation()
             if (ran2(&iseed) < rwrng_nw_cnnctn && dn[s].du[i].nghbrs.size() < n)
             {
                 bool temmpy = true;
-
+                int fd=0;
                 while (temmpy)
                 {
-                    int f = ran2(&iseed) * nn;
+                    int f = ran2(&iseed) * n;
                     if (dn[s].du_adjac [i][f] == 0)
                     {
-                        du_connect(i, f, gasdev(&iseed),s);
+                        du_connect(i, f, gasdev(&iseed), s);
+                        du_specefication(s);
                         temmpy = false;
                     }                
                 }
@@ -43,9 +44,14 @@ void genome::du_Mutation()
                 dn[s].du[i].nghbrs.erase(dn[s].du[i].nghbrs.begin() + f);
                 dn[s].du_adjac[i][FE] = 0;
                 dn[s].edges --;
+                dn[s].du[i].dg_out --;
+
+                
                 auto it = find (dn[s].du[FE].Connected.begin(), dn[s].du[FE].Connected.end(), i);
                 
                 dn[s].du[FE].Connected.erase(it);
+                dn[s].du[i].dg_in --;
+                du_specefication(s);
             }
         }
     }    

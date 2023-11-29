@@ -8,6 +8,7 @@ class dupli
     int dg_in, dg_out, nm_up;
     int slf_cntrl;
     double weights;
+    bool isolated;
     vector <int> nghbrs;
     vector <int> Connected;
     dupli() {

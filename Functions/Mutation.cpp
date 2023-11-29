@@ -31,6 +31,7 @@ void genome::Mutation()
                     if (ne[s].adjac [i][f] == 0)
                     {
                         connect(i, f, gasdev(&iseed), s);
+                        specefication(s);
                         temmpy = false;
                     }                
                 }
@@ -44,13 +45,15 @@ void genome::Mutation()
                 ne[s].gn[i].nghbrs.erase(ne[s].gn[i].nghbrs.begin() + f);
                 ne[s].adjac[i][FE] = 0;
                 ne[s].edges --;
+                ne[s].gn[i].dg_out --;
+
                 
                 auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
                 
                 ne[s].gn[FE].Connected.erase(it);
+                ne[s].gn[i].dg_in --;
+                specefication(s);
             }
         }
     }
-
-    
 }

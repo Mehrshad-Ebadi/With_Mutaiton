@@ -14,6 +14,7 @@ public:
     int n;
     bool unique;
     int edges;
+    int n_isolate;
     
     Net(){};
 

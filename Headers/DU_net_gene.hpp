@@ -16,6 +16,7 @@ class dNet
         int nn;
         bool unique;
         int edges;
+        int n_isolate;
         
         dNet(){};
         

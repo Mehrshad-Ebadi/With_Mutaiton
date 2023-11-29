@@ -25,6 +25,9 @@ class genome
     int nn;
     long int iseed;
     int selected_node;
+
+    int min_isolated_percent;
+    int du_min_isolated_percent;
     
     double chance_changing_weight;
     double chance_of_new_connetion;
@@ -74,8 +77,8 @@ class genome
     void connect (int, int, double, int);
     void du_connect (int, int, double, int);
 
-    void specefication();
-    void du_specefication();
+    void specefication(int);
+    void du_specefication(int);
 
     void Mutation();
     void du_Mutation();
@@ -99,8 +102,8 @@ class genome
     void Copy(int, int);
     void du_Copy(int, int);
 
-    void Chance_of_repro(int, int);
-    void du_Chance_of_repro(int, int);
+    void Chance_of_repro(const vector <int> &live_list, const vector <int> &dead_list);
+    void du_Chance_of_repro(const vector <int> &du_live_list, const vector <int> &du_dead_list);
 
     int Reproduce(int);
     int du_Reproduce(int);

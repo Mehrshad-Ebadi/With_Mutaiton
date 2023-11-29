@@ -22,7 +22,7 @@ void genome::Reader(string location)
     ne[temp_net].unique = true;
     NetWork.close();
     ne[temp_net].living = true;
-    specefication();
+    specefication(temp_net);
 
 }
 
@@ -47,5 +47,5 @@ void genome::du_Reader(string du_location)
     dn[temp_net].unique = true;
     NetWork.close();
     dn[temp_net].living = true;
-    du_specefication();
+    du_specefication(temp_net);
 }
