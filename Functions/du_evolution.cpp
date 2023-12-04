@@ -5,7 +5,7 @@ void genome::du_Evolution(double evolve)
 {   
     int s = temp_net;
 
-    if (dn[s].du_II > 0)
+    if (dn[s].II > 0)
     {        
         dn[s].du[selected_node].weights = evolve;
          
@@ -25,9 +25,6 @@ void genome::du_Evolution(double evolve)
             du_updater (node2);
         }
     }
-    
-    else { dn[s].living = false; }
-
 }
 
 void genome::du_updater (int nodex)

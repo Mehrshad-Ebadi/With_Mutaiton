@@ -34,12 +34,12 @@ int genome::Setting_initial_values(int N)
         ne[i].adjac = new double* [n] ;
         ne[i].II = 0;
         ne[i].UU = 0;
-        ne[i].living = false;
-        ne[i].unique = false;
+        ne[i].living = true;
+        ne[i].unique = true;
         ne[i].n_isolate = 0;
         ne[i].n = n;
-        ne[i].output = nullptr;
-        ne[i].input = nullptr;
+        //ne[i].input = nullptr;
+        //ne[i].output = nullptr;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -53,14 +53,14 @@ int genome::Setting_initial_values(int N)
 
         dn[i].du = new dupli [nn];
         dn[i].du_adjac = new double* [nn];
-        dn[i].du_II = 0;
-        dn[i].du_UU = 0;
-        dn[i].living = false;
-        dn[i].unique = false;
+        dn[i].II = 0;
+        dn[i].UU = 0;
+        dn[i].living = true;
+        dn[i].unique = true;
         dn[i].n_isolate = 0;
         dn[i].nn = nn;
-        dn[i].du_output = nullptr;
-        dn[i].du_input = nullptr;
+        //dn[i].du_input = nullptr;
+        //dn[i].du_output = nullptr;
 
         for (int z=0 ; z<nn ; z++)
         {

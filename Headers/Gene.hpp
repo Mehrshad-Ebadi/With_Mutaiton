@@ -11,6 +11,7 @@ class gene
     bool isolated;
     vector <int> nghbrs;
     vector <int> Connected;
+    
     gene () {
 
     }

@@ -21,12 +21,12 @@ double genome::du_parameters ()
     int s = temp_net;
     dn[s].XX = 0;
     
-    for (int i=0 ; i<dn[s].du_UU ; i++) 
+    for (int i=0 ; i<dn[s].UU ; i++) 
     {
-        int j = dn[s].du_output[i];
+        int j = dn[s].output[i];
         dn[s].XX += dn[s].du[j].weights;
     }
 
-    dn[s].XX = double (dn[s].XX / dn[s].du_UU);
+    dn[s].XX = double (dn[s].XX / dn[s].UU);
     return dn[s].XX;
 }    

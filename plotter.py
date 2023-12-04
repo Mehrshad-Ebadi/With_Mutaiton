@@ -17,11 +17,11 @@ Q = np.loadtxt("./Outputs/du_edge.txt")
 
 #for i in range (0,len(Y)):
 #    Y[i][1]  = Y[i][1] / 10000
-#plt.scatter([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue', s=1)
-#plt.scatter([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.6, s=1)
+plt.scatter([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue', alpha=0.7, s=1)
+plt.scatter([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.3, s=1)
 
-plt.plot([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue')
-plt.plot([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.6)
+#plt.plot([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue')
+#plt.plot([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.6)
 
 
 

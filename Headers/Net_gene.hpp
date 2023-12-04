@@ -6,8 +6,8 @@ public:
     double** adjac;
     int II;
     int UU;
-    int * output;
-    int * input;
+    vector <int> input;
+    vector <int> output;
     double fitness;
     double xx;
     bool living;
@@ -20,8 +20,6 @@ public:
 
     ~Net()
     {
-        delete []output;
-        delete []input;
 
         for (int i = 0; i < n; ++i) 
         {

@@ -38,7 +38,7 @@ void genome::Mutation()
 
             }
 
-            if (ran2(&iseed) < rwrng_dl_cnnctn)
+            if (ran2(&iseed) < rwrng_dl_cnnctn && ne[s].gn[i].nghbrs.size() > 0)
             {
                 int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
                 int FE = ne[s].gn[i].nghbrs[f];
@@ -51,7 +51,8 @@ void genome::Mutation()
                 auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
                 
                 ne[s].gn[FE].Connected.erase(it);
-                ne[s].gn[i].dg_in --;
+                ne[s].gn[FE].dg_in --;
+                
                 specefication(s);
             }
         }

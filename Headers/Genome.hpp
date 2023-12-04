@@ -45,9 +45,6 @@ class genome
     int Nedg;
     int du_Nedg;
 
-    int alive;
-    int du_alive;
-
     double fit;
     double du_fit;
 

@@ -162,9 +162,9 @@ file_path = './History/du_Network.txt'
 networks_by_step = read_multiple_networks(file_path)
 
 # Specify the output file path
-output_file_path = './Outputs/00du_Net_analysis.txt'
-step_to_plot = 2000
-network_number_to_plot = 900
+output_file_path = './Outputs/00_du_Net_analysis.txt'
+step_to_plot = 1800
+network_number_to_plot = 100
 
 # Calculate and write the network analysis parameters to the output file
 write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)

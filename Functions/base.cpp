@@ -30,37 +30,31 @@ void genome::base (int N)
         string du_location = du_data + HH + Extension;    
         Reader(location);
         du_Reader(du_location);
+        
     }
-    
+
     Nedg = Nedg / number_networks;
     du_Nedg = du_Nedg / number_networks;
-    min_isolated_percent = 10;
-    du_min_isolated_percent = 20;
-    //du_Nedg ;
-    //Nedg;
-    //cout << Nedg << '\t' << du_Nedg << endl;
+    min_isolated_percent = n * 0.8;
+    du_min_isolated_percent = nn * 0.8;
 
-    for (int ini=0  ; ini < (2*step) ; ini++)
+    vector <int> dead_list;
+    vector <int> du_dead_list;
+    vector <int> live_list;
+    vector <int> du_live_list;
+    
+    for (int ini=0  ; ini < (4*step) ; ini++)
     {
-        needed_networks = 0;
-        du_needed_networks = 0;
-        
-        vector <int> dead_list;
-        vector <int> du_dead_list;
-        vector <int> live_list;
-        vector <int> du_live_list;
-        
         evolve = Environment_li(ini, step) ; //for linear and step based increase
         //evolve = Environment_Ga(); //Gaus environment
         //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
         //evolve = Environment_neg(ini, step); //Negative gradients
-        alive = 0;
-        du_alive = 0;
         fit = 0;
         du_fit = 0;
         double KAPA = 0;
+    
 
-        if (ini % 200 == 0 && ini > 6800)
+        if (ini % 200 == 0)
         {
             cout<<"saving st="<<ini<<endl;
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
@@ -69,14 +63,11 @@ void genome::base (int N)
             save(number_networks, ini);
             cout<<"Written!"<<endl;
         }
-        
         for (int pl=0 ; pl < number_networks ; pl++)
         {
             //cout<<"evol"<<evolve<<endl;
             //cout<<"net="<<pl<<" step = " << ini <<endl;
-                    if (ini % 200 == 0 && ini > 6800)
-        {
-            cout<<"II="<<ne[pl].II<<" UU="<<ne[pl].UU<<endl;}
+
             string ancestor_saving = "./Outputs/inheritate.txt";
             string du_ancestor_saving = "./Outputs/du_inheritate.txt";
             temp_net = pl;
@@ -91,19 +82,20 @@ void genome::base (int N)
 
                 if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
                 {
-                    alive ++;
+                    ne[pl].living = true;
                     fit += ne[pl].fitness; 
                     live_list.push_back(pl);
                 }
                 
                 else 
                 {
-                    needed_networks++;
+                    dead_list.push_back(pl);
                     ne[pl].living = false;
                     memory_Deleter();
-                    dead_list.push_back(pl);
                 }
             }
+            
+            //else dead_list.push_back(pl);
 
             //now the same upper block, but for the duplications
             if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
@@ -114,25 +106,31 @@ void genome::base (int N)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if ((dn[pl].fitness >= ran2(&iseed)) && dn[pl].n_isolate < du_min_isolated_percent)
+                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < du_min_isolated_percent)
                 {
-                    du_alive ++;
+                    dn[pl].living == true;
                     du_fit += dn[pl].fitness;
                     du_live_list.push_back(pl);
                 }
                 
                 else 
                 {
-                    du_needed_networks++;
+                    du_dead_list.push_back(pl);
                     dn[pl].living = false;
                     du_memory_Deleter();
-                    du_dead_list.push_back(pl);
                 }
             }
-        }
 
-        double zz = static_cast <double> (alive) / number_networks;
-        double du_zz = static_cast <double> (du_alive) / number_networks;
+            //else du_dead_list.push_back(pl);
+            //cout<<dn[pl].n_isolate<<endl;
+        }
+        //int st=0;
+        //for (int i=0 ; i<number_networks; i++)
+        //    if (dn[i].living == true)
+        //        st++;
+        //cout<<"before copy="<<st<<endl;
+        double zz = static_cast <double> (live_list.size()) / number_networks;
+        double du_zz = static_cast <double> (du_live_list.size()) / number_networks;
 
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
@@ -140,28 +138,32 @@ void genome::base (int N)
 
         int Un = 0; 
         int du_Un = 0;
-
+        
         //the whole block is for single networks ...
         
-        if (needed_networks != 0 && alive != 0)
+        if (dead_list.size() != 0 && live_list.size() != 0)
         {
             Chance_of_repro(live_list, dead_list);
         }
         
         //now the block of the duplicated network with the same tasks ...
         
-        if (du_needed_networks != 0 && du_alive != 0)
+        if (du_dead_list.size() != 0 && du_live_list.size() != 0)
         {
             du_Chance_of_repro(du_live_list, du_dead_list);
         }
-        
+
         for (int a=0 ; a<number_networks ; a++)     
         {
             if (ne[a].unique == true)   Un++;
             
             if (dn[a].unique == true)   du_Un++;
         }
-
+        //st=0;
+        //for (int i=0 ; i<number_networks; i++)
+        //    if (dn[i].living == true)
+        //        st++;
+        //cout<<"after copy = "<<st<<endl;
         double E=0;
         double du_E =0;
    
@@ -176,8 +178,14 @@ void genome::base (int N)
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
 
-        if (alive == 0 || du_alive == 0)
+        if (live_list.size() == 0 || du_live_list.size() == 0)
             break;
+
+        dead_list.clear();
+        du_dead_list.clear();
+        live_list.clear();
+        du_live_list.clear();
+
     }
 
     cout<<"done!!"<<endl;

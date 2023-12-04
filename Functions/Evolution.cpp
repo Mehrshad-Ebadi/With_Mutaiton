@@ -25,8 +25,6 @@ void genome::Evolution(double evolve)
             updater (node2);
         }
     }
-
-    else { ne[s].living = false; }
 }
 
 void genome::updater (int nodex)

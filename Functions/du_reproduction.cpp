@@ -10,36 +10,14 @@ void genome::du_Chance_of_repro(const vector <int> &live_list, const vector <int
         int slave = dead_list[i];
         du_Copy(idl_cndt, slave);   
     }
-    
-    //tracking_ancestors<<endl;
-    
-/*   only hard selection
-    while (sum < alive)
-    {
-        int idl_cndt = ran2(&iseed) * Alive.size();
-        idl_cndt = Alive[idl_cndt];
-        
-        if (ran2(&iseed) > 0.5)
-        {    
-            Reproduce(idl_cndt);
-            population ++;
-            sum++;
-        }
-    }
-
-*/
 }
 
 void genome::du_Copy(int idl, int slv)
 {
     dn[slv].living = true;
-    
-    dn[slv].du_output = new int [dn[idl].du_UU];
-    
-    std::copy(dn[idl].du_output, dn[idl].du_output + dn[idl].du_UU, dn[slv].du_output);
 
-    dn[slv].du_input = new int [dn[idl].du_II];
-    std::copy(dn[idl].du_input, dn[idl].du_input + dn[idl].du_II, dn[slv].du_input);
+    dn[slv].output = dn[idl].output;
+    dn[slv].input = dn[idl].input;    
     dn[slv].unique = false;
     
     for (int F=0 ; F<nn ; F++)
@@ -62,8 +40,8 @@ void genome::du_Copy(int idl, int slv)
         }
     }
 
-    dn[slv].du_II = dn[idl].du_II;
-    dn[slv].du_UU = dn[idl].du_UU;
+    dn[slv].II = dn[idl].II;
+    dn[slv].UU = dn[idl].UU;
     dn[slv].edges = dn[idl].edges;
     dn[slv].n_isolate = dn[idl].n_isolate;
 }

@@ -163,8 +163,8 @@ networks_by_step = read_multiple_networks(file_path)
 
 # Specify the output file path
 output_file_path = './Outputs/00Net_analysis.txt'
-step_to_plot = 8000
-network_number_to_plot = 900
+step_to_plot = 1400
+network_number_to_plot = 100
 
 # Calculate and write the network analysis parameters to the output file
 write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)
@@ -172,3 +172,7 @@ write_network_analysis(output_file_path, networks_by_step, step_to_plot, network
 #ged_matrix = calculate_ged(networks_by_step)
 #output_ged_file_path = './Outputs/GED_matrix.txt'
 #save_ged_matrix(ged_matrix, output_ged_file_path)
+#file_path = './History/du_Network.txt'
+#output_file_path = './Outputs/00_du_Net_analysis.txt'
+#networks_by_step = read_multiple_networks(file_path)
+#write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)
