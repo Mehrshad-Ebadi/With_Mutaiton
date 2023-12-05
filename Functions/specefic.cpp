@@ -11,13 +11,13 @@ void genome::specefication(int tn)
 
     for (int i=0 ; i<n ; i++)
     {
-        if (ne[TN].gn[i].dg_in == 0 && ne[TN].gn[i].dg_out != 0)
+        if (ne[TN].gn[i].dg_in == 0 && ne[TN].gn[i].dg_out > 0)
         {
             ne[TN].input.push_back(i);
             ne[TN].II++;
         }
 
-        if (ne[TN].gn[i].dg_out == 0 && ne[TN].gn[i].dg_in != 0 )
+        if (ne[TN].gn[i].dg_out == 0 && ne[TN].gn[i].dg_in > 0 )
         {
             ne[TN].output.push_back(i);
             ne[TN].UU++;

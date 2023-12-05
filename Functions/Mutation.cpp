@@ -3,15 +3,15 @@
 void genome::Mutation()
 {
     int s = temp_net;
-    double nw_wght  = chance_changing_weight;    //new weight
     //double delete_nd   = 0.0003;  // delete a node  
     //double dublict_nd = 0.0002;   //duplicated a node
+    double nw_wght  = chance_changing_weight;    //new weight
     double rwrng_nw_cnnctn = chance_of_new_connetion;
     double rwrng_dl_cnnctn = chance_of_del_connection;
     
     for (int i=0 ; i<n ; i++)             
     {
-        if (ne[s].gn[i].nghbrs.size() != 0)
+        if (ne[s].gn[i].nghbrs.size() > 0)
         {
             if (ran2(&iseed) < nw_wght)                 //chance of new weight
             {
@@ -24,7 +24,6 @@ void genome::Mutation()
             if (ran2(&iseed) < rwrng_nw_cnnctn && ne[s].gn[i].nghbrs.size() < n)
             {
                 bool temmpy = true;
-                int fd=0;
                 while (temmpy)
                 {
                     int f = ran2(&iseed) * n;
@@ -38,7 +37,7 @@ void genome::Mutation()
 
             }
 
-            if (ran2(&iseed) < rwrng_dl_cnnctn && ne[s].gn[i].nghbrs.size() > 0)
+            if (ran2(&iseed) < rwrng_dl_cnnctn)
             {
                 int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
                 int FE = ne[s].gn[i].nghbrs[f];
