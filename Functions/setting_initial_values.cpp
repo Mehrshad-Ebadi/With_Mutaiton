@@ -15,6 +15,11 @@ int genome::Setting_initial_values(int N)
     chance_changing_weight   = mutation_rate;
     chance_of_del_connection = mutation_rate;
     chance_of_new_connetion  = mutation_rate;
+
+    lin_envo  = false   ;
+    Gaus_envo = false   ;
+    stp_envo  = false   ;
+    neg_envo  = false   ;
     
     Sigma = 0.1;
     Miuw = 0.0;   

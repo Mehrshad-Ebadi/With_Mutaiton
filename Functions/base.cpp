@@ -187,18 +187,55 @@ void genome::base (int N)
         du_live_list.clear();
 
     }
+
+    cout<<"simulation done, now archiving results ..."<<endl;
+
     string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
-    string archive_address = "./ARCHIVE/" + add; 
-    string comnd = "mkdir " + archive_address;
+    
+    if (lin_envo)
+    {
+        string comnd = "mkdir ./ARCHIVE/Linear_input/";
+        system (comnd.c_str());
+        add = "./ARCHIVE/Linear_input/" + add + "/";
+    }
+
+    if (Gaus_envo)
+    {
+        string comnd = "mkdir ./ARCHIVE/Gaus_input/";
+        system (comnd.c_str());
+        add = "./ARCHIVE/Gaus_input/" + add + "/";
+    }
+
+    if (stp_envo)
+    {
+        string comnd = "mkdir ./ARCHIVE/Step_input/";
+        system (comnd.c_str());
+        add = "./ARCHIVE/Step_input/" + add + "/";
+    }
+
+    if (neg_envo)
+    {
+        string comnd = "mkdir ./ARCHIVE/Negative_input/";
+        system (comnd.c_str());
+        add = "./ARCHIVE/Negative_input/" + add + "/";
+    }
+
+    string comnd;
+    
+    comnd = "mkdir " + add;
     system (comnd.c_str());
-    comnd = "cp -r ./History " + archive_address;
+
+    comnd = "cp -r ./History/ " + add;
     system (comnd.c_str());
-    comnd = "cp -r ./Outputs " + archive_address;
+    
+    comnd = "cp -r ./Outputs/ " + add;
     system (comnd.c_str());
     
     comnd = "python3 plotter.py ";
     system (comnd.c_str());
-    comnd = "cp -r ./diagrams " + archive_address;
+    
+    comnd = "cp -r ./diagrams/ " + add;
     system (comnd.c_str());
-    cout<<"simulation finished,"<< " and Results are get copied to the directory of "<<"'"<<archive_address<<"'!"<<endl;
+    
+    cout << "Results are copied to the directory of "<<"'"<<add<<"' successfully!"<<endl;
 }

@@ -62,6 +62,11 @@ class genome
     int last_number_got_filled;
 
     double ref_Envmnt;
+
+    bool lin_envo;
+    bool Gaus_envo;
+    bool stp_envo;
+    bool neg_envo;
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int);
