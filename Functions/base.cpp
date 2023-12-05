@@ -187,6 +187,18 @@ void genome::base (int N)
         du_live_list.clear();
 
     }
-
-    cout<<"done!!"<<endl;
+    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
+    string archive_address = "./ARCHIVE/" + add; 
+    string comnd = "mkdir " + archive_address;
+    system (comnd.c_str());
+    comnd = "cp -r ./History " + archive_address;
+    system (comnd.c_str());
+    comnd = "cp -r ./Outputs " + archive_address;
+    system (comnd.c_str());
+    
+    comnd = "python3 plotter.py ";
+    system (comnd.c_str());
+    comnd = "cp -r ./diagrams " + archive_address;
+    system (comnd.c_str());
+    cout<<"simulation finished,"<< " and Results are get copied to the directory of "<<"'"<<archive_address<<"'!"<<endl;
 }
