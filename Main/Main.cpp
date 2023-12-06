@@ -29,7 +29,5 @@ int main ()
         genome GM;
         GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, per_iso, envi_func);
     }
-    
-
 
 }
