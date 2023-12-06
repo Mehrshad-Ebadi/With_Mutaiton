@@ -22,8 +22,8 @@ void genome::base (int Nu_n)
     for (int i=0 ; i<number_networks; i++)
     {
         temp_net = i;
-        string data = "./Results/Net_";
-        string du_data = "./Results_du/Net_du_";
+        string data = "./Population_pool/Results/Net_";
+        string du_data = "./Population_pool/Results_du/Net_du_";
         
         string Extension = ".txt";
         string HH = to_string(i);
