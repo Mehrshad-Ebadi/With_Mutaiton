@@ -8,6 +8,8 @@ void genome::base (int N)
     ofstream enviroment ("./Outputs/envi.txt");
     ofstream uni ("./Outputs/uni.txt");
     ofstream du_uni ("./Outputs/du_uni.txt"); 
+    ofstream iso ("./Outputs/iso.txt");
+    ofstream du_iso ("./Outputs/du_iso.txt");
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
@@ -35,8 +37,8 @@ void genome::base (int N)
 
     Nedg = Nedg / number_networks;
     du_Nedg = du_Nedg / number_networks;
-    min_isolated_percent = n * 0.8;
-    du_min_isolated_percent = nn * 0.8;
+    min_isolated_percent = 0.9 * n;
+    du_min_isolated_percent = 0.9 *  nn;
 
     vector <int> dead_list;
     vector <int> du_dead_list;
@@ -56,12 +58,11 @@ void genome::base (int N)
 
         if (ini % 200 == 0)
         {
-            cout<<"saving st="<<ini<<endl;
+            cout<<"st="<<ini<<endl;
             ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
             temp << evolve <<endl;
             temp << number_networks <<endl;
             save(number_networks, ini);
-            cout<<"Written!"<<endl;
         }
         for (int pl=0 ; pl < number_networks ; pl++)
         {
@@ -173,6 +174,17 @@ void genome::base (int N)
             du_E += dn[po].edges;
         }
 
+        int is = 0;
+        int du_is =0;
+
+        for (int po=0 ; po<number_networks ; po++)
+        { 
+            is += ne[po].n_isolate;
+            du_is += dn[po].n_isolate;
+        } 
+
+        iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
+        du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
         eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
@@ -188,7 +200,7 @@ void genome::base (int N)
 
     }
 
-    cout<<"simulation done, now archiving results ..."<<endl;
+    cout<<'\n'<<"simulation done, wait ..."<<endl;
 
     string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
     

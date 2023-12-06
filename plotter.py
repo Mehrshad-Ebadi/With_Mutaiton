@@ -34,12 +34,14 @@ plt.scatter([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orang
 plt.xlabel("Time Steps")
 plt.ylabel("S")
 plt.legend()
+plt.grid()
 plt.savefig('./diagrams/survivebility.png',dpi=400)
 plt.close()
 
 plt.plot([i[0] for i in Z], [i[1] for i in Z],color='black', lw=0.2)
 plt.xlabel("Time steps")
 plt.ylabel("Input value")
+plt.grid()
 plt.savefig('./diagrams/env.png',dpi=400)
 plt.close()
 
@@ -51,6 +53,7 @@ plt.xscale('log')
 #plt.xlim(0,400)
 plt.xlabel("log [Time steps]")
 plt.ylabel("log[Number of Unique networks]")
+plt.grid()
 plt.savefig('./diagrams/un.png',dpi=400)
 plt.close()
 
@@ -58,5 +61,18 @@ plt.plot([i[0] for i in J], [i[1] for i in J],label='non-duplicated_edges',color
 plt.plot([i[0] for i in Q], [i[1] for i in Q],label='duplicated_edges',color='orange', alpha=0.6)
 plt.xlabel("Time step")
 plt.ylabel("Edges")
+plt.grid()
 plt.savefig('./diagrams/edge.png',dpi=400)
+plt.close()
+
+
+J = np.loadtxt("./Outputs/iso.txt")
+Q = np.loadtxt("./Outputs/du_iso.txt")
+
+plt.scatter([i[0] for i in J], [i[1] for i in J],label='non-duplicated_n_iso',color='blue', s=2)
+plt.scatter([i[0] for i in Q], [i[1] for i in Q],label='duplicated_n_iso',color='orange', alpha=0.6, s=2)
+plt.xlabel("Time step")
+plt.ylabel("number of isolated")
+plt.grid()
+plt.savefig('./diagrams/iso.png',dpi=400)
 plt.close()
