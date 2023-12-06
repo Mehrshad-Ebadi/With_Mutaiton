@@ -203,7 +203,7 @@ void genome::base (int N)
     cout<<'\n'<<"simulation done, wait ..."<<endl;
     string comnd = "mkdir ./ARCHIVE";
     system (comnd.c_str());
-    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
+    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt) + "," + "Max_iso_si=" + to_string(min_isolated_percent);
     
     if (lin_envo)
     {
