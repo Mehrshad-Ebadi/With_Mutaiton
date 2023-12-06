@@ -1,19 +1,22 @@
 #include "../Headers/Genome.hpp"
 
-int genome::Setting_initial_values(int N)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, float per_iso, int func_env)
 {
     string rem = "rm ./Outputs/*.txt";
     string hem = "rm ./History/*.txt";
     system (rem.c_str());
     system (hem.c_str());
-    ifstream INPUT ("./input/parameters.csv");
-    int number_networks;
-    double mutation_rate;
-    INPUT >> step >> number_networks >> mutation_rate >> ref_Envmnt >> max_isolated;
+    int number_networks = Nn_net;
+
+    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t'  << per_iso<< '\t' << func_env << endl;
+    step = st;
     
-    chance_changing_weight   = mutation_rate;
-    chance_of_del_connection = mutation_rate;
-    chance_of_new_connetion  = mutation_rate;
+    chance_changing_weight   = Mute_R;
+    chance_of_del_connection = Mute_R;
+    chance_of_new_connetion  = Mute_R;
+    max_isolated = per_iso;
+    ref_Envmnt = env_ref;
+    environment_selector = func_env;
 
     lin_envo  = false   ;
     Gaus_envo = false   ;
@@ -96,5 +99,5 @@ int genome::Setting_initial_values(int N)
     ofstream du_net_char ("./Outputs/00_du_Net_analysis.txt");
     net_char << "step" <<','<<"net"<<','<<"Mn_ideg"<<","<<"Mn_odeg"<<","<<"cl_c"<<endl;
     du_net_char << "step" <<','<<"net"<<','<<"Mn_ideg"<<","<<"Mn_odeg"<<","<<"cl_c"<<endl;
-    return number_networks;
+    base(number_networks);
 }

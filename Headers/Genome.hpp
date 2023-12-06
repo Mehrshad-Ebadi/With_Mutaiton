@@ -24,9 +24,9 @@ class genome
     int n;
     int nn;
     long int iseed;
-    int selected_node;
+    int selected_node, environment_selector;
 
-    double max_isolated;
+    float max_isolated;
 
     double chance_changing_weight;
     double chance_of_new_connetion;
@@ -48,14 +48,7 @@ class genome
     double du_fit;
 
     double Sigma;
-    double Miuw;
-    
-    double ref_omega;
-    
-    double du_ref_omega;
-    
-    int du_ref_alive;
-    int ref_alive;
+    double Miuw;    
 
     int du_last_number_got_filled;
     int last_number_got_filled;
@@ -69,7 +62,7 @@ class genome
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int);
-    int Setting_initial_values(int);
+    void Setting_initial_values(int, int, int, float, double, float, int);
 
     void Reader(string);
     void du_Reader(string);

@@ -5,7 +5,6 @@ double genome::Environment_li(int random_value, int step)
 
     //linear environment:
     double evolve = (static_cast<double>(random_value) / step) + ref_Envmnt ; 
-    lin_envo = true;
     return evolve;
 }
 
@@ -17,7 +16,6 @@ double genome::Environment_Ga()
     mt19937 gen(rd());
     normal_distribution<double> distribution(mean, std::sqrt(variance));
     double evolve = distribution(gen);
-    Gaus_envo = true;
     return evolve;
 }
     
@@ -30,8 +28,6 @@ double genome::Environment_no_l(int random_value, int step)
     mt19937 gen(rd());
     normal_distribution<double> distribution(mean, std::sqrt(variance));
     double evolve = distribution(gen) + random_value;
-    stp_envo = true;
-
     return evolve;
 }
 
@@ -39,6 +35,5 @@ double genome::Environment_no_l(int random_value, int step)
 double genome::Environment_neg(int random_value, int step)
 {
     double evolve = ref_Envmnt  - (static_cast<double>(random_value) / step); 
-    neg_envo = true;
     return evolve;
 }

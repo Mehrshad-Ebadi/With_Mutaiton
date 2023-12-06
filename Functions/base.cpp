@@ -1,8 +1,8 @@
 #include "../Headers/Genome.hpp"
 
-void genome::base (int N)
+void genome::base (int Nu_n)
 {
-    int number_networks = Setting_initial_values(N);
+    int number_networks = Nu_n;
     ofstream Alive_counter ("./Outputs/Alive.txt");
     ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
     ofstream enviroment ("./Outputs/envi.txt");
@@ -47,10 +47,29 @@ void genome::base (int N)
     
     for (int ini=0  ; ini < (4*step) ; ini++)
     {
-        evolve = Environment_li(ini, step) ; //for linear and step based increase
-        //evolve = Environment_Ga(); //Gaus environment
-        //evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
-        //evolve = Environment_neg(ini, step); //Negative gradients
+        switch (environment_selector)
+        {
+            case 0 :
+                lin_envo = true;
+                evolve = Environment_li(ini, step);
+                break;
+            
+            case 1:
+                Gaus_envo = true;
+                evolve = Environment_Ga(); //Gaus environment
+                break;
+
+            case 2:
+                stp_envo = true;
+                evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
+                break;
+            
+            case 3:
+                neg_envo = true;
+                evolve = Environment_neg(ini, step); //Negative gradients
+                break;
+        }
+
         fit = 0;
         du_fit = 0;
         double KAPA = 0;
