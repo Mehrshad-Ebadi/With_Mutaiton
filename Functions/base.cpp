@@ -201,38 +201,39 @@ void genome::base (int N)
     }
 
     cout<<'\n'<<"simulation done, wait ..."<<endl;
-
+    string comnd = "mkdir ./ARCHIVE";
+    system (comnd.c_str());
     string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
     
     if (lin_envo)
     {
-        string comnd = "mkdir ./ARCHIVE/Linear_input/";
+        comnd = "mkdir ./ARCHIVE/Linear_input/";
         system (comnd.c_str());
         add = "./ARCHIVE/Linear_input/" + add + "/";
     }
 
     if (Gaus_envo)
     {
-        string comnd = "mkdir ./ARCHIVE/Gaus_input/";
+        comnd = "mkdir ./ARCHIVE/Gaus_input/";
         system (comnd.c_str());
         add = "./ARCHIVE/Gaus_input/" + add + "/";
     }
 
     if (stp_envo)
     {
-        string comnd = "mkdir ./ARCHIVE/Step_input/";
+        comnd = "mkdir ./ARCHIVE/Step_input/";
         system (comnd.c_str());
         add = "./ARCHIVE/Step_input/" + add + "/";
     }
 
     if (neg_envo)
     {
-        string comnd = "mkdir ./ARCHIVE/Negative_input/";
+        comnd = "mkdir ./ARCHIVE/Negative_input/";
         system (comnd.c_str());
         add = "./ARCHIVE/Negative_input/" + add + "/";
     }
 
-    string comnd;
+    
     
     comnd = "mkdir " + add;
     system (comnd.c_str());
