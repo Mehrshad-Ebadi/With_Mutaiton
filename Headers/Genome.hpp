@@ -26,9 +26,8 @@ class genome
     long int iseed;
     int selected_node;
 
-    int min_isolated_percent;
-    int du_min_isolated_percent;
-    
+    double max_isolated;
+
     double chance_changing_weight;
     double chance_of_new_connetion;
     double chance_of_del_connection;

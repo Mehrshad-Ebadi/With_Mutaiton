@@ -9,8 +9,7 @@ int genome::Setting_initial_values(int N)
     ifstream INPUT ("./input/parameters.csv");
     int number_networks;
     double mutation_rate;
-    cout<<"before mutaiton"<<endl;
-    INPUT >> step >> number_networks >> mutation_rate >> ref_Envmnt;
+    INPUT >> step >> number_networks >> mutation_rate >> ref_Envmnt >> max_isolated;
     
     chance_changing_weight   = mutation_rate;
     chance_of_del_connection = mutation_rate;
