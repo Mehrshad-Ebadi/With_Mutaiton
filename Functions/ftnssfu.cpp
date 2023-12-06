@@ -34,5 +34,5 @@ double genome::Self_regulation()
     if (randomNumber == 0)
         randomNumber = 1;
     
-    return (randomNumber + 100);
+    return randomNumber;
 }
