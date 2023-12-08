@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-double genome::parameters ()
+double genome::parameters (int temp_net)
 {
     int s = temp_net;
     ne[s].xx = 0;
@@ -16,7 +16,7 @@ double genome::parameters ()
 }
 
 
-double genome::du_parameters ()
+double genome::du_parameters (int temp_net)
 {
     int s = temp_net;
     dn[s].XX = 0;

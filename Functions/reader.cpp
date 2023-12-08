@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Reader(string location)
+void genome::Reader(string location, int temp_net)
 {
     
     ifstream NetWork (location);
@@ -19,14 +19,11 @@ void genome::Reader(string location)
         }
     }
 
-    ne[temp_net].unique = true;
     NetWork.close();
-    ne[temp_net].living = true;
     specefication(temp_net);
-
 }
 
-void genome::du_Reader(string du_location)
+void genome::du_Reader(string du_location, int temp_net)
 {
     ifstream NetWork (du_location);
 
@@ -44,8 +41,6 @@ void genome::du_Reader(string du_location)
         }
     }
 
-    dn[temp_net].unique = true;
     NetWork.close();
-    dn[temp_net].living = true;
     du_specefication(temp_net);
 }

@@ -45,8 +45,6 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
         ne[i].unique = true;
         ne[i].n_isolate = 0;
         ne[i].n = n;
-        //ne[i].input = nullptr;
-        //ne[i].output = nullptr;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -66,8 +64,6 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
         dn[i].unique = true;
         dn[i].n_isolate = 0;
         dn[i].nn = nn;
-        //dn[i].du_input = nullptr;
-        //dn[i].du_output = nullptr;
 
         for (int z=0 ; z<nn ; z++)
         {
@@ -76,9 +72,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
             dn[i].du[z].dg_out = 0;    
             dn[i].du[z].weights = 0;    
             dn[i].du[z].slf_cntrl = 0;
-            
             dn[i].du[z].isolated = false;
-            
         } 
 
         for (int z=0 ; z<n ; z++)
@@ -95,9 +89,5 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
     }
     
     iseed = 20L * time(0); 
-    ofstream net_char ("./Outputs/00Net_analysis.txt");
-    ofstream du_net_char ("./Outputs/00_du_Net_analysis.txt");
-    net_char << "step" <<','<<"net"<<','<<"Mn_ideg"<<","<<"Mn_odeg"<<","<<"cl_c"<<endl;
-    du_net_char << "step" <<','<<"net"<<','<<"Mn_ideg"<<","<<"Mn_odeg"<<","<<"cl_c"<<endl;
     base(number_networks);
 }

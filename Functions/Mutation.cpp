@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Mutation()
+void genome::Mutation(int temp_net)
 {
     int s = temp_net;
     //double delete_nd   = 0.0003;  // delete a node  

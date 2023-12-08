@@ -1,7 +1,7 @@
 #include "../Headers/Genome.hpp"
 
 
-void genome::memory_Deleter()
+void genome::memory_Deleter(int temp_net)
 {
     int s = temp_net;
     ne[s].input.clear();
@@ -32,7 +32,7 @@ void genome::memory_Deleter()
     
 }
 
-void genome::du_memory_Deleter()
+void genome::du_memory_Deleter(int temp_net)
 {
     int s = temp_net;
     dn[s].input.clear();

@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::du_Mutation()
+void genome::du_Mutation(int temp_net)
 {
     int s = temp_net;
     double equ_mt= 2.0;  //by dividing all mutation rate of the single networks by this value, we make the mutaiton rate of the single and doubles identical to each other

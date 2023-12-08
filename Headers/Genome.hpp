@@ -36,7 +36,6 @@ class genome
     public:
     //vector <int> du_Alive;
     int step;
-    int temp_net;
     //vector <float> du_ftnss_saver;
     Net* ne;
     dNet* dn;
@@ -64,8 +63,8 @@ class genome
     void base (int);
     void Setting_initial_values(int, int, int, float, double, float, int);
 
-    void Reader(string);
-    void du_Reader(string);
+    void Reader(string, int);
+    void du_Reader(string, int);
     double Self_regulation (); //in the fitness function file
     
     void connect (int, int, double, int);
@@ -74,24 +73,24 @@ class genome
     void specefication(int);
     void du_specefication(int);
 
-    void Mutation();
-    void du_Mutation();
+    void Mutation(int);
+    void du_Mutation(int);
 
-    void Evolution(double);
-    void du_Evolution(double);
+    void Evolution(double, int);
+    void du_Evolution(double, int);
 
-    void updater (int);
-    void du_updater(int);
+    void updater (int, int);
+    void du_updater(int, int);
     
-    double parameters();
-    double du_parameters();
+    double parameters(int);
+    double du_parameters(int);
 
     double Fitness_func(double);
     
     double The_Function (double);
 
-    void memory_Deleter();
-    void du_memory_Deleter();
+    void memory_Deleter(int);
+    void du_memory_Deleter(int);
 
     void Copy(int, int);
     void du_Copy(int, int);

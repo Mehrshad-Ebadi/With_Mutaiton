@@ -21,7 +21,6 @@ void genome::base (int Nu_n)
 
     for (int i=0 ; i<number_networks; i++)
     {
-        temp_net = i;
         string data = "./Population_pool/Results/Net_";
         string du_data = "./Population_pool/Results_du/Net_du_";
         
@@ -30,8 +29,8 @@ void genome::base (int Nu_n)
         
         string location = data + HH + Extension;
         string du_location = du_data + HH + Extension;    
-        Reader(location);
-        du_Reader(du_location);
+        Reader(location, i);
+        du_Reader(du_location, i);
         
     }
 
@@ -70,34 +69,22 @@ void genome::base (int Nu_n)
                 break;
         }
 
-        fit = 0;
-        du_fit = 0;
-        double KAPA = 0;
-    
-
         if (ini % 200 == 0)
         {
             cout<<"st="<<ini<<endl;
-            ofstream temp ("./Outputs/temp.txt", ios::out | ios::trunc); 
-            temp << evolve <<endl;
-            temp << number_networks <<endl;
             save(number_networks, ini);
         }
+
         for (int pl=0 ; pl < number_networks ; pl++)
         {
             //cout<<"evol"<<evolve<<endl;
             //cout<<"net="<<pl<<" step = " << ini <<endl;
-
-            string ancestor_saving = "./Outputs/inheritate.txt";
-            string du_ancestor_saving = "./Outputs/du_inheritate.txt";
-            temp_net = pl;
-
             // for single networks ....   
             if (ne[pl].living == true)          //checking if the single network in that location is available ...
             {   
-                Mutation();
-                Evolution(evolve);
-                KAPA = evolve - parameters();
+                //Mutation(pl);
+                Evolution(evolve, pl);
+                double KAPA = evolve - parameters(pl);
                 ne[pl].fitness = Fitness_func(KAPA);
 
                 if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
@@ -107,12 +94,12 @@ void genome::base (int Nu_n)
                     live_list.push_back(pl);
                 }
                 
-                else 
-                {
-                    dead_list.push_back(pl);
-                    ne[pl].living = false;
-                    memory_Deleter();
-                }
+                //else 
+                //{
+                //    dead_list.push_back(pl);
+                //    ne[pl].living = false;
+                //    memory_Deleter(pl);
+                //}
             }
             
             //else dead_list.push_back(pl);
@@ -120,9 +107,9 @@ void genome::base (int Nu_n)
             //now the same upper block, but for the duplications
             if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
             {   
-                du_Mutation();
-                du_Evolution(evolve);
-                KAPA = evolve - du_parameters();
+                //du_Mutation(pl);
+                du_Evolution(evolve, pl);
+                double KAPA = evolve - du_parameters(pl);
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
@@ -133,12 +120,12 @@ void genome::base (int Nu_n)
                     du_live_list.push_back(pl);
                 }
                 
-                else 
-                {
-                    du_dead_list.push_back(pl);
-                    dn[pl].living = false;
-                    du_memory_Deleter();
-                }
+                //else 
+                //{
+                //    du_dead_list.push_back(pl);
+                //    dn[pl].living = false;
+                //    du_memory_Deleter(pl);
+                //}
             }
 
             //else du_dead_list.push_back(pl);
@@ -161,17 +148,17 @@ void genome::base (int Nu_n)
         
         //the whole block is for single networks ...
         
-        if (dead_list.size() != 0 && live_list.size() != 0)
-        {
-            Chance_of_repro(live_list, dead_list);
-        }
-        
-        //now the block of the duplicated network with the same tasks ...
-        
-        if (du_dead_list.size() != 0 && du_live_list.size() != 0)
-        {
-            du_Chance_of_repro(du_live_list, du_dead_list);
-        }
+        //if (dead_list.size() != 0 && live_list.size() != 0)
+        //{
+        //    Chance_of_repro(live_list, dead_list);
+        //}
+        //
+        ////now the block of the duplicated network with the same tasks ...
+        //
+        //if (du_dead_list.size() != 0 && du_live_list.size() != 0)
+        //{
+        //    du_Chance_of_repro(du_live_list, du_dead_list);
+        //}
 
         for (int a=0 ; a<number_networks ; a++)     
         {
@@ -213,9 +200,13 @@ void genome::base (int Nu_n)
             break;
 
         dead_list.clear();
+        dead_list.shrink_to_fit();
         du_dead_list.clear();
+        du_dead_list.shrink_to_fit();
         live_list.clear();
+        live_list.shrink_to_fit();
         du_live_list.clear();
+        du_live_list.shrink_to_fit();
 
     }
 

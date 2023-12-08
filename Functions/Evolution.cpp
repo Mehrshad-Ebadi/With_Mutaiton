@@ -1,7 +1,7 @@
 #include "../Headers/Genome.hpp"
 
 
-void genome::Evolution(double evolve)
+void genome::Evolution(double evolve, int temp_net)
 {   
     int s = temp_net;
     if (ne[s].II > 0)
@@ -22,12 +22,12 @@ void genome::Evolution(double evolve)
             
             ne[s].gn[node2].weights = The_Function(VV);
             ne[s].gn[node2].nm_up ++;
-            updater (node2);
+            updater (node2, s);
         }
     }
 }
 
-void genome::updater (int nodex)
+void genome::updater (int nodex, int temp_net)
 {   
     int s = temp_net;
     
@@ -46,7 +46,7 @@ void genome::updater (int nodex)
 
             ne[s].gn[node4].weights = The_Function(values);
             ne[s].gn[node4].nm_up ++;
-            updater (node4);
+            updater (node4, s);
         }
     }
 }
