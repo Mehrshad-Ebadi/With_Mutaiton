@@ -35,6 +35,6 @@ double genome::Self_regulation()
         randomNumber = 1;
     
     //randomNumber += 50000;
-    randomNumber = 200000;
+    randomNumber = 4000;
     return randomNumber;
 }

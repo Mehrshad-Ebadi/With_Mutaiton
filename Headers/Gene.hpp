@@ -11,13 +11,14 @@ class gene
     bool isolated;
     vector <int> nghbrs;
     vector <int> Connected;
+    vector <int> updte_list;
     
     gene () {
 
     }
 
     ~gene (){
-
+        updte_list.clear();
     }
 
 

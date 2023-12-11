@@ -17,6 +17,7 @@ void genome::Reader(string location, int temp_net)
                 Nedg++ ;
             }
         }
+        ne[temp_net].gn[j].slf_cntrl = Self_regulation();
     }
 
     NetWork.close();
@@ -39,6 +40,8 @@ void genome::du_Reader(string du_location, int temp_net)
                 du_Nedg++ ;
             }
         }
+
+        dn[temp_net].du[j].slf_cntrl = Self_regulation();
     }
 
     NetWork.close();

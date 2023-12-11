@@ -29,7 +29,7 @@ void genome::specefication(int tn)
             ne[TN].gn[i].isolated = true;
         }
     }
-
+    
 }
 
 void genome::du_specefication(int tn)

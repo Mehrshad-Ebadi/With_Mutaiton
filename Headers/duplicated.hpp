@@ -11,12 +11,14 @@ class dupli
     bool isolated;
     vector <int> nghbrs;
     vector <int> Connected;
+    vector <int> updte_list;
+    
     dupli() {
 
     }
 
-    ~dupli(){
-
+    ~dupli(){   
+        updte_list.clear();
     }
 
 

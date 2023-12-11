@@ -86,7 +86,6 @@ void genome::base (int Nu_n)
                 Evolution(evolve, pl);
                 double KAPA = evolve - parameters(pl);
                 ne[pl].fitness = Fitness_func(KAPA);
-                cout<< "fitness=" << ne[pl].fitness <<" input="<<evolve<<" iso="<<ne[pl].n_isolate<< "output="<<ne[pl].xx<<endl;
                 if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
                 {
                     ne[pl].living = true;
@@ -131,18 +130,17 @@ void genome::base (int Nu_n)
             //else du_dead_list.push_back(pl);
             //cout<<dn[pl].n_isolate<<endl;
         }
-        int w=0;
-        for (int i=0 ; i<number_networks; i++)
-            if (ne[i].xx == 0)
-            {
-                w++;
-                cout<<ini<<'\t'<<ne[i].input[0]<<'\t'<<i<<endl;
-                cout<<"II="<<ne[i].II << " size=" <<ne[i].input.size()<<endl;
-            }
-            
-
-        cout<<"W= "<<w<<endl;
-        cin>>w;
+        //int w=0;
+        //for (int i=0 ; i<number_networks; i++)
+        //    if (ne[i].xx == 0)
+        //    {
+        //        w++;
+        //        cout<<ini<<'\t'<<ne[i].input[0]<<'\t'<<i<<endl;
+        //        cout<<"II="<<ne[i].II << " size=" <<ne[i].input.size()<<endl;
+        //    }
+//
+        //cout<<"W= "<<w<<endl;
+        //cin>>w;
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (dn[i].living == true)

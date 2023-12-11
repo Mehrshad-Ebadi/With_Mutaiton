@@ -27,6 +27,7 @@ void genome::Copy(int idl, int slv)
     {
         ne[slv].gn[F].dg_in = ne[idl].gn[F].dg_in;
         ne[slv].gn[F].dg_out = ne[idl].gn[F].dg_out;
+        ne[slv].gn[F].slf_cntrl = ne[idl].gn[F].slf_cntrl;
         
         ne[slv].gn[F].nghbrs = ne[idl].gn[F].nghbrs;
         ne[slv].gn[F].Connected = ne[idl].gn[F].Connected;

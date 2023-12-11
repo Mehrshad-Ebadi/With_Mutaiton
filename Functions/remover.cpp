@@ -16,6 +16,7 @@ void genome::memory_Deleter(int temp_net)
     {
         ne[s].gn[F].dg_in = 0;
         ne[s].gn[F].dg_out = 0;
+        ne[s].gn[F].slf_cntrl = 0;
 
         ne[s].gn[F].nghbrs.clear();
         // /ne[s].gn[F].nghbrs.shrink_to_fit();
@@ -46,7 +47,8 @@ void genome::du_memory_Deleter(int temp_net)
     for (int F=0 ; F<nn ; F++)
     {
         dn[s].du[F].dg_in = 0;
-        dn[s].du[F].dg_out = 0;     
+        dn[s].du[F].dg_out = 0;    
+        dn[s].du[F].slf_cntrl = 0; 
         
         dn[s].du[F].nghbrs.clear();
         dn[s].du[F].nghbrs.shrink_to_fit();
