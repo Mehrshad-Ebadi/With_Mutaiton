@@ -4,6 +4,7 @@
 void genome::Evolution(double evolve, int temp_net)
 {   
     int s = temp_net;
+
     if (ne[s].II > 0)
     {
         selected_node = ne[s].input[0];

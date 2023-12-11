@@ -24,6 +24,8 @@ public:
         for (int i = 0; i < n; ++i) 
         {
             delete[] adjac[i];
+            input.clear();
+            output.clear();
         }
         delete [] adjac;
 

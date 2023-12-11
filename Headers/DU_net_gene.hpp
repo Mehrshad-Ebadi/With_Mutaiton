@@ -27,6 +27,8 @@ class dNet
         for (int i = 0; i < nn ; ++i) 
         {
             delete[] du_adjac[i];
+            input.clear();
+            output.clear();
         }
         delete [] du_adjac;
 
