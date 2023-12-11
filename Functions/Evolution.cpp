@@ -12,6 +12,8 @@ void genome::Evolution(double evolve, int temp_net)
 
         for (int i=0; i<n ; i++)
         {
+            ne[s].gn[i].updte_list.clear();
+            ne[s].gn[i].updte_list.shrink_to_fit();
             ne[s].gn[i].updte_list = ne[s].gn[i].nghbrs;
         }
 
@@ -47,6 +49,7 @@ void genome::updater (int nodex, int temp_net)
     int s = temp_net;
     
     int i=0;
+    
     while (i < ne[s].gn[nodex].updte_list.size())
     {   
         double values = 0;
