@@ -26,8 +26,6 @@ class genome
     long int iseed;
     int selected_node, environment_selector;
 
-    float max_isolated;
-
     double chance_changing_weight;
     double chance_of_new_connetion;
     double chance_of_del_connection;
@@ -61,7 +59,7 @@ class genome
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int);
-    void Setting_initial_values(int, int, int, float, double, float, int);
+    void Setting_initial_values(int, int, int, float, double, int);
 
     void Reader(string, int);
     void du_Reader(string, int);

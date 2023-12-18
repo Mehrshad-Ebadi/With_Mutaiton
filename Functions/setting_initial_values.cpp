@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, float per_iso, int func_env)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, int func_env)
 {
     string rem = "rm ./Outputs/*.txt";
     string hem = "rm ./History/*.txt";
@@ -8,13 +8,12 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
     system (hem.c_str());
     int number_networks = Nn_net;
 
-    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t'  << per_iso<< '\t' << func_env << endl;
+    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;
     step = st;
     
     chance_changing_weight   = Mute_R;
     chance_of_del_connection = Mute_R;
     chance_of_new_connetion  = Mute_R;
-    max_isolated = per_iso;
     ref_Envmnt = env_ref;
     environment_selector = func_env;
 

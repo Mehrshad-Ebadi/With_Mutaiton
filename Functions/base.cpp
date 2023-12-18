@@ -35,8 +35,8 @@ void genome::base (int Nu_n)
 
     Nedg = Nedg / number_networks;
     du_Nedg = du_Nedg / number_networks;
-    int du_min_isolated_percent = max_isolated * nn;
-    int min_isolated_percent = max_isolated * n;
+    int du_min_isolated_percent = nn-2;
+    int min_isolated_percent = n-2;
 
     vector <int> dead_list;
     vector <int> du_dead_list;
@@ -84,7 +84,7 @@ void genome::base (int Nu_n)
                 double KAPA = evolve - parameters(pl);
                 ne[pl].fitness = Fitness_func(KAPA);
                 
-                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
+                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate <= min_isolated_percent)
                 {
                     ne[pl].living = true;
                     fit += ne[pl].fitness; 
@@ -110,7 +110,7 @@ void genome::base (int Nu_n)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < du_min_isolated_percent)
+                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate <= du_min_isolated_percent)
                 {
                     dn[pl].living == true;
                     du_fit += dn[pl].fitness;
@@ -208,7 +208,7 @@ void genome::base (int Nu_n)
     cout<<'\n'<<"simulation done, wait ..."<<endl;
     string comnd = "mkdir ./ARCHIVE";
     system (comnd.c_str());
-    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt) + "," + "Max_iso=" + to_string(max_isolated);
+    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
     
     if (lin_envo)
     {
