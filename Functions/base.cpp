@@ -83,7 +83,7 @@ void genome::base (int Nu_n)
                 Evolution(evolve, pl);
                 double KAPA = evolve - parameters(pl);
                 ne[pl].fitness = Fitness_func(KAPA);
-
+                
                 if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
                 {
                     ne[pl].living = true;

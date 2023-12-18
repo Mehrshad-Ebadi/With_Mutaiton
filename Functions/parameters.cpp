@@ -4,7 +4,7 @@ double genome::parameters (int temp_net)
 {
     int s = temp_net;
     ne[s].xx = 0;
-
+    
     for (int i=0 ; i<ne[s].output.size() ; i++) 
     {
         int j = ne[s].output[i];
