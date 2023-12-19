@@ -70,8 +70,8 @@ void genome::updater (int nodex, int temp_net)
 
             ne[s].gn[node4].weights = The_Function(values);
             ne[s].gn[node4].nm_up ++;
-            i++;
             updater (node4, s);
+            i++;
         }
     }
     
