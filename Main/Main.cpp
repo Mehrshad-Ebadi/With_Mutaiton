@@ -37,20 +37,25 @@ int main ()
                 {
                     case 0:
                         env_ref = 0;
+                        break;
                 
                     case 1:
                         env_ref = 0.1;
-                    
+                        break;
+
                     case 2:
                         env_ref = 0.5;
-                    
+                        break;
+
                     case 3:
                         env_ref = 1.0;
-                    
+                        break;
+
                     case 4:
                         env_ref = 1.2;
+                        break;
                 }
-
+                
                 genome GM;
                 GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func);
             }

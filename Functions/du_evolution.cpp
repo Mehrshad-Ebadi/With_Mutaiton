@@ -35,8 +35,8 @@ void genome::du_Evolution(double evolve, int temp_net)
 
                 dn[s].du[node2].weights = The_Function(VV);
                 dn[s].du[node2].nm_up ++;
-                d++;
                 du_updater (node2, s);
+                d++;
             }
         }
     }
@@ -67,8 +67,8 @@ void genome::du_updater (int nodex, int temp_net)
 
             dn[s].du[node4].weights = The_Function(values);
             dn[s].du[node4].nm_up ++;
-            i++;
             du_updater (node4, s);
+            i++;
         }
     }
     

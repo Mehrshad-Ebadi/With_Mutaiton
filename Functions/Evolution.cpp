@@ -37,8 +37,8 @@ void genome::Evolution(double evolve, int temp_net)
 
                 ne[s].gn[node2].weights = The_Function(VV);
                 ne[s].gn[node2].nm_up ++;
-                d++;
                 updater (node2, s);
+                d++;
             }
         }
     }
