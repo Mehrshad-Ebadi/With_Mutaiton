@@ -54,7 +54,7 @@ void genome::base (int Nu_n)
             
             case 1:
                 Gaus_envo = true;
-                evolve = Environment_Ga(); //Gaus environment
+                evolve = ref_Envmnt +  Environment_Ga(); //Gaus environment
                 break;
 
             case 2:
@@ -68,11 +68,11 @@ void genome::base (int Nu_n)
                 break;
         }
 
-        if (ini % 200 == 0)
-        {
-            cout<<"st="<<ini<<endl;
-            save(number_networks, ini);
-        }
+        //if (ini % 200 == 0)
+        //{
+        //    cout<<"st="<<ini<<endl;
+        //    save(number_networks, ini);
+        //}
 
         for (int pl=0 ; pl < number_networks ; pl++)
         {
@@ -84,7 +84,7 @@ void genome::base (int Nu_n)
                 double KAPA = evolve - parameters(pl);
                 ne[pl].fitness = Fitness_func(KAPA);
                 
-                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < min_isolated_percent)
+                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < n-2)
                 {
                     ne[pl].living = true;
                     fit += ne[pl].fitness; 
@@ -110,7 +110,7 @@ void genome::base (int Nu_n)
                 KAPA = Fitness_func(KAPA);
                 dn[pl].fitness = KAPA;
                 
-                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < du_min_isolated_percent)
+                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < nn-2)
                 {
                     dn[pl].living == true;
                     du_fit += dn[pl].fitness;
@@ -161,9 +161,9 @@ void genome::base (int Nu_n)
             
             if (dn[a].unique == true)   du_Un++;
         }
-        //st=0;
+        //int st=0;
         //for (int i=0 ; i<number_networks; i++)
-        //    if (dn[i].living == true)
+        //    if (ne[i].living == true)
         //        st++;
         //cout<<"after copy = "<<st<<endl;
         double E=0;
@@ -208,7 +208,7 @@ void genome::base (int Nu_n)
     cout<<'\n'<<"simulation done, wait ..."<<endl;
     string comnd = "mkdir ./ARCHIVE";
     system (comnd.c_str());
-    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt) + "," + "Max_iso=";
+    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
     
     if (lin_envo)
     {

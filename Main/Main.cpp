@@ -23,7 +23,7 @@ int main ()
     int envi_func;
     
 
-    for (int jk=0 ; jk<lineCount ; jk++)
+    /*for (int jk=0 ; jk<lineCount ; jk++)
     {
         Predifined >> Mute_R;
 
@@ -60,5 +60,11 @@ int main ()
                 GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func);
             }
         }
-    }
+    }*/
+
+    Mute_R = 0.1;
+    envi_func = 2;
+    env_ref = 1.0;
+    genome GM;
+    GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func);
 }

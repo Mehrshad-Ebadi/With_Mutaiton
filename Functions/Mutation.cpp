@@ -32,9 +32,8 @@ void genome::Mutation(int temp_net)
                         connect(i, f, gasdev(&iseed), s);
                         specefication(s);
                         temmpy = false;
-                    }                
+                    }
                 }
-
             }
 
             if (ran2(&iseed) < rwrng_dl_cnnctn)
@@ -45,7 +44,6 @@ void genome::Mutation(int temp_net)
                 ne[s].adjac[i][FE] = 0;
                 ne[s].edges --;
                 ne[s].gn[i].dg_out --;
-
                 
                 auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
                 
