@@ -17,7 +17,7 @@ int main (int argc, char **argv)
 
     //ifstream Predifined ("./input/parameters.csv");
     int N = 20;
-    int st = 2000;
+    int st = 10000;
     int Nn_net = 10000;
     
     
@@ -46,9 +46,9 @@ int main (int argc, char **argv)
             for (int L = 0 ; L < 4 ; L++) 
             {
                 float env_ref = env_reF[L];
-                float Mute_R = 0.001;
+                float Mute_R = 0.0001;
                 envi_func = 0;
-                int number_runs = 6;
+                int number_runs = 10;
                 
                 if (world_rank == 0) 
                 {
