@@ -8,14 +8,19 @@ class dupli
     int dg_in, dg_out, nm_up;
     int slf_cntrl;
     double weights;
+    bool isolated;
     vector <int> nghbrs;
     vector <int> Connected;
+    vector <int> updte_list;
+    
     dupli() {
 
     }
 
-    ~dupli(){
-
+    ~dupli(){   
+        updte_list.clear();
+        Connected.clear();
+        nghbrs.clear();
     }
 
 

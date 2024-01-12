@@ -8,3 +8,11 @@ Population_pool/
 .ipynb_checkpoints/
 Network_char_plotter.ipynb
 diameter.jpeg
+diagrams/
+Figure_1.png
+graph/
+du_graph/
+bb.py
+input/
+Functions/test/.vscode/
+experiment/

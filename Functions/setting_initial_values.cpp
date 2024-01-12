@@ -1,12 +1,30 @@
 #include "../Headers/Genome.hpp"
 
-int genome::Setting_initial_values(int N)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, int func_env, int RUN)
 {
+<<<<<<< HEAD
     int number_networks = 1000;
     ref_Envmnt = 0.1;  //starting input value, or reference environment value ..
     chance_changing_weight = 0.5;
     chance_of_del_connection = 0.5;
     chance_of_new_connetion = 0.5;
+=======
+    int number_networks = Nn_net;
+
+    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;
+    step = st;
+    
+    chance_changing_weight   = Mute_R;
+    chance_of_del_connection = Mute_R;
+    chance_of_new_connetion  = Mute_R;
+    ref_Envmnt = env_ref;
+    environment_selector = func_env;
+
+    lin_envo  = false   ;
+    Gaus_envo = false   ;
+    stp_envo  = false   ;
+    neg_envo  = false   ;
+>>>>>>> New_repro
     
     Sigma = 0.1;
     Miuw = 0.0;   
@@ -23,7 +41,10 @@ int genome::Setting_initial_values(int N)
         ne[i].adjac = new double* [n] ;
         ne[i].II = 0;
         ne[i].UU = 0;
-        ne[i].living = false;
+        ne[i].living = true;
+        ne[i].unique = true;
+        ne[i].n_isolate = 0;
+        ne[i].n = n;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -32,14 +53,17 @@ int genome::Setting_initial_values(int N)
             ne[i].gn[z].dg_out = 0;
             ne[i].gn[z].weights = 0;
             ne[i].gn[z].slf_cntrl = 0;
-            ne[i].n = n;
+            ne[i].gn[z].isolated = false;
         }
 
         dn[i].du = new dupli [nn];
         dn[i].du_adjac = new double* [nn];
-        dn[i].du_II = 0;
-        dn[i].du_UU = 0;
-        dn[i].living = false;
+        dn[i].II = 0;
+        dn[i].UU = 0;
+        dn[i].living = true;
+        dn[i].unique = true;
+        dn[i].n_isolate = 0;
+        dn[i].nn = nn;
 
         for (int z=0 ; z<nn ; z++)
         {
@@ -48,7 +72,7 @@ int genome::Setting_initial_values(int N)
             dn[i].du[z].dg_out = 0;    
             dn[i].du[z].weights = 0;    
             dn[i].du[z].slf_cntrl = 0;
-            dn[i].nn = nn;
+            dn[i].du[z].isolated = false;
         } 
 
         for (int z=0 ; z<n ; z++)
@@ -64,12 +88,6 @@ int genome::Setting_initial_values(int N)
         }
     }
     
-    iseed = 20L * time(0);
-
-    
-    ofstream net_char ("./Outputs/00Net_analysis.txt");
-    ofstream du_net_char ("./Outputs/00_du_Net_analysis.txt");
-    net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
-    du_net_char << "step" <<','<<"net"<<','<<"average_in_degree"<<","<<"average_out_degree"<<","<<"diameter"<<","<<"cluster_coeffcient"<<endl;
-    return number_networks;
+    iseed = 20L * time(0); 
+    base(number_networks, RUN);
 }

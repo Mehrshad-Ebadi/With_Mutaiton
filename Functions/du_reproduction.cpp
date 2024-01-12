@@ -1,73 +1,24 @@
 #include "../Headers/Genome.hpp"
 #include <iomanip>
 
-void genome::du_Chance_of_repro(int needed_networks, int Nn)
+void genome::du_Chance_of_repro(const vector <int> &live_list, const vector <int> &dead_list)
 {
-    //ofstream tracking_ancestors (ancestor_saving, ios::app);  //saving ancestors ...
-    //tracking_ancestors <<"********************"<<endl;
-    //tracking_ancestors <<"step="<<ini<<endl;
-    //tracking_ancestors <<"********************"<<endl;
-    int sum = 0;    
-    //hard and soft selection ...  
-    du_last_number_got_filled = 0;
-    
-    while (sum < needed_networks)
+    for (int i=0 ; i<dead_list.size(); i++)
     {
-        int idl_cndt = ran2(&iseed) * Nn;
-
-        if (dn[idl_cndt].living && dn[idl_cndt].fitness > ran2(&iseed))
-        {
-            //tracking_ancestors <<idl_cndt<<"("<<fitness_idl_cndt<<")"<<"->";
-            //tracking_ancestors << offspring<<",";
-            
-            bool get_copied = true;
-            
-            while (get_copied)
-            {
-                int slave = du_last_number_got_filled;
-                if (dn[slave].living == false)
-                {
-                    du_Copy(idl_cndt, slave);
-                    get_copied = false;
-                    sum++;
-                }
-
-                du_last_number_got_filled++;
-            }
-            
-        }
+        int idl_cndt = ran2(&iseed) * live_list.size();
+        idl_cndt = live_list[idl_cndt];
+        int slave = dead_list[i];
+        du_Copy(idl_cndt, slave);   
     }
-    
-    //tracking_ancestors<<endl;
-    
-/*   only hard selection
-    while (sum < alive)
-    {
-        int idl_cndt = ran2(&iseed) * Alive.size();
-        idl_cndt = Alive[idl_cndt];
-        
-        if (ran2(&iseed) > 0.5)
-        {    
-            Reproduce(idl_cndt);
-            population ++;
-            sum++;
-        }
-    }
-
-*/
 }
 
 void genome::du_Copy(int idl, int slv)
 {
     dn[slv].living = true;
-    
-    dn[slv].du_output = new int [dn[idl].du_UU];
-    
-    std::copy(dn[idl].du_output, dn[idl].du_output + dn[idl].du_UU, dn[slv].du_output);
 
-    dn[slv].du_input = new int [dn[idl].du_II];
-    std::copy(dn[idl].du_input, dn[idl].du_input + dn[idl].du_II, dn[slv].du_input);
-
+    dn[slv].output = dn[idl].output;
+    dn[slv].input = dn[idl].input;    
+    dn[slv].unique = false;
     
     for (int F=0 ; F<nn ; F++)
     {
@@ -76,6 +27,7 @@ void genome::du_Copy(int idl, int slv)
         
         dn[slv].du[F].nghbrs = dn[idl].du[F].nghbrs;
         dn[slv].du[F].Connected = dn[idl].du[F].Connected;
+        dn[slv].du[F].slf_cntrl = dn[idl].du[F].slf_cntrl;
         
         dn[slv].du[F].weights = dn[idl].du[F].weights;
         dn[slv].du[F].nm_up = dn[idl].du[F].nm_up;
@@ -89,7 +41,8 @@ void genome::du_Copy(int idl, int slv)
         }
     }
 
-    dn[slv].du_II = dn[idl].du_II;
-    dn[slv].du_UU = dn[idl].du_UU;
-    
+    dn[slv].II = dn[idl].II;
+    dn[slv].UU = dn[idl].UU;
+    dn[slv].edges = dn[idl].edges;
+    dn[slv].n_isolate = dn[idl].n_isolate;
 }

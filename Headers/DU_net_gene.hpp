@@ -6,26 +6,29 @@ class dNet
         
         dupli* du;
         double** du_adjac;
-        int du_II;
-        int du_UU;
-        int * du_output;
-        int * du_input;
+        int II;
+        int UU;
+        vector <int> input;
+        vector <int> output;
         double fitness;
         double XX;
         bool living;
         int nn;
+        bool unique;
+        int edges;
+        int n_isolate;
         
         dNet(){};
         
     ~dNet()
             
     {
-        delete []du_output;
-        delete []du_input;
 
         for (int i = 0; i < nn ; ++i) 
         {
             delete[] du_adjac[i];
+            input.clear();
+            output.clear();
         }
         delete [] du_adjac;
 

@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Reader(string location)
+void genome::Reader(string location, int temp_net)
 {
     
     ifstream NetWork (location);
@@ -11,17 +11,19 @@ void genome::Reader(string location)
         {
             NetWork>>ne[temp_net].adjac[j][k];
 
-            if (ne[temp_net].adjac[j][k] != 0)   connect (j, k, ne[temp_net].adjac[j][k], temp_net);
+            if (ne[temp_net].adjac[j][k] != 0)   
+            {
+                connect (j, k, ne[temp_net].adjac[j][k], temp_net);
+            }
         }
+        ne[temp_net].gn[j].slf_cntrl = Self_regulation();
     }
-    
-    NetWork.close();
-    ne[temp_net].living = true;
-    specefication();
 
+    NetWork.close();
+    specefication(temp_net);
 }
 
-void genome::du_Reader(string du_location)
+void genome::du_Reader(string du_location, int temp_net)
 {
     ifstream NetWork (du_location);
 
@@ -31,11 +33,15 @@ void genome::du_Reader(string du_location)
         {
             NetWork>>dn[temp_net].du_adjac[j][k];
             
-            if (dn[temp_net].du_adjac[j][k] != 0)    du_connect (j, k, dn[temp_net].du_adjac[j][k], temp_net);
+            if (dn[temp_net].du_adjac[j][k] != 0)    
+            {
+                du_connect (j, k, dn[temp_net].du_adjac[j][k], temp_net);
+            }
         }
+
+        dn[temp_net].du[j].slf_cntrl = Self_regulation();
     }
-    
+
     NetWork.close();
-    dn[temp_net].living = true;
-    du_specefication();
+    du_specefication(temp_net);
 }

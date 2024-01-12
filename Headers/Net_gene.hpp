@@ -6,23 +6,26 @@ public:
     double** adjac;
     int II;
     int UU;
-    int * output;
-    int * input;
+    vector <int> input;
+    vector <int> output;
     double fitness;
     double xx;
     bool living;
     int n;
+    bool unique;
+    int edges;
+    int n_isolate;
     
     Net(){};
 
     ~Net()
     {
-        delete []output;
-        delete []input;
 
         for (int i = 0; i < n; ++i) 
         {
             delete[] adjac[i];
+            input.clear();
+            output.clear();
         }
         delete [] adjac;
 

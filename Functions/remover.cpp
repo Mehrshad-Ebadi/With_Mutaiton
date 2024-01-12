@@ -1,47 +1,56 @@
 #include "../Headers/Genome.hpp"
 
 
-void genome::memory_Deleter()
+void genome::memory_Deleter(int temp_net)
 {
     int s = temp_net;
-    delete [] ne[s].output;
-    delete [] ne[s].input;
+    ne[s].input.clear();
+    ne[s].output.clear();
+
+    ne[s].edges = 0;   
+    ne[s].II = 0;
+    ne[s].UU = 0;    
+    ne[s].n_isolate = 0;
+    ne[s].fitness = 0;
     
     for (int F=0 ; F<n ; F++)
     {
         ne[s].gn[F].dg_in = 0;
         ne[s].gn[F].dg_out = 0;
+        ne[s].gn[F].slf_cntrl = 0;
 
         ne[s].gn[F].nghbrs.clear();
-        ne[s].gn[F].nghbrs.shrink_to_fit();
+        // /ne[s].gn[F].nghbrs.shrink_to_fit();
 
         ne[s].gn[F].Connected.clear();
-        ne[s].gn[F].Connected.shrink_to_fit();
+        //ne[s].gn[F].Connected.shrink_to_fit();
         ne[s].gn[F].weights = 0;
         ne[s].gn[F].nm_up = 0;
 
         for (int j=0 ; j<n ; j++)
         { ne[s].adjac[F][j] = 0; }
     }
-    
-    ne[s].II = 0;
-    ne[s].UU = 0;    
+
     
 }
 
-void genome::du_memory_Deleter()
+void genome::du_memory_Deleter(int temp_net)
 {
     int s = temp_net;
-    delete [] dn[s].du_input;
-    delete [] dn[s].du_output;
+    dn[s].input.clear();
+    dn[s].output.clear();
+    dn[s].fitness = 0;
 
-    dn[s].du_II = 0;
-    dn[s].du_UU = 0;
-    
+    dn[s].II = 0;
+    dn[s].UU = 0;
+    dn[s].edges = 0;
+    dn[s].n_isolate = 0;
+
     for (int F=0 ; F<nn ; F++)
     {
         dn[s].du[F].dg_in = 0;
-        dn[s].du[F].dg_out = 0;     
+        dn[s].du[F].dg_out = 0;    
+        dn[s].du[F].slf_cntrl = 0; 
         
         dn[s].du[F].nghbrs.clear();
         dn[s].du[F].nghbrs.shrink_to_fit();
