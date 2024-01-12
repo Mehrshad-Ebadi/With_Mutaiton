@@ -163,8 +163,10 @@ networks_by_step = read_multiple_networks(file_path)
 
 # Specify the output file path
 output_file_path = './Outputs/00Net_analysis.txt'
-step_to_plot = 200
-network_number_to_plot = 200
+step_to_plot = input('step:')
+step_to_plot = int(step_to_plot)
+network_number_to_plot = input('net_number:')
+network_number_to_plot = int(network_number_to_plot)
 
 # Calculate and write the network analysis parameters to the output file
 write_network_analysis(output_file_path, networks_by_step, step_to_plot, network_number_to_plot)

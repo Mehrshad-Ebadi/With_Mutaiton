@@ -11,6 +11,9 @@ double genome::parameters (int temp_net)
         ne[s].xx += ne[s].gn[j].weights;
     }
 
+    for (int i=0 ; i<n ; i++)
+    { ne[s].gn[i].weights = 0;}
+
     ne[s].xx = double (ne[s].xx / ne[s].output.size());
     return ne[s].xx;
 }
@@ -26,7 +29,10 @@ double genome::du_parameters (int temp_net)
         int j = dn[s].output[i];
         dn[s].XX += dn[s].du[j].weights;
     }
-
+    
+    for (int i=0 ; i<nn ; i++)
+    { dn[s].du[i].weights = 0;}
+    
     dn[s].XX = double (dn[s].XX / dn[s].output.size());
     return dn[s].XX;
 }    

@@ -16,7 +16,7 @@ int main ()
 
     ifstream Predifined ("./input/parameters.csv");
     int N = 20;
-    int st = 10000;
+    int st = 4000;
     int Nn_net = 1000;
     float Mute_R;
     double  env_ref;
@@ -62,9 +62,9 @@ int main ()
         }
     }*/
 
-    Mute_R = 0.1;
-    envi_func = 2;
-    env_ref = 1.0;
+    Mute_R = 0.01;
+    envi_func = 0;
+    env_ref = 0.0;
     genome GM;
     GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func);
 }

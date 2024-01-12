@@ -9,9 +9,9 @@ alive_data = np.loadtxt(alive_file_path)
 du_alive_file_path = './Outputs/du_Alive.txt'
 du_alive_data = np.loadtxt(du_alive_file_path)
 
-# Organize the data into groups of 2000 steps for both datasets
-alive_grouped_data = [alive_data[i:i + 2000, 1] for i in range(0, len(alive_data), 2000)]
-du_alive_grouped_data = [du_alive_data[i:i + 2000, 1] for i in range(0, len(du_alive_data), 2000)]
+# Organize the data into groups of 500 steps for both datasets
+alive_grouped_data = [alive_data[i:i + 500, 1] for i in range(0, len(alive_data), 500)]
+du_alive_grouped_data = [du_alive_data[i:i + 500, 1] for i in range(0, len(du_alive_data), 500)]
 
 # Set the width of each violin
 width = 0.4
@@ -27,7 +27,7 @@ ax.violinplot(du_alive_grouped_data, positions=np.arange(1, len(du_alive_grouped
 
 # Customize labels and title
 ticks_positions = np.arange(1, len(alive_grouped_data) + 1)
-ticks_labels = [f'{int(i*2000/1000)}k' for i in ticks_positions]
+ticks_labels = [f'{int(i*500/1000)}k' for i in ticks_positions]
 plt.tick_params(axis='x', which='both', labelsize=8)
 plt.xticks(ticks_positions, ticks_labels, rotation='vertical')  # Set rotation to 'vertical'
 plt.xlabel('Time steps')

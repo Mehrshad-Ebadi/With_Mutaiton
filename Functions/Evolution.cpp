@@ -15,6 +15,7 @@ void genome::Evolution(double evolve, int temp_net)
             ne[s].gn[i].updte_list.clear();
             ne[s].gn[i].updte_list.shrink_to_fit();
             ne[s].gn[i].updte_list = ne[s].gn[i].nghbrs;
+            ne[s].gn[i].nm_up = 0;
         }
 
         int d=0;

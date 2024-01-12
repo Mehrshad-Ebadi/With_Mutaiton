@@ -68,11 +68,11 @@ void genome::base (int Nu_n)
                 break;
         }
 
-        //if (ini % 200 == 0)
-        //{
-        //    cout<<"st="<<ini<<endl;
-        //    save(number_networks, ini);
-        //}
+        if (ini % 200 == 0)
+        {
+            cout<<"st="<<ini<<endl;
+            save(number_networks, ini);
+        }
 
         for (int pl=0 ; pl < number_networks ; pl++)
         {
@@ -99,8 +99,6 @@ void genome::base (int Nu_n)
                 }
             }
             
-            //else dead_list.push_back(pl);
-
             //now the same upper block, but for the duplications
             if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
             {   
