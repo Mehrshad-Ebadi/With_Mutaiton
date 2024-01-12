@@ -47,7 +47,7 @@ class genome
     int du_last_number_got_filled;
     int last_number_got_filled;
 
-    double ref_Envmnt;
+    float ref_Envmnt;
 
     bool lin_envo;
     bool Gaus_envo;
@@ -56,7 +56,7 @@ class genome
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int, int);
-    void Setting_initial_values(int, int, int, float, double, int, int);
+    void Setting_initial_values(int, int, int, float, float, int, int);
 
     void Reader(string, int);
     void du_Reader(string, int);
@@ -98,7 +98,7 @@ class genome
 
     double gasdev(long*);
 	double ran2 (long*);    
-    void save(int, int);   
+    void save(int, int, string);   
 
     
     double Environment_li(int, int);

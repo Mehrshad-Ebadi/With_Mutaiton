@@ -72,7 +72,7 @@ void genome::base (int Nu_n, int RUN)
         if (ini % 200 == 0)
         {
             cout<<"st="<<ini<<endl;
-            save(number_networks, ini);
+            save(number_networks, ini, sv_addrs);
         }
 
         for (int pl=0 ; pl < number_networks ; pl++)

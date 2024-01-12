@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, int func_env, int RUN)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, int RUN)
 {
     int number_networks = Nn_net;
 
