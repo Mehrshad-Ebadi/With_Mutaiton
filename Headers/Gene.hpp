@@ -19,6 +19,8 @@ class gene
 
     ~gene (){
         updte_list.clear();
+        Connected.clear();
+        nghbrs.clear();
     }
 
 

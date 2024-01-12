@@ -1,20 +1,26 @@
 #include "../Headers/Genome.hpp"
 
-void genome::base (int Nu_n)
+void genome::base (int Nu_n, int RUN)
 {
     int number_networks = Nu_n;
-    ofstream Alive_counter ("./Outputs/Alive.txt");
-    ofstream du_Alive_counter ("./Outputs/du_Alive.txt");
-    ofstream enviroment ("./Outputs/envi.txt");
-    ofstream uni ("./Outputs/uni.txt");
-    ofstream du_uni ("./Outputs/du_uni.txt"); 
-    ofstream iso ("./Outputs/iso.txt");
-    ofstream du_iso ("./Outputs/du_iso.txt");
+    string run = to_string(RUN);
+    string sv_addrs = "./Outputs/runnum_" + run ;
+    string mk_saving = "mkdir " + sv_addrs ;
+    sv_addrs = "./Outputs/runnum_" + run  + "/";
+    system (mk_saving.c_str());
+
+    ofstream Alive_counter (sv_addrs + "Alive.txt");
+    ofstream du_Alive_counter (sv_addrs + "du_Alive.txt");
+    ofstream enviroment (sv_addrs + "envi.txt");
+    ofstream uni (sv_addrs + "uni.txt");
+    ofstream du_uni (sv_addrs + "du_uni.txt"); 
+    ofstream iso (sv_addrs + "iso.txt");
+    ofstream du_iso (sv_addrs + "du_iso.txt");
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
-    ofstream eg("./Outputs/edge.txt");
-    ofstream du_eg("./Outputs/du_edge.txt");
+    ofstream eg(sv_addrs + "edge.txt");
+    ofstream du_eg(sv_addrs + "du_edge.txt");
 
     //memorising all networks ....
 
@@ -33,17 +39,12 @@ void genome::base (int Nu_n)
         
     }
 
-    Nedg = Nedg / number_networks;
-    du_Nedg = du_Nedg / number_networks;
-    int du_min_isolated_percent = nn - 2;
-    int min_isolated_percent = n -2 ;
-
     vector <int> dead_list;
     vector <int> du_dead_list;
     vector <int> live_list;
     vector <int> du_live_list;
     
-    for (int ini=0  ; ini < (4*step) ; ini++)
+    for (int ini=0  ; ini <= (2*step) ; ini++)
     {
         switch (environment_selector)
         {
@@ -124,6 +125,7 @@ void genome::base (int Nu_n)
             }
 
         }
+
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (dn[i].living == true)
@@ -204,54 +206,5 @@ void genome::base (int Nu_n)
     }
 
     cout<<'\n'<<"simulation done, wait ..."<<endl;
-    string comnd = "mkdir ./ARCHIVE";
-    system (comnd.c_str());
-    string add = "st_" + to_string(step) + "," + "nn_" + to_string(number_networks) + "," + "mu_" + to_string(chance_of_new_connetion) + "," + "ref_env_=" + to_string(ref_Envmnt);
     
-    if (lin_envo)
-    {
-        comnd = "mkdir ./ARCHIVE/Linear_input/";
-        system (comnd.c_str());
-        add = "./ARCHIVE/Linear_input/" + add + "/";
-    }
-
-    if (Gaus_envo)
-    {
-        comnd = "mkdir ./ARCHIVE/Gaus_input/";
-        system (comnd.c_str());
-        add = "./ARCHIVE/Gaus_input/" + add + "/";
-    }
-
-    if (stp_envo)
-    {
-        comnd = "mkdir ./ARCHIVE/Step_input/";
-        system (comnd.c_str());
-        add = "./ARCHIVE/Step_input/" + add + "/";
-    }
-
-    if (neg_envo)
-    {
-        comnd = "mkdir ./ARCHIVE/Negative_input/";
-        system (comnd.c_str());
-        add = "./ARCHIVE/Negative_input/" + add + "/";
-    }
-
-    
-    
-    comnd = "mkdir " + add;
-    system (comnd.c_str());
-
-    comnd = "cp -r ./History/ " + add;
-    system (comnd.c_str());
-    
-    comnd = "cp -r ./Outputs/ " + add;
-    system (comnd.c_str());
-    
-    comnd = "python3 plotter.py ";
-    system (comnd.c_str());
-    
-    comnd = "cp -r ./diagrams/ " + add;
-    system (comnd.c_str());
-    
-    cout << "Results are copied to the directory of "<<"'"<<add<<"' successfully!"<<"\a"<<endl;
 }

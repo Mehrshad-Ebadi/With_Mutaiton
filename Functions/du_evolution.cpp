@@ -4,21 +4,22 @@
 void genome::du_Evolution(double evolve, int temp_net)
 {   
     int s = temp_net;
-
+    
+    for (int i=0; i<nn ; i++)
+    {
+        dn[s].du[i].updte_list.clear();
+        dn[s].du[i].updte_list.shrink_to_fit();
+        dn[s].du[i].updte_list = dn[s].du[i].nghbrs;
+        dn[s].du[i].nm_up = 0;
+        dn[s].du[i].weights = 0;
+    }
+    
     if (dn[s].II > 0)
     {
         selected_node = dn[s].input[0];
         dn[s].du[selected_node].weights = evolve;
-
-        for (int i=0; i<nn ; i++)
-        {
-            dn[s].du[i].updte_list.clear();
-            dn[s].du[i].updte_list.shrink_to_fit();
-            dn[s].du[i].updte_list = dn[s].du[i].nghbrs;
-            dn[s].du[i].nm_up = 0;
-        }
-
         int d=0;
+
         while (d < dn[s].du[selected_node].updte_list.size())
         {
             int node2 = dn[s].du[selected_node].updte_list[d];

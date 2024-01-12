@@ -1,11 +1,7 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, int func_env)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, int func_env, int RUN)
 {
-    string rem = "rm ./Outputs/*.txt";
-    string hem = "rm ./History/*.txt";
-    system (rem.c_str());
-    system (hem.c_str());
     int number_networks = Nn_net;
 
     cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;
@@ -27,9 +23,6 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
     
     n = N;
     nn = 2*n;
-
-    Nedg = 0;
-    du_Nedg = 0;
     
     ne = new Net [number_networks];
     dn = new dNet [number_networks];
@@ -88,5 +81,5 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
     }
     
     iseed = 20L * time(0); 
-    base(number_networks);
+    base(number_networks, RUN);
 }

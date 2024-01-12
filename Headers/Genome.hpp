@@ -37,9 +37,6 @@ class genome
     //vector <float> du_ftnss_saver;
     Net* ne;
     dNet* dn;
-    
-    int Nedg;
-    int du_Nedg;
 
     double fit;
     double du_fit;
@@ -58,8 +55,8 @@ class genome
     bool neg_envo;
     
  //+++++++++ FUNCTIONS+++++++// 
-    void base (int);
-    void Setting_initial_values(int, int, int, float, double, int);
+    void base (int, int);
+    void Setting_initial_values(int, int, int, float, double, int, int);
 
     void Reader(string, int);
     void du_Reader(string, int);
@@ -116,6 +113,7 @@ class genome
     };
     ~genome() 
     {
+    
     }
 
 };

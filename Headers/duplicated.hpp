@@ -19,6 +19,8 @@ class dupli
 
     ~dupli(){   
         updte_list.clear();
+        Connected.clear();
+        nghbrs.clear();
     }
 
 
