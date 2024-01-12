@@ -21,7 +21,7 @@ int main ()
     ifstream Predifined ("./input/parameters.csv");
     int N = 20;
     int st = 10000;
-    int Nn_net = 1000;
+    int Nn_net = 10000;
     float Mute_R;
     double  env_ref;
     int envi_func;
