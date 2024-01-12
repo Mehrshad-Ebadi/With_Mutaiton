@@ -2,13 +2,6 @@
 
 void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, double env_ref, int func_env, int RUN)
 {
-<<<<<<< HEAD
-    int number_networks = 1000;
-    ref_Envmnt = 0.1;  //starting input value, or reference environment value ..
-    chance_changing_weight = 0.5;
-    chance_of_del_connection = 0.5;
-    chance_of_new_connetion = 0.5;
-=======
     int number_networks = Nn_net;
 
     cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;
@@ -24,7 +17,6 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, dou
     Gaus_envo = false   ;
     stp_envo  = false   ;
     neg_envo  = false   ;
->>>>>>> New_repro
     
     Sigma = 0.1;
     Miuw = 0.0;   
