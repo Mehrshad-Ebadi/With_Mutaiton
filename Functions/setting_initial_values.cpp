@@ -1,6 +1,6 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, int RUN)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, string add)
 {
     int number_networks = Nn_net;
 
@@ -81,5 +81,5 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
     }
     
     iseed = 20L * time(0); 
-    base(number_networks, RUN);
+    base(number_networks, add);
 }

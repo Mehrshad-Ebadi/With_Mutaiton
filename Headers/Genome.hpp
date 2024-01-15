@@ -55,8 +55,8 @@ class genome
     bool neg_envo;
     
  //+++++++++ FUNCTIONS+++++++// 
-    void base (int, int);
-    void Setting_initial_values(int, int, int, float, float, int, int);
+    void base (int, string);
+    void Setting_initial_values(int, int, int, float, float, int, string);
 
     void Reader(string, int);
     void du_Reader(string, int);
