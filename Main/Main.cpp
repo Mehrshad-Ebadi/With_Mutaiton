@@ -4,27 +4,32 @@
 int main (int argc, char **argv)
 {
     int N = 20;
-    int st = 1000;
-    int Nn_net = 1000;
+    int st = 30;
+    int Nn_net = 10;
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
     string add;
-    string rem = "rm -rf ./Outputs";
-    system (rem.c_str());
-    string comman = "mkdir ./Outputs";
-    system (comman.c_str());
-
+    int world_size, world_rank;
+    string comman;
+    
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+    
+    if (world_rank == 0)
+    {
+        string rem = "rm -rf ./Outputs";
+        system (rem.c_str());
+        comman = "mkdir ./Outputs";
+        system (comman.c_str());
+    }
+    
+    MPI_Barrier(MPI_COMM_WORLD);
     //for (int jk=0 ; jk<lineCount ; jk++)
     //{
         //for (int a=0 ; a<4 ; a++)
         //{
             //envi_func = a;
-            
-            
-            int world_size, world_rank;
-            MPI_Init(&argc, &argv);
-            MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-            MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
             
             for (int L = 0 ; L < 4 ; L++) 
             {
