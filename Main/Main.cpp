@@ -9,6 +9,10 @@ int main (int argc, char **argv)
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
     string add;
+    string rem = "rm -rf ./Outputs";
+    system (rem.c_str());
+    string comman = "mkdir ./Outputs";
+    system (comman.c_str());
 
     //for (int jk=0 ; jk<lineCount ; jk++)
     //{
@@ -32,11 +36,9 @@ int main (int argc, char **argv)
                 if (world_rank == 0) 
                 {
                     // Assuming env_reF is available here...
-                    string rem = "rm -rf ./Outputs";
-                    system (rem.c_str());
+                    
+                    
                     add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
-                    string comman = "mkdir ./Outputs";
-                    system (comman.c_str());
                     add = "./Outputs/" + add;
                     comman = "mkdir " + add;
                     system (comman.c_str());
