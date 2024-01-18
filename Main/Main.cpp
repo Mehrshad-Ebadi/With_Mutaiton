@@ -4,8 +4,8 @@
 int main (int argc, char **argv)
 {
     int N = 20;
-    int st = 30;
-    int Nn_net = 10;
+    int st = 300;
+    int Nn_net = 100;
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
     string add;
