@@ -4,8 +4,8 @@
 int main (int argc, char **argv)
 {
     int N = 20;
-    int st = 300;
-    int Nn_net = 100;
+    int st = 2000;
+    int Nn_net = 1000;
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
     string add;
@@ -34,7 +34,7 @@ int main (int argc, char **argv)
             for (int L = 0 ; L < 4 ; L++) 
             {
                 float env_ref = env_reF[L];
-                float Mute_R = 0.0001;
+                float Mute_R = 0.1;
                 envi_func = 0;
                 int number_runs = 6;
                 
