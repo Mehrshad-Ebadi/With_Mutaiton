@@ -29,7 +29,7 @@ void genome::du_Copy(int idl, int slv)
         dn[slv].du[F].Connected = dn[idl].du[F].Connected;
         dn[slv].du[F].slf_cntrl = dn[idl].du[F].slf_cntrl;
         
-        dn[slv].du[F].weights = dn[idl].du[F].weights;
+        dn[slv].du[F].weights = 0;
         dn[slv].du[F].nm_up = dn[idl].du[F].nm_up;
     }
     

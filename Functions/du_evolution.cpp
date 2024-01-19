@@ -11,7 +11,6 @@ void genome::du_Evolution(double evolve, int temp_net)
         dn[s].du[i].updte_list.shrink_to_fit();
         dn[s].du[i].updte_list = dn[s].du[i].nghbrs;
         dn[s].du[i].nm_up = 0;
-        dn[s].du[i].weights = 0;
     }
     
     if (dn[s].II > 0)
