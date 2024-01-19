@@ -32,7 +32,7 @@ void genome::Copy(int idl, int slv)
         ne[slv].gn[F].nghbrs = ne[idl].gn[F].nghbrs;
         ne[slv].gn[F].Connected = ne[idl].gn[F].Connected;
         
-        ne[slv].gn[F].weights = ne[idl].gn[F].weights;
+        ne[slv].gn[F].weights = 0;
         ne[slv].gn[F].nm_up = ne[idl].gn[F].nm_up;
     }
     
