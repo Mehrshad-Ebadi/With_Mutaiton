@@ -1,10 +1,14 @@
 #include "../Headers/Genome.hpp"
 
 
-void genome::save(int nN, int ini)
+void genome::save(int nN, int ini, string sv_addrs)
 {
-    ofstream location ("./History/Network.txt", ios::app);
-    ofstream du_location ("./History/du_Network.txt", ios::app);
+    string his_addrs = sv_addrs + "History.txt";
+    string du_his_addrs = sv_addrs + "History_du.txt";
+    
+    ofstream location (his_addrs, ios::app);
+    ofstream du_location (du_his_addrs, ios::app);
+    
     location << "st."<< ini << '\n';
     du_location << "st."<< ini << '\n';
 

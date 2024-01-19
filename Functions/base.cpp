@@ -1,26 +1,24 @@
 #include "../Headers/Genome.hpp"
 
-void genome::base (int Nu_n, int RUN)
+void genome::base (int Nu_n, string add)
 {
     int number_networks = Nu_n;
-    string run = to_string(RUN);
-    string sv_addrs = "./Outputs/runnum_" + run ;
-    string mk_saving = "mkdir " + sv_addrs ;
-    sv_addrs = "./Outputs/runnum_" + run  + "/";
-    system (mk_saving.c_str());
+    //string run = "numrun_" + to_string(RUN);
+    //add = add + run;
+    //add = add + "/";
 
-    ofstream Alive_counter (sv_addrs + "Alive.txt");
-    ofstream du_Alive_counter (sv_addrs + "du_Alive.txt");
-    ofstream enviroment (sv_addrs + "envi.txt");
-    ofstream uni (sv_addrs + "uni.txt");
-    ofstream du_uni (sv_addrs + "du_uni.txt"); 
-    ofstream iso (sv_addrs + "iso.txt");
-    ofstream du_iso (sv_addrs + "du_iso.txt");
+    ofstream Alive_counter (add + "Alive.txt");
+    ofstream du_Alive_counter (add + "du_Alive.txt");
+    ofstream enviroment (add + "envi.txt");
+    ofstream uni (add + "uni.txt");
+    ofstream du_uni (add + "du_uni.txt"); 
+    ofstream iso (add + "iso.txt");
+    ofstream du_iso (add + "du_iso.txt");
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
-    ofstream eg(sv_addrs + "edge.txt");
-    ofstream du_eg(sv_addrs + "du_edge.txt");
+    ofstream eg(add + "edge.txt");
+    ofstream du_eg(add + "du_edge.txt");
 
     //memorising all networks ....
 
@@ -72,7 +70,7 @@ void genome::base (int Nu_n, int RUN)
         if (ini % 200 == 0)
         {
             cout<<"st="<<ini<<endl;
-            save(number_networks, ini);
+            save(number_networks, ini, add);
         }
 
         for (int pl=0 ; pl < number_networks ; pl++)
@@ -83,6 +81,7 @@ void genome::base (int Nu_n, int RUN)
                 dn[pl].du[z].weights = 0;
                 dn[pl].du[z+n].weights = 0;
             }
+            
             // for single networks ....   
             if (ne[pl].living == true)          //checking if the single network in that location is available ...
             {   
