@@ -75,6 +75,12 @@ void genome::base (int Nu_n, string add)
 
         for (int pl=0 ; pl < number_networks ; pl++)
         {
+            for (int z=0 ; z<n ; z++)
+            {
+                ne[pl].gn[z].weights = 0;
+                dn[pl].du[z].weights = 0;
+                dn[pl].du[z+n].weights = 0;
+            }
             
             // for single networks ....   
             if (ne[pl].living == true)          //checking if the single network in that location is available ...
