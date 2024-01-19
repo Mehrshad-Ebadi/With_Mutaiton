@@ -1,7 +1,6 @@
 #include "../Headers/Genome.hpp"
-#include <mpi.h>
 
-int main (int argc, char **argv)
+int main ()
 {
     int N = 20;
     int st = 300;
@@ -9,22 +8,13 @@ int main (int argc, char **argv)
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
     string add;
-    int world_size, world_rank;
     string comman;
+
+    string rem = "rm -rf ./Outputs";
+    system (rem.c_str());
+    comman = "mkdir ./Outputs";
+    system (comman.c_str());
     
-    MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-    
-    if (world_rank == 0)
-    {
-        string rem = "rm -rf ./Outputs";
-        system (rem.c_str());
-        comman = "mkdir ./Outputs";
-        system (comman.c_str());
-    }
-    
-    MPI_Barrier(MPI_COMM_WORLD);
     //for (int jk=0 ; jk<lineCount ; jk++)
     //{
         //for (int a=0 ; a<4 ; a++)
@@ -37,40 +27,27 @@ int main (int argc, char **argv)
                 float Mute_R = 0.0001;
                 envi_func = 0;
                 int number_runs = 6;
-                
-                if (world_rank == 0) 
+                add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
+                add = "./Outputs/" + add;
+                comman = "mkdir " + add;
+                system (comman.c_str());
+                add = add + "/";
+                for (int a=0 ; a<number_runs ; a++)
                 {
-                    // Assuming env_reF is available here...
-                    
-                    
-                    add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
-                    add = "./Outputs/" + add;
-                    comman = "mkdir " + add;
-                    system (comman.c_str());
-                    add = add + "/";
-                    for (int a=0 ; a<number_runs ; a++)
-                    {
-                        string aDD = "mkdir " + add + "numrun_" + to_string(a);
-                        system(aDD.c_str());
-                    }
+                    string aDD = "mkdir " + add + "numrun_" + to_string(a);
+                    system(aDD.c_str());
                 }
                 
-                MPI_Barrier(MPI_COMM_WORLD);
-                
-                for (int RUN = world_rank; RUN < number_runs; RUN += world_size) 
+                for (int RUN = 0; RUN < number_runs; RUN ++) 
                 {
                     add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
                     add = "./Outputs/" + add;
                     add = add + "/";
-                    string runFolder = add + "numrun_" + to_string(world_rank) + "/";
+                    string runFolder = add + "numrun_" + to_string(RUN) + "/";
                     genome GM;
                     GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func, runFolder);
                 }
-                
-                MPI_Barrier(MPI_COMM_WORLD);
-                
             }
-            MPI_Finalize();
         //}
     //}
 }
