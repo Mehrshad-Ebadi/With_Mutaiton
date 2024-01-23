@@ -12,6 +12,7 @@ double genome::parameters (int temp_net)
     }
 
     ne[s].xx = double (ne[s].xx / ne[s].output.size());
+    
     return ne[s].xx;
 }
 
