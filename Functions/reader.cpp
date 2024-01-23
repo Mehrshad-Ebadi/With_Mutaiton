@@ -38,8 +38,12 @@ void genome::du_Reader(string du_location, int temp_net)
                 du_connect (j, k, dn[temp_net].du_adjac[j][k], temp_net);
             }
         }
-
-        dn[temp_net].du[j].slf_cntrl = Self_regulation();
+        
+        if (j < n)
+        {
+            dn[temp_net].du[j].slf_cntrl = ne[temp_net].gn[j].slf_cntrl;
+            dn[temp_net].du[j+n].slf_cntrl = ne[temp_net].gn[j].slf_cntrl;
+        }
     }
 
     NetWork.close();
