@@ -4,7 +4,7 @@
 int main (int argc, char **argv)
 {
     int N = 20;
-    int st = 2000;
+    int st = 3000;
     int Nn_net = 1000;
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
@@ -41,7 +41,6 @@ int main (int argc, char **argv)
                 if (world_rank == 0) 
                 {
                     // Assuming env_reF is available here...
-                    
                     
                     add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
                     add = "./Outputs/" + add;
