@@ -67,11 +67,11 @@ void genome::base (int Nu_n, string add)
                 break;
         }
 
-        //if (ini % 200 == 0)
-        //{
-        //    cout<<"st="<<ini<<endl;
-        //    save(number_networks, ini, add);
-        //}
+        if (ini % 200 == 0)
+        {
+            cout<<"st="<<ini<<endl;
+            save(number_networks, ini, add);
+        }
 
         for (int pl=0 ; pl < number_networks ; pl++)
         {
