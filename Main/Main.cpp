@@ -4,7 +4,7 @@
 int main (int argc, char **argv)
 {
     int N = 20;
-    int st = 3000;
+    int st = 2000;
     int Nn_net = 1000;
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
     int envi_func = 0;
