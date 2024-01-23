@@ -3,13 +3,13 @@ import numpy as np
 
 a = list()
 b = list()
-numb_run = 6
+numb_run = 1
 
 for i in range(numb_run):
-    addres = f'./Outputs/st_400,nn_100,mu_0.100000,ref_env_=0.000000/numrun_{i}/Alive.txt'
+    addres = f'./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_{i}/Alive.txt'
     alive_data = np.loadtxt(addres)
 
-    du_addres = f'./Outputs/st_400,nn_100,mu_0.100000,ref_env_=0.000000/numrun_{i}/du_Alive.txt'
+    du_addres = f'./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_{i}/du_Alive.txt'
     du_alive_data = np.loadtxt(du_addres)
 
     a.append(alive_data)

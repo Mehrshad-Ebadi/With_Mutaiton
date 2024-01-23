@@ -5,9 +5,9 @@ void genome::du_Mutation(int temp_net)
     int s = temp_net;
     double equ_mt= 2.0;  //by dividing all mutation rate of the single networks by this value, we make the mutaiton rate of the single and doubles identical to each other
    
-    double nw_wght         = chance_changing_weight     / equ_mt;    //new weight
-    double rwrng_nw_cnnctn = chance_of_new_connetion    / equ_mt;
-    double rwrng_dl_cnnctn = chance_of_del_connection   / equ_mt;
+    double nw_wght         = chance_changing_weight / equ_mt;    //new weight
+    double rwrng_nw_cnnctn = chance_changing_weight / equ_mt;
+    double rwrng_dl_cnnctn = chance_changing_weight / equ_mt;
 
     for (int i=0 ; i<nn ; i++)             
     {

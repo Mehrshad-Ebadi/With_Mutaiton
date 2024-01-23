@@ -7,7 +7,7 @@ int main (int argc, char **argv)
     int st = 2000;
     int Nn_net = 1000;
     float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
-    int envi_func = 0;
+    int envi_func;  //in the parallel branch, will be defined below in the for loop:
     string add;
     int world_size, world_rank;
     string comman;
