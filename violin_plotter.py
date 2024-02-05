@@ -2,11 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Load data from the "Alive.txt" file
-alive_file_path = './Outputs/Alive.txt'
+the_additional = 'st_2000,nn_1000,mu_0.100000,ref_env_=0.400000'
+num_run = '/numrun_0/'
+address = './Outputs/' + the_additional + '/' + num_run
+alive_file_path = address + 'Alive.txt'
 alive_data = np.loadtxt(alive_file_path)
 
 # Load data from the "du_Alive.txt" file
-du_alive_file_path = './Outputs/du_Alive.txt'
+du_alive_file_path = address + 'du_Alive.txt'
 du_alive_data = np.loadtxt(du_alive_file_path)
 
 # Organize the data into groups of 500 steps for both datasets
