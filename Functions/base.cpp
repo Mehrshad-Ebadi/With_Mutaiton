@@ -195,10 +195,6 @@ void genome::base (int Nu_n, string add)
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
-
-        if (live_list.size() == 0 || du_live_list.size() == 0)
-            break;
-
         dead_list.clear();
         dead_list.shrink_to_fit();
         du_dead_list.clear();
