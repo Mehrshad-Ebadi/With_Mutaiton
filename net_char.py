@@ -73,9 +73,6 @@ def write_network_analysis(file_path, networks_by_step, step_to_plot, network_nu
         #    for network_instance in network_instances:
         #        average_in_degree = network_instance.calculate_mean_degree('in_degree')
         #        average_out_degree = network_instance.calculate_mean_degree('out_degree')
-        #        cluster_coefficient = network_instance.calculate_cluster_coefficient()
-        #        #output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{diameter},{cluster_coefficient}\n")
-        #        output_file.write(f"{step},{network_instance.name},{average_in_degree},{average_out_degree},{cluster_coefficient}\n")
     
     plot_specific_network(networks_by_step, step_to_plot, network_number_to_plot)
 
