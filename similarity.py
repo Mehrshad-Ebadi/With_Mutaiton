@@ -37,6 +37,7 @@ class Network:
         self.num_isolated_nodes = len(list(nx.isolates(self.graph)))
 
     def get_vector_representation(self):
+        print (np.array([self.mean_in_degree, self.mean_out_degree, self.mean_weight_sum, self.num_isolated_nodes]))
         return np.array([self.mean_in_degree, self.mean_out_degree, self.mean_weight_sum, self.num_isolated_nodes])
 
 class Step:
