@@ -14,6 +14,8 @@ void genome::base (int Nu_n, string add)
     ofstream du_uni (add + "du_uni.txt"); 
     ofstream iso (add + "iso.txt");
     ofstream du_iso (add + "du_iso.txt");
+    ofstream OU (add + "Out.txt");
+    ofstream du_OU (add + "du_Out.txt");
     int needed_networks;
     int du_needed_networks;
     double evolve = 0;
@@ -42,36 +44,37 @@ void genome::base (int Nu_n, string add)
     vector <int> live_list;
     vector <int> du_live_list;
     
-    for (int ini=0  ; ini <= (2*step) ; ini++)
+    for (int ini=0  ; ini <= 14 ; ini++)
     {
-        switch (environment_selector)
-        {
-            case 0 :
-                lin_envo = true;
-                evolve = Environment_li(ini, step);
-                break;
-            
-            case 1:
-                Gaus_envo = true;
-                evolve = ref_Envmnt +  Environment_Ga(); //Gaus environment
-                break;
+        evolve = ini / 10.0;
+        //switch (environment_selector)
+        //{
+        //    case 0 :
+        //        lin_envo = true;
+        //        evolve = Environment_li(ini, step);
+        //        break;
+        //    
+        //    case 1:
+        //        Gaus_envo = true;
+        //        evolve = ref_Envmnt +  Environment_Ga(); //Gaus environment
+        //        break;
+//
+        //    case 2:
+        //        stp_envo = true;
+        //        evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
+        //        break;
+        //    
+        //    case 3:
+        //        neg_envo = true;
+        //        evolve = Environment_neg(ini, step); //Negative gradients
+        //        break;
+        //}
 
-            case 2:
-                stp_envo = true;
-                evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
-                break;
-            
-            case 3:
-                neg_envo = true;
-                evolve = Environment_neg(ini, step); //Negative gradients
-                break;
-        }
-
-        if (ini % 200 == 0)
-        {
-            cout<<"st="<<ini<<endl;
-            save(number_networks, ini, add);
-        }
+        //if (ini % 200 == 0)
+        //{
+        //    cout<<"st="<<ini<<endl;
+        //    save(number_networks, ini, add);
+        //}
 
         for (int pl=0 ; pl < number_networks ; pl++)
         {
@@ -83,51 +86,73 @@ void genome::base (int Nu_n, string add)
             }
             
             // for single networks ....   
-            if (ne[pl].living == true)          //checking if the single network in that location is available ...
-            {   
-                Mutation(pl);
-                Evolution(evolve, pl);
-                double KAPA = evolve - parameters(pl);
-                ne[pl].fitness = Fitness_func(KAPA);
+            //if (ne[pl].living == true)          //checking if the single network in that location is available ...
+            //{   
+                //Mutation(pl);
                 
-                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < n-2)
-                {
-                    ne[pl].living = true;
-                    fit += ne[pl].fitness; 
-                    live_list.push_back(pl);
-                }
+                //ne[pl].fitness = Fitness_func(KAPA);
+                //
+                //if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < n-2)
+                //{
+                //    ne[pl].living = true;
+                //    fit += ne[pl].fitness; 
+                //    live_list.push_back(pl);
+                //}
                 
-                else 
-                {
-                    dead_list.push_back(pl);
-                    ne[pl].living = false;
-                    memory_Deleter(pl);
-                }
-            }
+                //else 
+                //{
+                //    dead_list.push_back(pl);
+                //    ne[pl].living = false;
+                //    memory_Deleter(pl);
+                //}
+            //}
             
             //now the same upper block, but for the duplications
-            if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
-            {   
-                du_Mutation(pl);
+            //if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
+            //{   
+                //du_Mutation(pl);
                 du_Evolution(evolve, pl);
-                double KAPA = evolve - du_parameters(pl);
-                KAPA = Fitness_func(KAPA);
-                dn[pl].fitness = KAPA;
                 
-                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < nn-2)
+                Evolution(evolve, pl);
+                
+
+                double zz = 0;
+                double du_zz = 0;
+
+                for (int io=0 ; io<ne[pl].UU ; io++)
                 {
-                    dn[pl].living == true;
-                    du_fit += dn[pl].fitness;
-                    du_live_list.push_back(pl);
+                    zz += ne[pl].gn[ne[pl].output[io]].weights;
+                }
+
+                for (int io=0 ; io<dn[pl].UU ; io++)
+                {
+                    du_zz += dn[pl].du[dn[pl].output[io]].weights;
                 }
                 
-                else 
-                {
-                    du_dead_list.push_back(pl);
-                    dn[pl].living = false;
-                    du_memory_Deleter(pl);
-                }
-            }
+                zz = zz / ne[pl].UU;
+                du_zz = du_zz / dn[pl].UU;
+                OU << evolve << '\t' << zz << '\n';
+                du_OU << evolve << '\t' << du_zz <<'\n';
+                
+                parameters(pl);
+                du_parameters(pl);
+                //KAPA = Fitness_func(KAPA);
+                //dn[pl].fitness = KAPA;
+                //
+                //if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < nn-2)
+                //{
+                //    dn[pl].living == true;
+                //    du_fit += dn[pl].fitness;
+                //    du_live_list.push_back(pl);
+                //}
+                
+                //else 
+                //{
+                //    du_dead_list.push_back(pl);
+                //    dn[pl].living = false;
+                //    du_memory_Deleter(pl);
+                //}
+            //}
 
         }
 
@@ -148,17 +173,17 @@ void genome::base (int Nu_n, string add)
         
         //the whole block is for single networks ...
         
-        if (dead_list.size() != 0 && live_list.size() != 0)
-        {
-            Chance_of_repro(live_list, dead_list);
-        }
-        
-        //now the block of the duplicated network with the same tasks ...
-        
-        if (du_dead_list.size() != 0 && du_live_list.size() != 0)
-        {
-            du_Chance_of_repro(du_live_list, du_dead_list);
-        }
+        //if (dead_list.size() != 0 && live_list.size() != 0)
+        //{
+        //    Chance_of_repro(live_list, dead_list);
+        //}
+        //
+        ////now the block of the duplicated network with the same tasks ...
+        //
+        //if (du_dead_list.size() != 0 && du_live_list.size() != 0)
+        //{
+        //    du_Chance_of_repro(du_live_list, du_dead_list);
+        //}
 
         for (int a=0 ; a<number_networks ; a++)     
         {
@@ -179,6 +204,7 @@ void genome::base (int Nu_n, string add)
             E += ne[po].edges;
             du_E += dn[po].edges;
         }
+
 
         int is = 0;
         int du_is =0;
