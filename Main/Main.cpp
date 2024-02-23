@@ -3,14 +3,14 @@
 int main ()
 {
     int N = 20;
-    int st = 800;
+    int st = 2000;
     int Nn_net = 1000;
-    float env_reF[] = {0.5 , 0.2, 0.5, 0.8};
+    float env_reF[] = {0.0};
     int envi_func;
     string add;
     string comman;
-
     string rem = "rm -rf ./Outputs";
+
     system (rem.c_str());
     comman = "mkdir ./Outputs";
     system (comman.c_str());
@@ -24,8 +24,8 @@ int main ()
             for (int L = 0 ; L < 4 ; L++) 
             {
                 float env_ref = env_reF[L];
-                float Mute_R = 0.2;
-                envi_func = 3;
+                float Mute_R = 0.1;
+                envi_func = 0;
                 int number_runs = 6;
                 add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
                 add = "./Outputs/" + add;

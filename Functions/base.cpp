@@ -67,7 +67,7 @@ void genome::base (int Nu_n, string add)
                 break;
         }
 
-        if (ini % 50 == 0)
+        if (ini % 200 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
