@@ -35,7 +35,7 @@ int main (int argc, char **argv)
             {
                 float env_ref = env_reF[L];
                 float Mute_R = 0.1;
-                envi_func = 0;
+                envi_func = 4;
                 int number_runs = 6;
                 
                 if (world_rank == 0) 

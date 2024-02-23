@@ -65,12 +65,30 @@ void genome::base (int Nu_n, string add)
                 neg_envo = true;
                 evolve = Environment_neg(ini, step); //Negative gradients
                 break;
+
+            case 4:
+                std_envo = true;
+                evolve = ref_Envmnt;
+                break;
         }
 
         if (ini % 200 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
+
+            if (ini >= 0)
+            {
+                int f = 0;
+
+                for (int z=0 ; z<number_networks ; z++)
+                {
+                    if (ne[z].living == true)
+                    {
+                        f++;
+                    }
+                }
+            }
         }
 
         for (int pl=0 ; pl < number_networks ; pl++)
@@ -188,17 +206,14 @@ void genome::base (int Nu_n, string add)
             is += ne[po].n_isolate;
             du_is += dn[po].n_isolate;
         } 
-
+        if (live_list.size() == 0 || du_live_list.size() == 0)
+            break;
         iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
         du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
         eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
-
-        if (live_list.size() == 0 || du_live_list.size() == 0)
-            break;
-
         dead_list.clear();
         dead_list.shrink_to_fit();
         du_dead_list.clear();

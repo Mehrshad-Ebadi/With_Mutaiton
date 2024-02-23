@@ -17,6 +17,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
     Gaus_envo = false   ;
     stp_envo  = false   ;
     neg_envo  = false   ;
+    std_envo  = false   ;
     
     Sigma = 0.1;
     Miuw = 0.0;   
