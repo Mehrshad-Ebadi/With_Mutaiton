@@ -65,6 +65,11 @@ void genome::base (int Nu_n, string add)
                 neg_envo = true;
                 evolve = Environment_neg(ini, step); //Negative gradients
                 break;
+
+            case 4:
+                std_envo = true;
+                evolve = ref_Envmnt;
+                break;
         }
 
         if (ini % 200 == 0)

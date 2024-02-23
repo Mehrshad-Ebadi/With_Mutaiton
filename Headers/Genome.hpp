@@ -53,6 +53,7 @@ class genome
     bool Gaus_envo;
     bool stp_envo;
     bool neg_envo;
+    bool std_envo;
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int, string);
