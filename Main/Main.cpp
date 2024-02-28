@@ -4,8 +4,8 @@ int main ()
 {
     int N = 20;
     int st = 2000;
-    int Nn_net = 1000;
-    float env_reF[] = {0.2};
+    int Nn_net = 500;
+    float env_reF[] = {1.1};
     int envi_func;
     string add;
     string comman;

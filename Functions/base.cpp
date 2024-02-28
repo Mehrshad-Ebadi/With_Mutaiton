@@ -76,19 +76,6 @@ void genome::base (int Nu_n, string add)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
-
-            if (ini >= 0)
-            {
-                int f = 0;
-
-                for (int z=0 ; z<number_networks ; z++)
-                {
-                    if (ne[z].living == true)
-                    {
-                        f++;
-                    }
-                }
-            }
         }
 
         for (int pl=0 ; pl < number_networks ; pl++)
