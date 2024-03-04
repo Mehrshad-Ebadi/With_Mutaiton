@@ -15,7 +15,7 @@ os.mkdir("./diagrams")
 #
 #addres = f'{directory}/Alive.txt'
 #du_addres = f'{directory}/du_Alive.txt'
-the_additional = 'st_800,nn_1000,mu_0.200000,ref_env_=0.500000'
+the_additional = 'st_2000,nn_500,mu_0.100000,ref_env_=0.000000'
 num_run = '/numrun_0/'
 address = './Outputs/' + the_additional + '/' + num_run
 X = np.loadtxt(address + "Alive.txt")

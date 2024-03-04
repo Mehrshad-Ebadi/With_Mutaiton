@@ -24,6 +24,7 @@ void genome::Evolution(double evolve, int temp_net)
         {
             int node2 = ne[s].gn[selected_node].updte_list[d];
             double VV = 0;   
+            
             if (ne[s].gn[node2].nm_up > ne[s].gn[node2].slf_cntrl)
             {
                 ne[s].gn[selected_node].updte_list.erase(ne[s].gn[selected_node].updte_list.begin() + d);
