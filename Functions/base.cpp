@@ -147,7 +147,6 @@ void genome::base (int Nu_n, string add)
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
         enviroment << ini <<'\t'<< evolve <<endl;
-
         int Un = 0; 
         int du_Un = 0;
         
