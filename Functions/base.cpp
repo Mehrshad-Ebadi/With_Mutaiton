@@ -13,6 +13,7 @@ void genome::base (int Nu_n, string add)
     ofstream uni (add + "uni.txt");
     ofstream du_uni (add + "du_uni.txt"); 
     ofstream iso (add + "iso.txt");
+    ofstream mutat (add + "num_mutation.txt");
     ofstream du_iso (add + "du_iso.txt");
     int needed_networks;
     int du_needed_networks;
@@ -147,9 +148,26 @@ void genome::base (int Nu_n, string add)
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
         enviroment << ini <<'\t'<< evolve <<endl;
+        
         int Un = 0; 
         int du_Un = 0;
         
+        float total_mutation        = 0.0;
+        float du_total_mutation     = 0.0;
+        float positive_mutation     = 0.0;
+        float du_positive_mutation  = 0.0;
+
+        for (int a=0 ; a<number_networks ; a++)
+        {
+            total_mutation += ne[a].nm_mutation;
+            du_total_mutation += dn[a].nm_mutation;
+            
+            if (ne[a].living == true)
+                positive_mutation += ne[a].nm_mutation;
+            
+            if (dn[a].living == true)
+                du_positive_mutation += dn[a].nm_mutation;
+        }
         //the whole block is for single networks ...
         
         if (dead_list.size() != 0 && live_list.size() != 0)
@@ -169,6 +187,15 @@ void genome::base (int Nu_n, string add)
             if (ne[a].unique == true)   Un++;
             
             if (dn[a].unique == true)   du_Un++;
+            
+            total_mutation += ne[a].nm_mutation;
+            du_total_mutation += dn[a].nm_mutation;
+            
+            if (ne[a].living == true)
+                positive_mutation += ne[a].nm_mutation;
+            
+            if (dn[a].living == true)
+                du_positive_mutation += dn[a].nm_mutation;
         }
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
@@ -200,6 +227,7 @@ void genome::base (int Nu_n, string add)
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
+        mutat << ini<< '\t' << (positive_mutation/(total_mutation + 0.0))<<'\t'<<(du_positive_mutation/(du_total_mutation + 0.0))<<'\n';
         dead_list.clear();
         dead_list.shrink_to_fit();
         du_dead_list.clear();

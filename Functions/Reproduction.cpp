@@ -49,4 +49,5 @@ void genome::Copy(int idl, int slv)
     ne[slv].UU = ne[idl].UU;
     ne[slv].edges = ne[idl].edges;
     ne[slv].n_isolate = ne[idl].n_isolate;
+    ne[slv].nm_mutation = ne[idl].nm_mutation;
 }
