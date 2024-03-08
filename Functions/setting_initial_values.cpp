@@ -38,6 +38,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
         ne[i].unique = true;
         ne[i].n_isolate = 0;
         ne[i].n = n;
+        ne[i].nm_mutation = 0;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -57,6 +58,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
         dn[i].unique = true;
         dn[i].n_isolate = 0;
         dn[i].nn = nn;
+        dn[i].nm_mutation = 0;
 
         for (int z=0 ; z<nn ; z++)
         {

@@ -34,6 +34,7 @@ void genome::Copy(int idl, int slv)
         
         ne[slv].gn[F].weights = 0;
         ne[slv].gn[F].nm_up = ne[idl].gn[F].nm_up;
+        ne[slv].gn[F].isolated = ne[idl].gn[F].isolated;
     }
     
     for (int h=0 ; h<n ; h++)
@@ -48,4 +49,5 @@ void genome::Copy(int idl, int slv)
     ne[slv].UU = ne[idl].UU;
     ne[slv].edges = ne[idl].edges;
     ne[slv].n_isolate = ne[idl].n_isolate;
+    ne[slv].nm_mutation = ne[idl].nm_mutation;
 }

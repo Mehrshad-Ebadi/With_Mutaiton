@@ -14,12 +14,14 @@ void genome::specefication(int tn)
         {
             ne[tn].input.push_back(i);
             ne[tn].II++;
+            ne[tn].gn[i].isolated = false;
         }
 
         if (ne[tn].gn[i].dg_out == 0 && ne[tn].gn[i].dg_in > 0 )
         {
             ne[tn].output.push_back(i);
             ne[tn].UU++;
+            ne[tn].gn[i].isolated = false;
         }
 
         if (ne[tn].gn[i].dg_in == 0 && ne[tn].gn[i].dg_out == 0)
@@ -45,12 +47,14 @@ void genome::du_specefication(int tn)
         {
             dn[tn].input.push_back(i);
             dn[tn].II++;
+            dn[tn].du[i].isolated = false;
         }
 
         if (dn[tn].du[i].dg_out == 0 && dn[tn].du[i].dg_in > 0 )
         {
             dn[tn].output.push_back(i);
             dn[tn].UU++;
+            dn[tn].du[i].isolated = false;
         }
 
         if (dn[tn].du[i].dg_in == 0 && dn[tn].du[i].dg_out == 0)
