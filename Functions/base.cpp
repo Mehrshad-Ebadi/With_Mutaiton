@@ -26,7 +26,7 @@ void genome::base (int Nu_n, string add)
     for (int i=0 ; i<number_networks; i++)
     {
         string data = "./Population_pool/Results/Net_";
-        string du_data = "./Population_pool/Results_du/Net_du_";
+        string du_data = "./Population_pool/Results/Net_";
         
         string Extension = ".txt";
         string HH = to_string(i);
@@ -73,11 +73,11 @@ void genome::base (int Nu_n, string add)
                 break;
         }
 
-        if (ini % 200 == 0)
-        {
-            cout<<"st="<<ini<<endl;
-            save(number_networks, ini, add);
-        }
+        //if (ini % 200 == 0)
+        //{
+        //    cout<<"st="<<ini<<endl;
+        //    save(number_networks, ini, add);
+        //}
 
         for (int pl=0 ; pl < number_networks ; pl++)
         {
@@ -85,7 +85,6 @@ void genome::base (int Nu_n, string add)
             {
                 ne[pl].gn[z].weights = 0;
                 dn[pl].du[z].weights = 0;
-                dn[pl].du[z+n].weights = 0;
             }
             
             // for single networks ....   
@@ -114,7 +113,7 @@ void genome::base (int Nu_n, string add)
             //now the same upper block, but for the duplications
             if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
             {   
-                du_Mutation(pl);
+                //du_Mutation(pl);
                 du_Evolution(evolve, pl);
                 double KAPA = evolve - du_parameters(pl);
                 KAPA = Fitness_func(KAPA);
