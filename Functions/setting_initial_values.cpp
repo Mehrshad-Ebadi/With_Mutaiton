@@ -23,7 +23,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
     Miuw = 0.0;   
     
     n = N;
-    nn = 20;
+    nn = 2*n;
     
     ne = new Net [number_networks];
     dn = new dNet [number_networks];
