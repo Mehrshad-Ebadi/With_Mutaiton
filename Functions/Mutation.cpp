@@ -12,13 +12,13 @@ void genome::Mutation(int temp_net)
     
     for (int i=0 ; i<n ; i++)             
     {
-        //if (ran2(&iseed) < nw_wght && ne[s].gn[i].nghbrs.size() > 0)                 //chance of new weight
-        //{
-        //    int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
-        //    f = ne[s].gn[i].nghbrs[f];
-        //    ne[s].nm_mutation++;
-        //    ne[s].adjac [i][f] = gasdev(&iseed);
-        //}
+        if (ran2(&iseed) < nw_wght && ne[s].gn[i].nghbrs.size() > 0)                 //chance of new weight
+        {
+            int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
+            f = ne[s].gn[i].nghbrs[f];
+            ne[s].nm_mutation++;
+            ne[s].adjac [i][f] = gasdev(&iseed);
+        }
 
         if (ran2(&iseed) < rwrng_nw_cnnctn && ne[s].gn[i].nghbrs.size() < n)
         {
@@ -36,21 +36,21 @@ void genome::Mutation(int temp_net)
             }
         }
 
-        //if (ran2(&iseed) < rwrng_dl_cnnctn && ne[s].gn[i].nghbrs.size() > 0)
-        //{
-        //    int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
-        //    int FE = ne[s].gn[i].nghbrs[f];
-        //    ne[s].gn[i].nghbrs.erase(ne[s].gn[i].nghbrs.begin() + f);
-        //    ne[s].adjac[i][FE] = 0;
-        //    ne[s].edges --;
-        //    ne[s].gn[i].dg_out --;
-        //    
-        //    auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
-        //    
-        //    ne[s].gn[FE].Connected.erase(it);
-        //    ne[s].gn[FE].dg_in --;
-        //    ne[s].nm_mutation ++;
-        //    specefication(s);
-        //}
+        if (ran2(&iseed) < rwrng_dl_cnnctn && ne[s].gn[i].nghbrs.size() > 0)
+        {
+            int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
+            int FE = ne[s].gn[i].nghbrs[f];
+            ne[s].gn[i].nghbrs.erase(ne[s].gn[i].nghbrs.begin() + f);
+            ne[s].adjac[i][FE] = 0;
+            ne[s].edges --;
+            ne[s].gn[i].dg_out --;
+            
+            auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
+            
+            ne[s].gn[FE].Connected.erase(it);
+            ne[s].gn[FE].dg_in --;
+            ne[s].nm_mutation ++;
+            specefication(s);
+        }
     }
 }

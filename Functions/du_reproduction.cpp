@@ -47,4 +47,5 @@ void genome::du_Copy(int idl, int slv)
     dn[slv].edges = dn[idl].edges;
     dn[slv].n_isolate = dn[idl].n_isolate;
     dn[slv].nm_mutation = dn[idl].nm_mutation;
+    dn[slv].fitness = dn[idl].fitness;
 }

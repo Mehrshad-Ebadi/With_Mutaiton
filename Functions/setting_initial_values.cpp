@@ -8,8 +8,8 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
     step = st;
     
     chance_changing_weight   = Mute_R;
-    chance_of_del_connection = Mute_R;
-    chance_of_new_connetion  = Mute_R;
+    chance_of_del_connection = Mute_R / 4.0;
+    chance_of_new_connetion  = Mute_R / 4.0;
     ref_Envmnt = env_ref;
     environment_selector = func_env;
 

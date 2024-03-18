@@ -50,4 +50,5 @@ void genome::Copy(int idl, int slv)
     ne[slv].edges = ne[idl].edges;
     ne[slv].n_isolate = ne[idl].n_isolate;
     ne[slv].nm_mutation = ne[idl].nm_mutation;
+    ne[slv].fitness = ne[idl].fitness;
 }
