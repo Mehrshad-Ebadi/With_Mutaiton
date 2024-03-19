@@ -16,7 +16,7 @@ void genome::du_Mutation(int temp_net)
         {
             int f = ran2(&iseed) * dn[s].du[i].nghbrs.size();
             f = dn[s].du[i].nghbrs[f];
-            dn[s].du_adjac [i][f] = gasdev(&iseed);
+            dn[s].du_adjac [i][f] = dn[s].du_adjac [i][f] + gasdev(&iseed);
             dn[s].nm_mutation ++;
         }
 
