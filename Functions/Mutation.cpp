@@ -6,9 +6,6 @@ void genome::Mutation(int temp_net)
     //double delete_nd   = 0.0003;  // delete a node  
     //double dublict_nd = 0.0002;   //duplicated a node
     double nw_wght  = chance_changing_weight;    //new weight
-    double rwrng_nw_cnnctn = chance_of_new_connetion;
-    double rwrng_dl_cnnctn = chance_of_del_connection;
-    ne[s].nm_mutation = 0;
     
     for (int i=0 ; i<n ; i++)             
     {
@@ -20,37 +17,5 @@ void genome::Mutation(int temp_net)
             ne[s].adjac [i][f] = gasdev(&iseed);
         }
 
-        if (ran2(&iseed) < rwrng_nw_cnnctn && ne[s].gn[i].nghbrs.size() < n)
-        {
-            bool temmpy = true;
-            while (temmpy)
-            {
-                int f = ran2(&iseed) * n;
-                if (ne[s].adjac [i][f] == 0)
-                {
-                    connect(i, f, gasdev(&iseed), s);
-                    specefication(s);
-                    temmpy = false;
-                    ne[s].nm_mutation ++;
-                }
-            }
-        }
-
-        if (ran2(&iseed) < rwrng_dl_cnnctn && ne[s].gn[i].nghbrs.size() > 0)
-        {
-            int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
-            int FE = ne[s].gn[i].nghbrs[f];
-            ne[s].gn[i].nghbrs.erase(ne[s].gn[i].nghbrs.begin() + f);
-            ne[s].adjac[i][FE] = 0;
-            ne[s].edges --;
-            ne[s].gn[i].dg_out --;
-            
-            auto it = find (ne[s].gn[FE].Connected.begin(), ne[s].gn[FE].Connected.end(), i);
-            
-            ne[s].gn[FE].Connected.erase(it);
-            ne[s].gn[FE].dg_in --;
-            ne[s].nm_mutation ++;
-            specefication(s);
-        }
     }
 }
