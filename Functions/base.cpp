@@ -182,26 +182,24 @@ void genome::base (int Nu_n, string add)
             du_Chance_of_repro(du_live_list, du_dead_list);
         }
 
-        for (int a=0 ; a<number_networks ; a++)     
+        Un = 0;
+        du_Un = 0;
+
+        for (int a=0 ; a<live_list.size() ; a++)     
         {
-            if (ne[a].unique == true)   Un++;
-            
-            if (dn[a].unique == true)   du_Un++;
-            
-            total_mutation += ne[a].nm_mutation;
-            du_total_mutation += dn[a].nm_mutation;
-            
-            if (ne[a].living == true)
-                positive_mutation += ne[a].nm_mutation;
-            
-            if (dn[a].living == true)
-                du_positive_mutation += dn[a].nm_mutation;
+            if (ne[live_list[a]].unique == true)   Un++;
+        }
+
+        for (int a=0 ; a<du_live_list.size() ; a++)     
+        {
+            if (dn[du_live_list[a]].unique == true)   du_Un++;
         }
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (ne[i].living == true)
         //        st++;
         //cout<<"after copy = "<<st<<endl;
+        
         double E=0;
         double du_E =0;
    
