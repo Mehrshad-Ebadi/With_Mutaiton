@@ -16,42 +16,8 @@ void genome::du_Mutation(int temp_net)
         {
             int f = ran2(&iseed) * dn[s].du[i].nghbrs.size();
             f = dn[s].du[i].nghbrs[f];
-            dn[s].du_adjac [i][f] = gasdev(&iseed);
+            dn[s].du_adjac [i][f] = dn[s].du_adjac [i][f] + gasdev(&iseed);
             dn[s].nm_mutation ++;
         }
-
-        if (ran2(&iseed) < rwrng_nw_cnnctn && dn[s].du[i].nghbrs.size() < nn)
-        {
-            bool temmpy = true;
-            while (temmpy)
-            {
-                int f = ran2(&iseed) * nn;
-                if (dn[s].du_adjac [i][f] == 0)
-                {
-                    du_connect(i, f, gasdev(&iseed), s);
-                    du_specefication(s);
-                    temmpy = false;
-                    dn[s].nm_mutation ++;
-                }                
-            }
-        }
-
-        if (ran2(&iseed) < rwrng_dl_cnnctn && dn[s].du[i].nghbrs.size() > 0)
-        {
-            int f = ran2(&iseed) * dn[s].du[i].nghbrs.size();
-            int FE = dn[s].du[i].nghbrs[f];
-            dn[s].du[i].nghbrs.erase(dn[s].du[i].nghbrs.begin() + f);
-            dn[s].du_adjac[i][FE] = 0;
-            dn[s].edges --;
-            dn[s].du[i].dg_out --;
-
-            auto it = find (dn[s].du[FE].Connected.begin(), dn[s].du[FE].Connected.end(), i);
-            
-            dn[s].du[FE].Connected.erase(it);
-            dn[s].du[FE].dg_in --;
-            dn[s].nm_mutation ++;
-            
-            du_specefication(s);
-        }
-    }    
+    }
 }

@@ -14,7 +14,7 @@ void genome::Mutation(int temp_net)
             int f = ran2(&iseed) * ne[s].gn[i].nghbrs.size();
             f = ne[s].gn[i].nghbrs[f];
             ne[s].nm_mutation++;
-            ne[s].adjac [i][f] = gasdev(&iseed);
+            ne[s].adjac [i][f] = ne[s].adjac [i][f] + gasdev(&iseed);
         }
 
     }
