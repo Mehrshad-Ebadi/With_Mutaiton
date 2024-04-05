@@ -34,8 +34,7 @@ void genome::base (int Nu_n, string add)
         string location = data + HH + Extension;
         string du_location = du_data + HH + Extension;    
         Reader(location, i);
-        du_Reader(du_location, i);
-        
+        du_Reader(du_location, i); 
     }
 
     vector <int> dead_list;
@@ -73,13 +72,13 @@ void genome::base (int Nu_n, string add)
                 break;
         }
 
-        if (ini % 200 == 0)
+        if (ini % 400 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
         }
 
-        for (int pl=0 ; pl < number_networks ; pl++)
+        for (int pl=0 ; pl<number_networks ; pl++)
         {
             for (int z=0 ; z<n ; z++)
             {
@@ -234,9 +233,7 @@ void genome::base (int Nu_n, string add)
         live_list.shrink_to_fit();
         du_live_list.clear();
         du_live_list.shrink_to_fit();
-
     }
 
     cout<<'\n'<<"simulation done, wait ..."<<endl;
-    
 }
