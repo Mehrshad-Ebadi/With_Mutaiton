@@ -4,9 +4,9 @@
 int main (int argc, char **argv)
 {
     int N = 20;
-    int st = 2000;
+    int st = 3000;
     int Nn_net = 1000;
-    float env_reF[] = {0.0 , 0.2, 0.5, 0.8};
+    float env_reF[] = {0.0};
     int envi_func;  //in the parallel branch, will be defined below in the for loop:
     string add;
     int world_size, world_rank;
@@ -31,12 +31,12 @@ int main (int argc, char **argv)
         //{
             //envi_func = a;
             
-            for (int L = 0 ; L < 4 ; L++) 
+            for (int L = 0 ; L < 1 ; L++) 
             {
                 float env_ref = env_reF[L];
-                float Mute_R = 0.1;
-                envi_func = 4;
-                int number_runs = 6;
+                float Mute_R = 0.0001;
+                envi_func = 0;
+                int number_runs = 10;
                 
                 if (world_rank == 0) 
                 {
