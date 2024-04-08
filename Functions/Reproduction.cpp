@@ -3,7 +3,6 @@
 
 void genome::Chance_of_repro(const vector <int> &live_list, const vector <int> &dead_list)
 {
-
     for (int i=0 ; i<dead_list.size(); i++)
     {
         int idl_cndt = ran2(&iseed) * live_list.size();

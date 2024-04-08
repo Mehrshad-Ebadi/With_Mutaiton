@@ -34,8 +34,7 @@ void genome::base (int Nu_n, string add)
         string location = data + HH + Extension;
         string du_location = du_data + HH + Extension;    
         Reader(location, i);
-        du_Reader(du_location, i);
-        
+        du_Reader(du_location, i); 
     }
 
     vector <int> dead_list;
@@ -73,13 +72,13 @@ void genome::base (int Nu_n, string add)
                 break;
         }
 
-        if (ini % 200 == 0)
+        if (ini % 300 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
         }
 
-        for (int pl=0 ; pl < number_networks ; pl++)
+        for (int pl=0 ; pl<number_networks ; pl++)
         {
             for (int z=0 ; z<n ; z++)
             {
@@ -182,26 +181,24 @@ void genome::base (int Nu_n, string add)
             du_Chance_of_repro(du_live_list, du_dead_list);
         }
 
-        for (int a=0 ; a<number_networks ; a++)     
+        Un = 0;
+        du_Un = 0;
+
+        for (int a=0 ; a<live_list.size() ; a++)     
         {
-            if (ne[a].unique == true)   Un++;
-            
-            if (dn[a].unique == true)   du_Un++;
-            
-            total_mutation += ne[a].nm_mutation;
-            du_total_mutation += dn[a].nm_mutation;
-            
-            if (ne[a].living == true)
-                positive_mutation += ne[a].nm_mutation;
-            
-            if (dn[a].living == true)
-                du_positive_mutation += dn[a].nm_mutation;
+            if (ne[live_list[a]].unique == true)   Un++;
+        }
+
+        for (int a=0 ; a<du_live_list.size() ; a++)     
+        {
+            if (dn[du_live_list[a]].unique == true)   du_Un++;
         }
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (ne[i].living == true)
         //        st++;
         //cout<<"after copy = "<<st<<endl;
+        
         double E=0;
         double du_E =0;
    
@@ -236,9 +233,7 @@ void genome::base (int Nu_n, string add)
         live_list.shrink_to_fit();
         du_live_list.clear();
         du_live_list.shrink_to_fit();
-
     }
 
     cout<<'\n'<<"simulation done, wait ..."<<endl;
-    
 }
