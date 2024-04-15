@@ -13,12 +13,12 @@ import glob
 #
 #addres = f'{directory}/Alive.txt'
 #du_addres = f'{directory}/du_Alive.txt'
-the_additional = 'st_1000,nn_1000,mu_0.100000,ref_env_=0.000000'
+#the_additional = 'st_1000,nn_1000,mu_0.100000,ref_env_=0.000000'
 time = np.array(range(2001),dtype=float)
 alive = np.array(range(2001),dtype=float)
 
-num_run = '/numrun_' + str(0) + '/'
-address = './Outputs/' + the_additional + '/' + num_run
+num_run = './numrun_' + str(0) + '/'
+address = num_run
 Z = np.loadtxt(address + "envi.txt")
 time = Z[:,0]
 du_alive = np.array(range(2001),dtype=float)
@@ -31,8 +31,8 @@ du_iso = np.array(range(2001),dtype=float)
 number_simulation = 2
 for i in range (0,number_simulation):
 
-    num_run = '/numrun_' + str(i) + '/'
-    address = './Outputs/' + the_additional + '/' + num_run
+    num_run = './numrun_' + str(i) + '/'
+    address = num_run
     x = np.loadtxt(address + "Alive.txt")
     y = np.loadtxt(address + "du_Alive.txt")
     k = np.loadtxt(address + "uni.txt")
