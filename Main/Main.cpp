@@ -24,8 +24,7 @@ int main ()
             for (int L = ref_in ; L < last_in ; L++) 
             {
                 float env_ref = env_reF[L];
-                
-                envi_func = 0;
+        
                 int number_runs = 6;
                 add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
                 add = "./Outputs/" + add;
