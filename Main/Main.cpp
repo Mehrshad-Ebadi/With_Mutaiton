@@ -3,11 +3,12 @@
 
 int main (int argc, char **argv)
 {
-    int N = 20;
-    int st = 3000;
-    int Nn_net = 1000;
-    float env_reF[] = {0.0};
-    int envi_func;  //in the parallel branch, will be defined below in the for loop:
+    ifstream input ("./input/data.txt");
+    int N, st, Nn_net, env_ref, envi_func;
+    float Mute_R;
+    int number_runs = 6;
+
+    input >> N >> st >> Nn_net >> envi_func >> Mute_R;
     string add;
     int world_size, world_rank;
     string comman;
@@ -25,51 +26,35 @@ int main (int argc, char **argv)
     }
     
     MPI_Barrier(MPI_COMM_WORLD);
-    //for (int jk=0 ; jk<lineCount ; jk++)
-    //{
-        //for (int a=0 ; a<4 ; a++)
-        //{
-            //envi_func = a;
-            
-            for (int L = 0 ; L < 1 ; L++) 
-            {
-                float env_ref = env_reF[L];
-                float Mute_R = 0.0001;
-                envi_func = 0;
-                int number_runs = 10;
-                
-                if (world_rank == 0) 
-                {
-                    // Assuming env_reF is available here...
-                    
-                    add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
-                    add = "./Outputs/" + add;
-                    comman = "mkdir " + add;
-                    system (comman.c_str());
-                    add = add + "/";
-                    for (int a=0 ; a<number_runs ; a++)
-                    {
-                        string aDD = "mkdir " + add + "numrun_" + to_string(a);
-                        system(aDD.c_str());
-                    }
-                }
-                
-                MPI_Barrier(MPI_COMM_WORLD);
-                
-                for (int RUN = world_rank; RUN < number_runs; RUN += world_size) 
-                {
-                    add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
-                    add = "./Outputs/" + add;
-                    add = add + "/";
-                    string runFolder = add + "numrun_" + to_string(world_rank) + "/";
-                    genome GM;
-                    GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func, runFolder);
-                }
-                
-                MPI_Barrier(MPI_COMM_WORLD);
-                
-            }
-            MPI_Finalize();
-        //}
-    //}
+    
+    if (world_rank == 0) 
+    {
+        // Assuming env_reF is available here...
+        
+        add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
+        add = "./Outputs/" + add;
+        comman = "mkdir " + add;
+        system (comman.c_str());
+        add = add + "/";
+        for (int a=0 ; a<number_runs ; a++)
+        {
+            string aDD = "mkdir " + add + "numrun_" + to_string(a);
+            system(aDD.c_str());
+        }
+    }
+    
+    MPI_Barrier(MPI_COMM_WORLD);
+    
+    for (int RUN = world_rank; RUN < number_runs; RUN += world_size) 
+    {
+        cout<<"run="<<RUN<<'\t'<<"world_rank="<<world_rank<<'\t'<<"world_size="<<world_size<<endl;
+        add = "st_" + to_string(st) + "," + "nn_" + to_string(Nn_net) + "," + "mu_" + to_string(Mute_R) + "," + "ref_env_=" + to_string(env_ref);
+        add = "./Outputs/" + add;
+        add = add + "/";
+        string runFolder = add + "numrun_" + to_string(world_rank) + "/";
+        genome GM;
+        GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func, runFolder, RUN);
+    }
+    
+    MPI_Finalize();
 }

@@ -41,7 +41,7 @@ void genome::base (int Nu_n, string add)
     vector <int> du_dead_list;
     vector <int> live_list;
     vector <int> du_live_list;
-    
+
     for (int ini=0  ; ini <= (2*step) ; ini++)
     {
         switch (environment_selector)

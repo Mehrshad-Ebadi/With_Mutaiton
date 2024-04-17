@@ -1,7 +1,18 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, string add)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, 
+string add, int rank)
 {
+
+    time_t current_time = std::time(nullptr);
+    iseed = static_cast<long>(current_time * rank);
+    
+    for (int i=0 ; i<3000 ; i++)
+    {   
+        gasdev(&iseed);    
+        ran2(&iseed);
+    }
+
     int number_networks = Nn_net;
 
     cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;

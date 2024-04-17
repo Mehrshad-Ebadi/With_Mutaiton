@@ -32,6 +32,7 @@ class genome
 
 
     public:
+    
     //vector <int> du_Alive;
     int step;
     //vector <float> du_ftnss_saver;
@@ -57,7 +58,7 @@ class genome
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int, string);
-    void Setting_initial_values(int, int, int, float, float, int, string);
+    void Setting_initial_values(int, int, int, float, float, int, string, int);
 
     void Reader(string, int);
     void du_Reader(string, int);
