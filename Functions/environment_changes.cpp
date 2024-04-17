@@ -11,7 +11,7 @@ double genome::Environment_li(int random_value, int step)
 double genome::Environment_Ga()
 {
     double mean = 1.0;
-    double variance = 0.11;
+    double variance = 0.08;
     random_device rd;
     mt19937 gen(rd());
     normal_distribution<double> distribution(mean, std::sqrt(variance));
