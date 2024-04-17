@@ -2,6 +2,14 @@
 
 void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, string add)
 {
+    iseed = 20L * time(0); 
+    
+    for (int i=0 ; i<3000 ; i++)
+    {
+        gasdev(&iseed);
+        ran2(&iseed);
+    }
+
     int number_networks = Nn_net;
 
     cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;
@@ -83,6 +91,5 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
         }
     }
     
-    iseed = 20L * time(0); 
     base(number_networks, add);
 }
