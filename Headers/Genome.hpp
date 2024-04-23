@@ -41,6 +41,8 @@ class genome
 
     double fit;
     double du_fit;
+    double first_input, last_input, len_step;
+    double mean_input;
 
     double Sigma;
     double Miuw;    
@@ -52,13 +54,13 @@ class genome
 
     bool lin_envo;
     bool Gaus_envo;
-    bool stp_envo;
+    bool uni_envo;
     bool neg_envo;
     bool std_envo;
     
  //+++++++++ FUNCTIONS+++++++// 
     void base (int, string);
-    void Setting_initial_values(int, int, int, float, float, int, string, int);
+    void Setting_initial_values(int, int, int, float, float, int, string, int, double, double);
 
     void Reader(string, int);
     void du_Reader(string, int);
@@ -103,10 +105,10 @@ class genome
     void save(int, int, string);   
 
     
-    double Environment_li(int, int);
+    double Environment_li(int);
     double Environment_Ga();
-    double Environment_no_l(int, int);
-    double Environment_neg(int, int);
+    double Environment_uniform();
+    double Environment_neg(int);
     //void du_Evolution(double);
 
     genome()

@@ -5,15 +5,15 @@ import shutil as sh
 
 sh.rmtree('./diagrams')
 os.mkdir("./diagrams")
-X = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/Alive.txt")
-Y = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/du_Alive.txt")
-Z = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/envi.txt")
-K = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/uni.txt")
-H = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/du_uni.txt")
-J = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/edge.txt")
-Q = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/du_edge.txt")
-j = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/iso.txt")
-q = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/du_iso.txt")
+X = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/Alive.txt")
+Y = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_Alive.txt")
+Z = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/envi.txt")
+K = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/uni.txt")
+H = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_uni.txt")
+J = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/edge.txt")
+Q = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_edge.txt")
+j = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/iso.txt")
+q = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_iso.txt")
 #for i in range (0,len(X)):
 #    X[i][1] = X[i][1] / 10000
 

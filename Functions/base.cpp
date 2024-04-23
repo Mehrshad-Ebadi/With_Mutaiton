@@ -6,7 +6,6 @@ void genome::base (int Nu_n, string add)
     //string run = "numrun_" + to_string(RUN);
     //add = add + run;
     //add = add + "/";
-
     ofstream Alive_counter (add + "Alive.txt");
     ofstream du_Alive_counter (add + "du_Alive.txt");
     ofstream enviroment (add + "envi.txt");
@@ -42,13 +41,13 @@ void genome::base (int Nu_n, string add)
     vector <int> live_list;
     vector <int> du_live_list;
 
-    for (int ini=0  ; ini <= (2*step) ; ini++)
+    for (int ini=0  ; ini <= step ; ini++)
     {
         switch (environment_selector)
         {
             case 0 :
                 lin_envo = true;
-                evolve = Environment_li(ini, step);
+                evolve = Environment_li(ini);
                 break;
             
             case 1:
@@ -57,18 +56,19 @@ void genome::base (int Nu_n, string add)
                 break;
 
             case 2:
-                stp_envo = true;
-                evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
+                uni_envo = true;
+                evolve = Environment_uniform(); //No linear with gaus jumps environment
                 break;
             
             case 3:
                 neg_envo = true;
-                evolve = Environment_neg(ini, step); //Negative gradients
+                evolve = Environment_neg(ini); //Negative gradients
                 break;
 
             case 4:
                 std_envo = true;
-                evolve = ref_Envmnt;
+                evolve = mean_input;
+                cout<<"evolve="<<evolve<<endl;
                 break;
         }
 
