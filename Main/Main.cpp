@@ -6,11 +6,11 @@ int main (int argc, char **argv)
     ifstream input ("./input/data.txt");
     int N, st, Nn_net, env_ref, envi_func;
     float Mute_R;
-    int number_runs = 6;
+    int number_runs;
     double starting_input;
     double last_input;
 
-    input >> N >> st >> Nn_net >> envi_func >> Mute_R >> starting_input >> last_input;
+    input >> N >> st >> Nn_net >> envi_func >> Mute_R >> starting_input >> last_input >> number_runs;
     string add;
     int world_size, world_rank;
     string comman;
