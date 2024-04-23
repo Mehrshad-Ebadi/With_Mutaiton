@@ -15,7 +15,7 @@ string add, int rank, double fst_input, double lst_input)
 
     int number_networks = Nn_net;
 
-    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << fst_input << 
+    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << '\t' << fst_input << 
     '\t'<< lst_input <<endl;
     step = st;
     first_input = fst_input;

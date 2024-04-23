@@ -68,7 +68,6 @@ void genome::base (int Nu_n, string add)
             case 4:
                 std_envo = true;
                 evolve = mean_input;
-                cout<<"evolve="<<evolve<<endl;
                 break;
         }
 

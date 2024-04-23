@@ -5,7 +5,6 @@ double genome::Environment_li(int inii)
 
     //linear environment:
     double evolve = (static_cast<double>(inii * len_step)) + first_input ; 
-    cout<<"evolve="<<evolve<<endl;
     return evolve;
 }
 
@@ -16,7 +15,6 @@ double genome::Environment_Ga()
     mt19937 gen(rd());
     normal_distribution<double> distribution(mean_input, std::sqrt(variance));
     double evolve = distribution(gen);
-    cout<<"meanin="<<mean_input<<'\t'<<"evolve="<<evolve<<endl;
     return evolve;
 }
     
@@ -24,7 +22,6 @@ double genome::Environment_Ga()
 double genome::Environment_uniform()
 {
     double evolve = first_input + ((last_input - first_input) * ran2(&iseed));
-    cout<<"evolve="<<evolve<<endl;
     return evolve;
 }
 
@@ -32,6 +29,5 @@ double genome::Environment_uniform()
 double genome::Environment_neg(int inii)
 {
     double evolve = first_input + (static_cast<double>(inii * len_step));
-    cout<<evolve<<endl; 
     return evolve;
 }
