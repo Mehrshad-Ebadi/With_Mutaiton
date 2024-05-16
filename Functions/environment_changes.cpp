@@ -10,18 +10,28 @@ double genome::Environment_li(int inii)
 
 double genome::Environment_Ga()
 {
-    double variance = 0.12;
-    random_device rd;
-    mt19937 gen(rd());
-    normal_distribution<double> distribution(mean_input, std::sqrt(variance));
-    double evolve = distribution(gen);
+    double evolve = 2.0;
+    while (abs(evolve) > 1.9)
+    {
+        double variance = 0.5;
+        random_device rd;
+        mt19937 gen(rd());
+        normal_distribution<double> distribution(mean_input, std::sqrt(variance));
+        evolve = distribution(gen);
+    }
     return evolve;
 }
     
 
 double genome::Environment_uniform()
 {
-    double evolve = first_input + ((last_input - first_input) * ran2(&iseed));
+    double evolve = 2.0;
+    while (abs (evolve > 1.9))
+    {
+    	evolve = first_input + ((last_input - first_input) * ran2(&iseed));
+
+    }	
+
     return evolve;
 }
 

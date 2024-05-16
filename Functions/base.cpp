@@ -215,6 +215,9 @@ void genome::base (int Nu_n, string add)
             is += ne[po].n_isolate;
             du_is += dn[po].n_isolate;
         } 
+        
+        
+
         if (live_list.size() == 0 || du_live_list.size() == 0)
             break;
         iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
