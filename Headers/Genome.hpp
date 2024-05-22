@@ -43,7 +43,7 @@ class genome
     double du_fit;
     double first_input, last_input, len_step;
     double mean_input;
-
+    int cpu_num;
     double Sigma;
     double Miuw;    
 

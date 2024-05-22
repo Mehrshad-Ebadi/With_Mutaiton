@@ -28,6 +28,7 @@ string add, int rank, double fst_input, double lst_input)
     chance_of_new_connetion  = Mute_R;
     ref_Envmnt = env_ref;
     environment_selector = func_env;
+    cpu_num = rank;
 
     lin_envo  = false   ;
     Gaus_envo = false   ;

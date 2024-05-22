@@ -9,8 +9,6 @@ void genome::base (int Nu_n, string add)
     ofstream Alive_counter (add + "Alive.txt");
     ofstream du_Alive_counter (add + "du_Alive.txt");
     ofstream enviroment (add + "envi.txt");
-    ofstream uni (add + "uni.txt");
-    ofstream du_uni (add + "du_uni.txt"); 
     ofstream iso (add + "iso.txt");
     ofstream mutat (add + "num_mutation.txt");
     ofstream du_iso (add + "du_iso.txt");
@@ -70,8 +68,28 @@ void genome::base (int Nu_n, string add)
                 evolve = mean_input;
                 break;
         }
+        
+        for (int a=0 ; a < number_networks ; a++)
+        {
+            double s=0;
+            for (int o=0 ; o<n ; o++)
+            {
+                
+                for (int r=0 ; r<n ; r++)
+                {
+                   s += abs(ne[a].adjac[o][r]);
+                }
+            }
+            
+            if (s == 0 && cpu_num > 0)
+            {
+                cout<<"Kir step:"<<ini<<" net_num="<<a<<" rank: "<<cpu_num<<endl;
+            }
+        }
+        int s;
+        cin>>s;
 
-        if (ini % 300 == 0)
+        if (ini % 1 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
@@ -166,8 +184,13 @@ void genome::base (int Nu_n, string add)
             if (dn[a].living == true)
                 du_positive_mutation += dn[a].nm_mutation;
         }
+        cout<<"KOSSS"<<endl;
         //the whole block is for single networks ...
+        for (int a=0 ; a<live_list.size() ; a++)
+            cout<<live_list[a]<<'\t';
         
+        cout<<'\n';
+
         if (dead_list.size() != 0 && live_list.size() != 0)
         {
             Chance_of_repro(live_list, dead_list);
@@ -180,18 +203,6 @@ void genome::base (int Nu_n, string add)
             du_Chance_of_repro(du_live_list, du_dead_list);
         }
 
-        Un = 0;
-        du_Un = 0;
-
-        for (int a=0 ; a<live_list.size() ; a++)     
-        {
-            if (ne[live_list[a]].unique == true)   Un++;
-        }
-
-        for (int a=0 ; a<du_live_list.size() ; a++)     
-        {
-            if (dn[du_live_list[a]].unique == true)   du_Un++;
-        }
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (ne[i].living == true)
@@ -224,8 +235,6 @@ void genome::base (int Nu_n, string add)
         du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
         eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
-        uni << ini << '\t' << Un << endl;
-        du_uni << ini << '\t' << du_Un << endl;
         mutat << ini<< '\t' << (positive_mutation/(total_mutation + 0.0))<<'\t'<<(du_positive_mutation/(du_total_mutation + 0.0))<<'\n';
         dead_list.clear();
         dead_list.shrink_to_fit();
