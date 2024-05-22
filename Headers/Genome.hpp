@@ -109,7 +109,8 @@ class genome
     double Environment_Ga();
     double Environment_uniform();
     double Environment_neg(int);
-    //void du_Evolution(double);
+    
+    void making_sure(const vector <int> &live_list, const vector <int> &du_live_list, int);
 
     genome()
     {

@@ -10,7 +10,6 @@ void genome::base (int Nu_n, string add)
     ofstream du_Alive_counter (add + "du_Alive.txt");
     ofstream enviroment (add + "envi.txt");
     ofstream iso (add + "iso.txt");
-    ofstream mutat (add + "num_mutation.txt");
     ofstream du_iso (add + "du_iso.txt");
     int needed_networks;
     int du_needed_networks;
@@ -68,28 +67,8 @@ void genome::base (int Nu_n, string add)
                 evolve = mean_input;
                 break;
         }
-        
-        for (int a=0 ; a < number_networks ; a++)
-        {
-            double s=0;
-            for (int o=0 ; o<n ; o++)
-            {
-                
-                for (int r=0 ; r<n ; r++)
-                {
-                   s += abs(ne[a].adjac[o][r]);
-                }
-            }
-            
-            if (s == 0 && cpu_num > 0)
-            {
-                cout<<"Kir step:"<<ini<<" net_num="<<a<<" rank: "<<cpu_num<<endl;
-            }
-        }
-        int s;
-        cin>>s;
 
-        if (ini % 1 == 0)
+        if (ini % 300 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
@@ -167,29 +146,8 @@ void genome::base (int Nu_n, string add)
         
         int Un = 0; 
         int du_Un = 0;
-        
-        float total_mutation        = 0.0;
-        float du_total_mutation     = 0.0;
-        float positive_mutation     = 0.0;
-        float du_positive_mutation  = 0.0;
 
-        for (int a=0 ; a<number_networks ; a++)
-        {
-            total_mutation += ne[a].nm_mutation;
-            du_total_mutation += dn[a].nm_mutation;
-            
-            if (ne[a].living == true)
-                positive_mutation += ne[a].nm_mutation;
-            
-            if (dn[a].living == true)
-                du_positive_mutation += dn[a].nm_mutation;
-        }
-        cout<<"KOSSS"<<endl;
         //the whole block is for single networks ...
-        for (int a=0 ; a<live_list.size() ; a++)
-            cout<<live_list[a]<<'\t';
-        
-        cout<<'\n';
 
         if (dead_list.size() != 0 && live_list.size() != 0)
         {
@@ -202,12 +160,50 @@ void genome::base (int Nu_n, string add)
         {
             du_Chance_of_repro(du_live_list, du_dead_list);
         }
+        
+        //final check::
+        vector <int> temp_dead;
+        vector <int> du_temp_dead;
 
-        //int st=0;
-        //for (int i=0 ; i<number_networks; i++)
-        //    if (ne[i].living == true)
-        //        st++;
-        //cout<<"after copy = "<<st<<endl;
+        for (int a=0 ; a<number_networks ; a++)
+        {
+            double making_sure = 0;
+            double du_making_sure = 0;
+            
+            for (int s=0 ; s<n ; s++)
+            {
+                for (int y=0 ; y<n ; y++)
+                {
+                    making_sure += abs(ne[a].adjac[s][y]);
+                    du_making_sure += abs(dn[a].du_adjac[s][y]);
+                    du_making_sure += abs(dn[a].du_adjac[s+n][y]);
+                    du_making_sure += abs(dn[a].du_adjac[s][y+n]);
+                    du_making_sure += abs(dn[a].du_adjac[s+n][y+n]);
+                }
+            }
+            
+            if (making_sure == 0)
+            {
+                temp_dead.push_back(a);
+            }
+
+            if (du_making_sure == 0)
+            {
+                du_temp_dead.push_back(a);
+            }
+        } 
+
+        if (temp_dead.size() != 0 && live_list.size() != 0)
+        {
+            cout<<"in making sure, single"<<endl;
+            Chance_of_repro(live_list, temp_dead);
+        }
+        
+        if (du_temp_dead.size() != 0 && du_live_list.size() != 0)
+        {
+            cout<<"in making sure, double"<<endl;
+            du_Chance_of_repro(du_live_list, du_temp_dead);
+        }
         
         double E=0;
         double du_E =0;
@@ -235,7 +231,6 @@ void genome::base (int Nu_n, string add)
         du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
         eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
-        mutat << ini<< '\t' << (positive_mutation/(total_mutation + 0.0))<<'\t'<<(du_positive_mutation/(du_total_mutation + 0.0))<<'\n';
         dead_list.clear();
         dead_list.shrink_to_fit();
         du_dead_list.clear();
