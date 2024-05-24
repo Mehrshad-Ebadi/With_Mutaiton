@@ -223,14 +223,13 @@ void genome::base (int Nu_n, string add)
             du_is += dn[po].n_isolate;
         } 
         
-        
-
-        if (live_list.size() == 0 || du_live_list.size() == 0)
-            break;
         iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
         du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
         eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
+        
+        if (live_list.size() == 0 || du_live_list.size() == 0)
+            break;
         dead_list.clear();
         dead_list.shrink_to_fit();
         du_dead_list.clear();
