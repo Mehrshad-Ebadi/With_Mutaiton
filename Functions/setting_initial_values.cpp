@@ -13,7 +13,8 @@ string add, int rank, double fst_input, double lst_input)
         ran2(&iseed);
     }
 
-    int number_networks = Nn_net;
+    int number_networks = Nn_net * 2;
+    population = Nn_net;
 
     cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << '\t' << fst_input << 
     '\t'<< lst_input <<endl;
@@ -51,11 +52,12 @@ string add, int rank, double fst_input, double lst_input)
         ne[i].adjac = new double* [n] ;
         ne[i].II = 0;
         ne[i].UU = 0;
-        ne[i].living = true;
-        ne[i].unique = true;
+        ne[i].living = false;
+        ne[i].unique = false;
         ne[i].n_isolate = 0;
         ne[i].n = n;
         ne[i].nm_mutation = 0;
+        ne[i].occ = false;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -71,11 +73,12 @@ string add, int rank, double fst_input, double lst_input)
         dn[i].du_adjac = new double* [nn];
         dn[i].II = 0;
         dn[i].UU = 0;
-        dn[i].living = true;
-        dn[i].unique = true;
+        dn[i].living = false;
+        dn[i].unique = false;
         dn[i].n_isolate = 0;
         dn[i].nn = nn;
         dn[i].nm_mutation = 0;
+        dn[i].occ = false;
 
         for (int z=0 ; z<nn ; z++)
         {
@@ -101,5 +104,7 @@ string add, int rank, double fst_input, double lst_input)
     }
     
     iseed = 20L * time(0); 
-    base(number_networks, add);
+    last_nu_network = 1000;
+    du_last_nu_network = 1000;
+    base(population, add);
 }

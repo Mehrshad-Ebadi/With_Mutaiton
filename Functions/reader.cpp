@@ -20,6 +20,9 @@ void genome::Reader(string location, int temp_net)
     }
 
     NetWork.close();
+    ne[temp_net].living = true;
+    ne[temp_net].unique = true;
+    ne[temp_net].occ = true;
     specefication(temp_net);
 }
 
@@ -47,5 +50,8 @@ void genome::du_Reader(string du_location, int temp_net)
     }
 
     NetWork.close();
+    dn[temp_net].living = true;
+    dn[temp_net].unique = true;
+    dn[temp_net].occ = true;
     du_specefication(temp_net);
 }

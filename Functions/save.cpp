@@ -14,32 +14,37 @@ void genome::save(int nN, int ini, string sv_addrs)
 
     for (int g=0 ; g<nN ; g++)
     {
-        
-        location << ("Network_" + to_string(g)) << '\n';
-        du_location << ("Network_" + to_string(g)) << '\n';
+        if (ne[g].occ = true)
+        {   
+            location << ("Network_" + to_string(g)) << '\n';
+            du_location << ("Network_" + to_string(g)) << '\n';
 
-        for (int i=0; i<n ; i++)
-        {
-            for (int j=0 ; j<n ; j++)
+            for (int i=0; i<n ; i++)
             {
-                location << ne[g].adjac[i][j]<<'\t';
+                for (int j=0 ; j<n ; j++)
+                {
+                    location << ne[g].adjac[i][j]<<'\t';
+                }
+
+                location << endl;
             }
 
-            location << endl;
+            location << "---" <<'\n';
         }
-
-        location << "---" <<'\n';
-
-        for (int i=0; i<nn ; i++)
+        
+        if (dn[g].occ = true)
         {
-            for (int j=0 ; j<nn ; j++)
+            for (int i=0; i<nn ; i++)
             {
-                du_location << dn[g].du_adjac[i][j]<<'\t';
-            } 
+                for (int j=0 ; j<nn ; j++)
+                {
+                    du_location << dn[g].du_adjac[i][j]<<'\t';
+                } 
 
-            du_location << endl;
+                du_location << endl;
+            }
+
+            du_location << "---" << '\n';
         }
-
-        du_location << "---" << '\n';
-    }    
+    }  
 }

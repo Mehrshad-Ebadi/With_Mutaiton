@@ -23,8 +23,11 @@ class genome
     private:
     int n;
     int nn;
+    int population;
     long int iseed;
     int selected_node, environment_selector;
+    int last_nu_network;
+    int du_last_nu_network;
 
     double chance_changing_weight;
     double chance_of_new_connetion;
@@ -46,9 +49,6 @@ class genome
     int cpu_num;
     double Sigma;
     double Miuw;    
-
-    int du_last_number_got_filled;
-    int last_number_got_filled;
 
     float ref_Envmnt;
 
@@ -93,9 +93,10 @@ class genome
 
     void Copy(int, int);
     void du_Copy(int, int);
+    
+    void sorter(int, int);
 
-    void Chance_of_repro(const vector <int> &live_list, const vector <int> &dead_list);
-    void du_Chance_of_repro(const vector <int> &du_live_list, const vector <int> &du_dead_list);
+    void Reproducing(int);
 
     int Reproduce(int);
     int du_Reproduce(int);

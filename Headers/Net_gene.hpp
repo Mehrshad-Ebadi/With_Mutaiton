@@ -12,6 +12,7 @@ class Net
         double fitness;
         double xx;
         bool living;
+        bool occ;
         int n;
         bool unique;
         int edges;

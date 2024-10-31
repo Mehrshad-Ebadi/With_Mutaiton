@@ -12,6 +12,8 @@ void genome::memory_Deleter(int temp_net)
     ne[s].UU = 0;    
     ne[s].n_isolate = 0;
     ne[s].fitness = 0;
+    ne[s].occ = false;
+    ne[s].living = false;
     
     for (int F=0 ; F<n ; F++)
     {
@@ -26,6 +28,7 @@ void genome::memory_Deleter(int temp_net)
         //ne[s].gn[F].Connected.shrink_to_fit();
         ne[s].gn[F].weights = 0;
         ne[s].gn[F].nm_up = 0;
+        
 
         for (int j=0 ; j<n ; j++)
         { ne[s].adjac[F][j] = 0; }
@@ -45,6 +48,8 @@ void genome::du_memory_Deleter(int temp_net)
     dn[s].UU = 0;
     dn[s].edges = 0;
     dn[s].n_isolate = 0;
+    dn[s].living = false;
+    dn[s].occ = false;
 
     for (int F=0 ; F<nn ; F++)
     {

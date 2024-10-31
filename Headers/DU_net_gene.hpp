@@ -12,6 +12,7 @@ class dNet
         double fitness;
         double XX;
         bool living;
+        bool occ;
         int nn;
         bool unique;
         int edges;

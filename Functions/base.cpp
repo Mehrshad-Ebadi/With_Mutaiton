@@ -2,7 +2,7 @@
 
 void genome::base (int Nu_n, string add)
 {
-    int number_networks = Nu_n;
+    int number_networks = Nu_n * 2;
     //string run = "numrun_" + to_string(RUN);
     //add = add + run;
     //add = add + "/";
@@ -16,10 +16,13 @@ void genome::base (int Nu_n, string add)
     double evolve = 0;
     ofstream eg(add + "edge.txt");
     ofstream du_eg(add + "du_edge.txt");
+    
+    last_nu_network = population;
+    du_last_nu_network = population;
 
     //memorising all networks ....
 
-    for (int i=0 ; i<number_networks; i++)
+    for (int i=0 ; i<population; i++)
     {
         string data = "../Population_pool/Results/Net_";
         string du_data = "../Population_pool/Results_du/Net_du_";
@@ -32,11 +35,9 @@ void genome::base (int Nu_n, string add)
         Reader(location, i);
         du_Reader(du_location, i); 
     }
-
-    vector <int> dead_list;
-    vector <int> du_dead_list;
-    vector <int> live_list;
-    vector <int> du_live_list;
+    
+    int lost_networks = 0;
+    int du_lost_networks = 0;
 
     for (int ini=0  ; ini <= step ; ini++)
     {
@@ -66,100 +67,139 @@ void genome::base (int Nu_n, string add)
                 std_envo = true;
                 evolve = mean_input;
                 break;
-        }
+        } 
 
-        if (ini % 300 == 0)
+        if (ini % 3000 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
         }
 
-        for (int pl=0 ; pl<number_networks ; pl++)
+        int iterator_range = 0;
+
+        if (last_nu_network >= du_last_nu_network)
+        iterator_range = last_nu_network;
+
+        else iterator_range = du_last_nu_network;
+
+        for (int pl=0 ; pl<iterator_range ; pl++)
         {
-            for (int z=0 ; z<n ; z++)
+            if (ne[pl].occ)
             {
-                ne[pl].gn[z].weights = 0;
-                dn[pl].du[z].weights = 0;
-                dn[pl].du[z+n].weights = 0;
-            }
-            
-            // for single networks ....   
-            if (ne[pl].living == true)          //checking if the single network in that location is available ...
-            {   
-                Mutation(pl);
-                Evolution(evolve, pl);
-                double KAPA = evolve - parameters(pl);
-                ne[pl].fitness = Fitness_func(KAPA);
-                
-                if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < n-2)
+                for (int z=0 ; z<n ; z++)
                 {
-                    ne[pl].living = true;
-                    fit += ne[pl].fitness; 
-                    live_list.push_back(pl);
+                    ne[pl].gn[z].weights = 0;
+                    dn[pl].du[z].weights = 0;
+                    dn[pl].du[z+n].weights = 0;
                 }
                 
-                else 
-                {
-                    dead_list.push_back(pl);
-                    ne[pl].living = false;
-                    memory_Deleter(pl);
-                }
-            }
-            
-            //now the same upper block, but for the duplications
-            if (dn[pl].living == true )         //checking if the doubled network in that location is available ...
-            {   
-                du_Mutation(pl);
-                du_Evolution(evolve, pl);
-                double KAPA = evolve - du_parameters(pl);
-                KAPA = Fitness_func(KAPA);
-                dn[pl].fitness = KAPA;
-                
-                if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < nn-2)
-                {
-                    dn[pl].living == true;
-                    du_fit += dn[pl].fitness;
-                    du_live_list.push_back(pl);
-                }
-                
-                else 
-                {
-                    du_dead_list.push_back(pl);
-                    dn[pl].living = false;
-                    du_memory_Deleter(pl);
+                // for single networks ....   
+                if (ne[pl].living == true)          //checking if the single network in that location is available ...
+                {   
+                    Mutation(pl);
+                    Evolution(evolve, pl);
+                    double KAPA = evolve - parameters(pl);
+                    ne[pl].fitness = Fitness_func(KAPA);
+                    
+                    if ((ne[pl].fitness >= ran2(&iseed)) && ne[pl].n_isolate < n-2)
+                    {
+                        ne[pl].living = true;
+                        ne[pl].occ = true;
+                        fit += ne[pl].fitness;
+                    }
+                    
+                    else 
+                    {   
+                        lost_networks++;
+                        ne[pl].living = false;
+                        ne[pl].occ = false;
+                        memory_Deleter(pl);
+                    }
                 }
             }
 
+            if (dn[pl].occ)   
+            { 
+                //now the same upper block, but for the duplications
+                if (dn[pl].living == true)         //checking if the doubled network in that location is available ...
+                {   
+                    du_Mutation(pl);
+                    du_Evolution(evolve, pl);
+                    double KAPA = evolve - du_parameters(pl);
+                    KAPA = Fitness_func(KAPA);
+                    dn[pl].fitness = KAPA;
+                    
+                    if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < nn-2)
+                    {
+                        dn[pl].living == true;
+                        du_fit += dn[pl].fitness;
+                        dn[pl].occ = true;
+                    }
+                    
+                    else 
+                    {   
+                        du_lost_networks ++;
+                        dn[pl].living = false;
+                        du_memory_Deleter(pl);
+                        //dn[pl].occ = false;
+                    }
+                }
+            }
         }
+
 
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (dn[i].living == true)
         //        st++;
         //cout<<"before copy="<<st<<endl;
-        double zz = static_cast <double> (live_list.size()) / number_networks;
-        double du_zz = static_cast <double> (du_live_list.size()) / number_networks;
 
-        Alive_counter << ini <<'\t'<< zz <<endl;
-        du_Alive_counter << ini <<'\t'<< du_zz <<endl;
-        enviroment << ini <<'\t'<< evolve <<endl;
+        //filling empty spot by sorting and not reproducing:
+        sorter(lost_networks, du_lost_networks);
         
-        int Un = 0; 
-        int du_Un = 0;
+        Alive_counter << ini <<'\t'<< last_nu_network <<endl;
+        du_Alive_counter << ini <<'\t'<< du_last_nu_network <<endl;
+        enviroment << ini <<'\t'<< evolve <<endl;
 
-        //the whole block is for single networks ...
+        double E=0;
+        double du_E =0;
+   
+        for (int po=0 ; po<number_networks ; po++)
+        { 
+            E += ne[po].edges;
+            du_E += dn[po].edges;
+        }
 
-        if (dead_list.size() != 0 && live_list.size() != 0)
+        int is = 0;
+        int du_is =0;
+
+        for (int po=0 ; po<number_networks ; po++)
+        { 
+            is += ne[po].n_isolate;
+            du_is += dn[po].n_isolate;
+        } 
+        
+        iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
+        du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
+        eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
+        du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
+        int five_percent = population / 20;
+
+        //if (last_nu_network <= (five_percent) || du_last_nu_network <= five_percent )
+        //    break;
+
+
+        //Reproducing GRNs
+
+        int totoal_lost = lost_networks + du_lost_networks;
+
+        if (totoal_lost != 0 && last_nu_network != 0)
         {
-            Chance_of_repro(live_list, dead_list);
+            Reproducing(totoal_lost);
         }
         
         //now the block of the duplicated network with the same tasks ...
         
-        if (du_dead_list.size() != 0 && du_live_list.size() != 0)
-        {
-            du_Chance_of_repro(du_live_list, du_dead_list);
-        }
         
         //final check::
         vector <int> temp_dead;
@@ -192,52 +232,20 @@ void genome::base (int Nu_n, string add)
                 du_temp_dead.push_back(a);
             }
         } 
-
+/*
         if (temp_dead.size() != 0 && live_list.size() != 0)
         {
             cout<<"in making sure, single"<<endl;
-            Chance_of_repro(live_list, temp_dead);
+            Chance_of_repro(live_list, temp_dead, du_live_list);
         }
         
         if (du_temp_dead.size() != 0 && du_live_list.size() != 0)
         {
             cout<<"in making sure, double"<<endl;
-            du_Chance_of_repro(du_live_list, du_temp_dead);
+           du_Chance_of_repro(du_live_list, du_temp_dead, du_live_list);
         }
+*/       
         
-        double E=0;
-        double du_E =0;
-   
-        for (int po=0 ; po<number_networks ; po++)
-        { 
-            E += ne[po].edges;
-            du_E += dn[po].edges;
-        }
-
-        int is = 0;
-        int du_is =0;
-
-        for (int po=0 ; po<number_networks ; po++)
-        { 
-            is += ne[po].n_isolate;
-            du_is += dn[po].n_isolate;
-        } 
-        
-        iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
-        du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
-        eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
-        du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
-        
-        if (live_list.size() == 0 || du_live_list.size() == 0)
-            break;
-        dead_list.clear();
-        dead_list.shrink_to_fit();
-        du_dead_list.clear();
-        du_dead_list.shrink_to_fit();
-        live_list.clear();
-        live_list.shrink_to_fit();
-        du_live_list.clear();
-        du_live_list.shrink_to_fit();
     }
 
     cout<<'\n'<<"simulation done, wait ..."<<endl;
