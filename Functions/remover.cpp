@@ -14,6 +14,7 @@ void genome::memory_Deleter(int temp_net)
     ne[s].fitness = 0;
     ne[s].occ = false;
     ne[s].living = false;
+    ne[s].unique = false;
     
     for (int F=0 ; F<n ; F++)
     {
@@ -50,7 +51,8 @@ void genome::du_memory_Deleter(int temp_net)
     dn[s].n_isolate = 0;
     dn[s].living = false;
     dn[s].occ = false;
-
+    ne[s].unique = false;
+    
     for (int F=0 ; F<nn ; F++)
     {
         dn[s].du[F].dg_in = 0;

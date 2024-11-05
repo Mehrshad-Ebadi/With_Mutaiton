@@ -25,14 +25,8 @@ int main (int argc, char **argv)
         system (rem.c_str());
         comman = "mkdir ./Outputs";
         system (comman.c_str());
-
-        add = "st" + to_string(st) + "_" + "nn" + to_string(Nn_net) + "_" + "mu" + to_string(Mute_R) + 
-        "_" + "refenv" + to_string(env_ref) + "_" + "strt_inpt" + to_string(starting_input);
         
-        add = "mkdir ./Outputs/" + add;
-        
-        system (add.c_str());
-        add = add + "/";
+        add = "mkdir ./Outputs/";
         
         for (int a=0 ; a<number_runs ; a++)
         {
@@ -41,15 +35,11 @@ int main (int argc, char **argv)
         }
     }
     
-    add =  "st" + to_string(st) + "_" + "nn" + to_string(Nn_net) + "_" + "mu" + to_string(Mute_R) + 
-        "_" + "refenv" + to_string(env_ref) + "_" + "strt_inpt" + to_string(starting_input) + "/";
-    add = "./Outputs/" + add + "/";
-    
     MPI_Barrier(MPI_COMM_WORLD);
     
     for (int RUN = world_rank; RUN < number_runs; RUN += world_size) 
     {
-        string runFolder = add + "numrun_" + to_string(world_rank) + "/";
+        string runFolder =  "./Outputs/numrun_" + to_string(world_rank) + "/";
         genome GM;
         GM.Setting_initial_values(N, st, Nn_net, Mute_R, env_ref, envi_func, runFolder, RUN, starting_input, last_input);
     }

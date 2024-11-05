@@ -69,22 +69,24 @@ void genome::base (int Nu_n, string add)
                 break;
         } 
 
-        if (ini % 3000 == 0)
+        if (ini % 30 == 0)
         {
             cout<<"st="<<ini<<endl;
-            save(number_networks, ini, add);
+            //save(number_networks, ini, add);
         }
 
         int iterator_range = 0;
+        lost_networks = 0;
+        du_lost_networks = 0;
 
         if (last_nu_network >= du_last_nu_network)
         iterator_range = last_nu_network;
 
         else iterator_range = du_last_nu_network;
 
-        for (int pl=0 ; pl<iterator_range ; pl++)
+        for (int pl=0 ; pl<2* population ; pl++)
         {
-            if (ne[pl].occ)
+            if (ne[pl].occ == true)
             {
                 for (int z=0 ; z<n ; z++)
                 {
@@ -118,8 +120,13 @@ void genome::base (int Nu_n, string add)
                 }
             }
 
-            if (dn[pl].occ)   
+            if (dn[pl].occ == true)   
             { 
+                for (int z=0 ; z<n ; z++)
+                {
+                    dn[pl].du[z].weights = 0;
+                    dn[pl].du[z+n].weights = 0;
+                }
                 //now the same upper block, but for the duplications
                 if (dn[pl].living == true)         //checking if the doubled network in that location is available ...
                 {   
@@ -128,6 +135,7 @@ void genome::base (int Nu_n, string add)
                     double KAPA = evolve - du_parameters(pl);
                     KAPA = Fitness_func(KAPA);
                     dn[pl].fitness = KAPA;
+                    //cout<<dn[pl].fitness<<endl;
                     
                     if ((dn[pl].fitness >= ran2(&iseed))  && dn[pl].n_isolate < nn-2)
                     {
@@ -141,7 +149,7 @@ void genome::base (int Nu_n, string add)
                         du_lost_networks ++;
                         dn[pl].living = false;
                         du_memory_Deleter(pl);
-                        //dn[pl].occ = false;
+                        dn[pl].occ = false;
                     }
                 }
             }
@@ -155,8 +163,9 @@ void genome::base (int Nu_n, string add)
         //cout<<"before copy="<<st<<endl;
 
         //filling empty spot by sorting and not reproducing:
+
         sorter(lost_networks, du_lost_networks);
-        
+
         Alive_counter << ini <<'\t'<< last_nu_network <<endl;
         du_Alive_counter << ini <<'\t'<< du_last_nu_network <<endl;
         enviroment << ini <<'\t'<< evolve <<endl;
@@ -191,60 +200,30 @@ void genome::base (int Nu_n, string add)
 
         //Reproducing GRNs
 
-        int totoal_lost = lost_networks + du_lost_networks;
-
-        if (totoal_lost != 0 && last_nu_network != 0)
+        int total_lost = lost_networks + du_lost_networks;
+        //cout <<"before repro, " << "du_last= "<<du_last_nu_network << '\t' << last_nu_network<<endl; 
+        /*cout << "number of removed networks" << totoal_lost << endl;
         {
-            Reproducing(totoal_lost);
+            for (int i =0 ; i<du_last_nu_network ; i++)
+                cout<<i<<'\t'<<dn[i].fitness << endl;
+
+            int sa;
+        cin>>sa;
         }
+        */
+        if (total_lost != 0 && total_lost<population*2 && (last_nu_network != 0 || du_last_nu_network != 0 ))
+        {
+            //cout<< "are we in the reproduction process?"<<" input = "<< evolve<<endl;
+            Reproducing(total_lost);
+        }
+
+        //if (du_last_nu_network > 914)
+
         
         //now the block of the duplicated network with the same tasks ...
         
         
-        //final check::
-        vector <int> temp_dead;
-        vector <int> du_temp_dead;
-
-        for (int a=0 ; a<number_networks ; a++)
-        {
-            double making_sure = 0;
-            double du_making_sure = 0;
-            
-            for (int s=0 ; s<n ; s++)
-            {
-                for (int y=0 ; y<n ; y++)
-                {
-                    making_sure += abs(ne[a].adjac[s][y]);
-                    du_making_sure += abs(dn[a].du_adjac[s][y]);
-                    du_making_sure += abs(dn[a].du_adjac[s+n][y]);
-                    du_making_sure += abs(dn[a].du_adjac[s][y+n]);
-                    du_making_sure += abs(dn[a].du_adjac[s+n][y+n]);
-                }
-            }
-            
-            if (making_sure == 0)
-            {
-                temp_dead.push_back(a);
-            }
-
-            if (du_making_sure == 0)
-            {
-                du_temp_dead.push_back(a);
-            }
-        } 
-/*
-        if (temp_dead.size() != 0 && live_list.size() != 0)
-        {
-            cout<<"in making sure, single"<<endl;
-            Chance_of_repro(live_list, temp_dead, du_live_list);
-        }
-        
-        if (du_temp_dead.size() != 0 && du_live_list.size() != 0)
-        {
-            cout<<"in making sure, double"<<endl;
-           du_Chance_of_repro(du_live_list, du_temp_dead, du_live_list);
-        }
-*/       
+        //final check:: 
         
     }
 

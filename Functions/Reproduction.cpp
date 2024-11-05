@@ -4,58 +4,83 @@
 void genome::Reproducing(int total_lost)
 {
     int as;
-    cout << "in repro, total lost = "<<total_lost <<'\t';
+    //cout << "in repro, total lost = "<<total_lost <<'\t';
+    //cout<<"we are in the reproduction!"<<endl;
 
+        
+    //
+    //for (int i=0 ; i<du_last_nu_network ; i++)
+    //{
+    //    cout<<"before the reproduciton "<<i<<'\t'<<dn[i].fitness<<", living "<<dn[i].living<<'\t'<<dn[i].occ<<'\t'<<du_last_nu_network<<endl;
+    //}
+//
+    //cin >> as; 
+    
     for (int i=0 ; i<total_lost ; i++)
     {
-        int idl_cndt = 0;
-        double fitness = -0.001;
-        bool duble;
-        bool single;
         
-        while (fitness > ran2(&iseed))
-        {
-            duble = false;
-            single = false;
+        int idl_cndt = 0;
+        bool duble= false;
+        bool single = false;
+        bool fitness_passed = true;
 
+        //cout<<"before while:"<<endl;
+        
+        while (fitness_passed)
+        {
+            double the_random = ran2(&iseed);
+            
             if (ran2(&iseed) >= 0.5)
             {
                 idl_cndt = ran2(&iseed) * last_nu_network;
-                fitness = ne[idl_cndt].fitness;
-                single = true;
+
+                if (ne[idl_cndt].fitness > the_random )
+                {
+                    fitness_passed = false;
+                    single = true;
+                    Copy(idl_cndt, last_nu_network);
+                    last_nu_network ++;
+                }
             }
 
-            else 
+            else
             {
                 idl_cndt = ran2(&iseed) * du_last_nu_network;
-                fitness = dn[idl_cndt].fitness;
-                duble = true;
+
+                //cout<< "last = "<<du_last_nu_network <<" idl_cnd = " << idl_cndt << " fitness = " <<dn[idl_cndt].fitness << " the random = " << the_random << endl;
+                
+                if (dn[idl_cndt].fitness > the_random)
+                {
+                    //cout<<"idl_cnd = " << idl_cndt << " fitness = " <<dn[idl_cndt].fitness << " the random = " << the_random << endl;
+                    
+                    //cout<< "idl_cand = "<<idl_cndt<< '\t' << dn[idl_cndt].fitness <<endl;
+                    fitness_passed = false;
+                    duble = true;
+                    du_Copy(idl_cndt, du_last_nu_network);
+                    du_last_nu_network ++;  
+                }
             }
         }
-
-        if (single)
-        {
-            Copy(idl_cndt, last_nu_network);
-            last_nu_network ++;
-        }
-
-        else
-        {
-            du_Copy(idl_cndt, last_nu_network);
-            du_last_nu_network ++;  
-        }
+        
     }
 
-    cout << "number_net" << last_nu_network <<endl;
-    cin >> as;
+    
+//    
+//    for (int i=0 ; i<du_last_nu_network ; i++)
+//    {
+//        cout<<i<<'\t'<<dn[i].fitness<<endl;
+//    }
+//    cin >> as; 
+    //cout << "number_net   " << last_nu_network << '\t' << du_last_nu_network <<endl;
+    //cin >> as;
 }
 
 void genome::Copy(int idl, int slv)
 {
     ne[slv].living = true;
     ne[slv].occ = true;
-    
-    ne[slv].unique = false;
+    ne[slv].fitness = ne[idl].fitness;
+
     ne[slv].output = ne[idl].output;
     ne[slv].input = ne[idl].input;
 
@@ -95,7 +120,7 @@ void genome::du_Copy(int idl, int slv)
 {
     dn[slv].living = true;
     dn[slv].occ = true;
-
+    dn[slv].fitness = dn[idl].fitness;
     dn[slv].output = dn[idl].output;
     dn[slv].input = dn[idl].input;    
     dn[slv].unique = false;
