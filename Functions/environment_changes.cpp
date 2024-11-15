@@ -26,7 +26,7 @@ double genome::Environment_Ga()
 double genome::Environment_uniform()
 {
     double evolve = 2.0;
-    while (abs (evolve > 1.9))
+    while (abs (evolve) > 1.9)
     {
     	evolve = first_input + ((last_input - first_input) * ran2(&iseed));
 
