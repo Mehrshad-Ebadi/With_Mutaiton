@@ -12,14 +12,8 @@ The key differences from the previous package are:
 
 ## Requirements
 1. `make` (Makefile)  
-2. C/C++ compiler (version 11 or higher recommended)  
-3. At least **8 GB of RAM** for a network of 100 nodes  
-
-⚠️ **For MPI version:**  
-- `openmpi` is required.  
-- The MPI code is written for **13 processes**.  
-- If you want to run the code with a different number of processes, you must either modify the code or run it on a system with at least 13 processors.  
-
+2. C/C++ compiler (version 11 or higher recommended)
+   
 ---
 
 ## Running the Code
@@ -34,7 +28,7 @@ On **Linux**:
 3. After compilation, the executable will be saved at:  
 
    ```
-   ./../(all versions)/Exe/Final.out
+   ./Exe/Final.out
    ```
 
 ---
