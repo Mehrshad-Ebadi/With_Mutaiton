@@ -16,23 +16,38 @@ The key differences from the previous package are:
 2. C/C++ compiler (version 11 or higher recommended)  
 3. At least **8 GB of RAM** for a network of 100 nodes  
 
+⚠️ **For MPI version:**  
+- `openmpi` is required.  
+- The MPI code is written for **13 processes**.  
+- If you want to run the code with a different number of processes, you must either modify the code or run it on a system with at least 13 processors.  
+
 ---
 
 ## Running the Code
 On **Linux**:  
 1. Navigate to the project directory.  
 2. Compile the code by running:  
+
+   ```bash
    make
+   ```  
+
 3. After compilation, the executable will be saved at:  
-   ./Exe/Final.out
+
+   ```
+   ./../(all versions)/Exe/Final.out
+   ```
+
+---
 
 ## Workflow
-1. **Generate networks:**  
-   - If you already have networks, skip this step.  
-   - Otherwise, use the [previous package](https://github.com/Mehrshad-Ebadi/SC-as-aGRNs) to generate your networks.  
 
-2. **Configure parameters:**  
-   Edit `./input/data.txt` to set your desired parameters:  
+1. **Generate networks**
+   - If you already have networks, skip this step.  
+   - Otherwise, use the [previous package](https://github.com/Mehrshad-Ebadi/SC-as-aGRNs) to generate them.
+
+2. **Configure parameters**  
+   Edit `./input/data.txt` and set:
    - **Network size**  
    - **Number of time steps**  
    - **Number of networks** in the pool  
@@ -46,10 +61,14 @@ On **Linux**:
    - **Final input value** (for environment calculations)  
    - **Number of runs**, depending on your needs and available CPU cores  
 
-3. **Compile the code:**  
-   make
+3. **Compile the code**
 
-4. **Run the executable:**  
+   ```bash
+   make
+   ```
+
+4. **Run the executable**
+
    ```bash
    ./Exe/Final.out
    ```
