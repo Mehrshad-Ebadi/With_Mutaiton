@@ -1,0 +1,25 @@
+# With_Mutation
+This package is a follow-up of the previous package 'https://github.com/Mehrshad-Ebadi/SC-as-aGRNs' which uses the same priciples to generate artificial gene regulatory networks (aGRNs), the 
+then duplicates them to model whole genome duplication (WGD).
+After that, it generates four different environments and puts these aGRNs in them to measure different properties of these networks in local scale and global scale.
+The main difference of this package with previous one, is that in this package I have implemented the mutation mechanism so that each node can add, remove a downstream connection of just changes the weight of that connection.
+Also in this package, I have developed a new method to model self-regulation and feed-back loops as it was not possible in the previous model.
+
+# Requirements:
+1. makefile
+2. C/C++ compiler (version 11 or higher preferred)
+3. 8 GB of RAM for a network of 100 nodes
+
+** for the MPI version, openmpi is required. The MPI code is written for a cluster of 13 processes. If you want to run the code on a computer with a different number of nodes, please edit the code or consider running the code on a system with at least 13 processors.
+
+
+# Running the code:
+in linux: To run the code, please go the directory and type 'make'. After the make process finished, the excutable file will be saved in the directory of 
+./..(all versions)/Exe/Final.out
+
+# Workflow:
+1. First you need your networks to be generated and ready.
+
+2. Then in the .txt
+ 
+important: To run the fitness scenario, you have to copy both Results and Results_du from network generator to the fitness folder.
