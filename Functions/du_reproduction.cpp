@@ -31,6 +31,7 @@ void genome::du_Copy(int idl, int slv)
         
         dn[slv].du[F].weights = 0;
         dn[slv].du[F].nm_up = dn[idl].du[F].nm_up;
+        dn[slv].du[F].isolated = dn[idl].du[F].isolated;
     }
     
     for (int h=0 ; h<nn ; h++)
@@ -45,4 +46,5 @@ void genome::du_Copy(int idl, int slv)
     dn[slv].UU = dn[idl].UU;
     dn[slv].edges = dn[idl].edges;
     dn[slv].n_isolate = dn[idl].n_isolate;
+    dn[slv].nm_mutation = dn[idl].nm_mutation;
 }

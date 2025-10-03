@@ -3,7 +3,6 @@
 
 void genome::Chance_of_repro(const vector <int> &live_list, const vector <int> &dead_list)
 {
-
     for (int i=0 ; i<dead_list.size(); i++)
     {
         int idl_cndt = ran2(&iseed) * live_list.size();
@@ -34,6 +33,7 @@ void genome::Copy(int idl, int slv)
         
         ne[slv].gn[F].weights = 0;
         ne[slv].gn[F].nm_up = ne[idl].gn[F].nm_up;
+        ne[slv].gn[F].isolated = ne[idl].gn[F].isolated;
     }
     
     for (int h=0 ; h<n ; h++)
@@ -48,4 +48,5 @@ void genome::Copy(int idl, int slv)
     ne[slv].UU = ne[idl].UU;
     ne[slv].edges = ne[idl].edges;
     ne[slv].n_isolate = ne[idl].n_isolate;
+    ne[slv].nm_mutation = ne[idl].nm_mutation;
 }

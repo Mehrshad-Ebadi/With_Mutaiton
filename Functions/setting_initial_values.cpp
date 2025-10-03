@@ -1,12 +1,28 @@
 #include "../Headers/Genome.hpp"
 
-void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, string add)
+void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, float env_ref, int func_env, 
+string add, int rank, double fst_input, double lst_input)
 {
+
+    time_t current_time = std::time(nullptr);
+    iseed = static_cast<long>(current_time * rank);
+    
+    for (int i=0 ; i<3000 ; i++)
+    {   
+        gasdev(&iseed);    
+        ran2(&iseed);
+    }
+
     int number_networks = Nn_net;
 
-    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << endl;
+    cout<< N << '\t' << st<< '\t'  << Nn_net<< '\t'  << Mute_R<< '\t'  << env_ref<< '\t' << func_env << '\t' << fst_input << 
+    '\t'<< lst_input <<endl;
     step = st;
-    
+    first_input = fst_input;
+    last_input = lst_input;
+    mean_input = (last_input + first_input) / (2.0);
+    len_step = abs((last_input - first_input) / step);
+
     chance_changing_weight   = Mute_R;
     chance_of_del_connection = Mute_R;
     chance_of_new_connetion  = Mute_R;
@@ -15,8 +31,9 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
 
     lin_envo  = false   ;
     Gaus_envo = false   ;
-    stp_envo  = false   ;
+    uni_envo  = false   ;
     neg_envo  = false   ;
+    std_envo  = false   ;
     
     Sigma = 0.1;
     Miuw = 0.0;   
@@ -37,6 +54,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
         ne[i].unique = true;
         ne[i].n_isolate = 0;
         ne[i].n = n;
+        ne[i].nm_mutation = 0;
 
         for (int z=0 ; z<n ; z++)
         {
@@ -56,6 +74,7 @@ void genome::Setting_initial_values(int N, int st, int Nn_net, float Mute_R, flo
         dn[i].unique = true;
         dn[i].n_isolate = 0;
         dn[i].nn = nn;
+        dn[i].nm_mutation = 0;
 
         for (int z=0 ; z<nn ; z++)
         {

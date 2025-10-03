@@ -6,13 +6,13 @@ void genome::base (int Nu_n, string add)
     //string run = "numrun_" + to_string(RUN);
     //add = add + run;
     //add = add + "/";
-
     ofstream Alive_counter (add + "Alive.txt");
     ofstream du_Alive_counter (add + "du_Alive.txt");
     ofstream enviroment (add + "envi.txt");
     ofstream uni (add + "uni.txt");
     ofstream du_uni (add + "du_uni.txt"); 
     ofstream iso (add + "iso.txt");
+    ofstream mutat (add + "num_mutation.txt");
     ofstream du_iso (add + "du_iso.txt");
     int needed_networks;
     int du_needed_networks;
@@ -24,8 +24,8 @@ void genome::base (int Nu_n, string add)
 
     for (int i=0 ; i<number_networks; i++)
     {
-        string data = "./Population_pool/Results/Net_";
-        string du_data = "./Population_pool/Results_du/Net_du_";
+        string data = "../../Population_pool/Results/Net_";
+        string du_data = "../../Population_pool/Results_du/Net_du_";
         
         string Extension = ".txt";
         string HH = to_string(i);
@@ -33,22 +33,21 @@ void genome::base (int Nu_n, string add)
         string location = data + HH + Extension;
         string du_location = du_data + HH + Extension;    
         Reader(location, i);
-        du_Reader(du_location, i);
-        
+        du_Reader(du_location, i); 
     }
 
     vector <int> dead_list;
     vector <int> du_dead_list;
     vector <int> live_list;
     vector <int> du_live_list;
-    
-    for (int ini=0  ; ini <= (2*step) ; ini++)
+
+    for (int ini=0  ; ini <= step ; ini++)
     {
         switch (environment_selector)
         {
             case 0 :
                 lin_envo = true;
-                evolve = Environment_li(ini, step);
+                evolve = Environment_li(ini);
                 break;
             
             case 1:
@@ -57,23 +56,29 @@ void genome::base (int Nu_n, string add)
                 break;
 
             case 2:
-                stp_envo = true;
-                evolve = Environment_no_l(evolve, step); //No linear with gaus jumps environment
+                uni_envo = true;
+                evolve = Environment_uniform(); //No linear with gaus jumps environment
                 break;
             
             case 3:
                 neg_envo = true;
-                evolve = Environment_neg(ini, step); //Negative gradients
+                evolve = Environment_neg(ini); //Negative gradients
+                break;
+
+            case 4:
+                std_envo = true;
+                evolve = mean_input;
+		cout << evolve << endl;
                 break;
         }
 
-        if (ini % 200 == 0)
+        if (ini % 300 == 0)
         {
             cout<<"st="<<ini<<endl;
             save(number_networks, ini, add);
         }
 
-        for (int pl=0 ; pl < number_networks ; pl++)
+        for (int pl=0 ; pl<number_networks ; pl++)
         {
             for (int z=0 ; z<n ; z++)
             {
@@ -142,10 +147,26 @@ void genome::base (int Nu_n, string add)
         Alive_counter << ini <<'\t'<< zz <<endl;
         du_Alive_counter << ini <<'\t'<< du_zz <<endl;
         enviroment << ini <<'\t'<< evolve <<endl;
-
+        
         int Un = 0; 
         int du_Un = 0;
         
+        float total_mutation        = 0.0;
+        float du_total_mutation     = 0.0;
+        float positive_mutation     = 0.0;
+        float du_positive_mutation  = 0.0;
+
+        for (int a=0 ; a<number_networks ; a++)
+        {
+            total_mutation += ne[a].nm_mutation;
+            du_total_mutation += dn[a].nm_mutation;
+            
+            if (ne[a].living == true)
+                positive_mutation += ne[a].nm_mutation;
+            
+            if (dn[a].living == true)
+                du_positive_mutation += dn[a].nm_mutation;
+        }
         //the whole block is for single networks ...
         
         if (dead_list.size() != 0 && live_list.size() != 0)
@@ -160,17 +181,24 @@ void genome::base (int Nu_n, string add)
             du_Chance_of_repro(du_live_list, du_dead_list);
         }
 
-        for (int a=0 ; a<number_networks ; a++)     
+        Un = 0;
+        du_Un = 0;
+
+        for (int a=0 ; a<live_list.size() ; a++)     
         {
-            if (ne[a].unique == true)   Un++;
-            
-            if (dn[a].unique == true)   du_Un++;
+            if (ne[live_list[a]].unique == true)   Un++;
+        }
+
+        for (int a=0 ; a<du_live_list.size() ; a++)     
+        {
+            if (dn[du_live_list[a]].unique == true)   du_Un++;
         }
         //int st=0;
         //for (int i=0 ; i<number_networks; i++)
         //    if (ne[i].living == true)
         //        st++;
         //cout<<"after copy = "<<st<<endl;
+        
         double E=0;
         double du_E =0;
    
@@ -188,17 +216,15 @@ void genome::base (int Nu_n, string add)
             is += ne[po].n_isolate;
             du_is += dn[po].n_isolate;
         } 
-
+        if (live_list.size() == 0 || du_live_list.size() == 0)
+            break;
         iso << ini << '\t' << ((is + 0.0) / number_networks) << endl;
         du_iso << ini << '\t' << ((du_is + 0.0) / number_networks) << endl;
         eg << ini << '\t' << ((E + 0.0) / (number_networks * n))<<endl;
         du_eg << ini << '\t' << ((du_E + 0.0) / ((number_networks)*nn)) <<endl;
         uni << ini << '\t' << Un << endl;
         du_uni << ini << '\t' << du_Un << endl;
-
-        if (live_list.size() == 0 || du_live_list.size() == 0)
-            break;
-
+        mutat << ini<< '\t' << (positive_mutation/(total_mutation + 0.0))<<'\t'<<(du_positive_mutation/(du_total_mutation + 0.0))<<'\n';
         dead_list.clear();
         dead_list.shrink_to_fit();
         du_dead_list.clear();
@@ -207,9 +233,7 @@ void genome::base (int Nu_n, string add)
         live_list.shrink_to_fit();
         du_live_list.clear();
         du_live_list.shrink_to_fit();
-
     }
 
     cout<<'\n'<<"simulation done, wait ..."<<endl;
-    
 }

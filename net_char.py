@@ -157,12 +157,12 @@ def save_ged_matrix(ged_matrix, output_file_path):
                 output_file.write(f"{value:.4f}\t")
             output_file.write("\n")
 '''
-file_path = './History/Network.txt'
+file_path = './Outputs/st_1000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/History.txt'
 
 networks_by_step = read_multiple_networks(file_path)
 
 # Specify the output file path
-output_file_path = './Outputs/00Net_analysis.txt'
+output_file_path = './Outputs/st_1000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_0/History.txt'
 step_to_plot = input('step:')
 step_to_plot = int(step_to_plot)
 network_number_to_plot = input('net_number:')

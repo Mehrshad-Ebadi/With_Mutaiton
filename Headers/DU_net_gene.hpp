@@ -3,7 +3,6 @@
 class dNet
 {
     public:
-        
         dupli* du;
         double** du_adjac;
         int II;
@@ -17,6 +16,7 @@ class dNet
         bool unique;
         int edges;
         int n_isolate;
+        int nm_mutation;
         
         dNet(){};
         
