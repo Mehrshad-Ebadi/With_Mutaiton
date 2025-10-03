@@ -2,32 +2,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os as os
 import shutil as sh
-import glob
 
 sh.rmtree('./diagrams')
 os.mkdir("./diagrams")
-#pattern = './Outputs/*/numrun_0/Alive.txt'
-#directories = glob.glob(pattern)
-#
-#for directory in directories:
-#    # Extract the dynamic part from the directory path
-#    dynamic_part = directory.split('/')[-2]
-#
-#addres = f'{directory}/Alive.txt'
-#du_addres = f'{directory}/du_Alive.txt'
-the_additional = 'st_1000,nn_2000,mu_0.001000,ref_env_=0.000000'
-num_run = '/numrun_0/'
-address = './Outputs/' + the_additional + '/' + num_run
-X = np.loadtxt(address + "Alive.txt")
-Y = np.loadtxt(address + "du_Alive.txt")
-Z = np.loadtxt(address + "envi.txt")
-K = np.loadtxt(address + "uni.txt")
-H = np.loadtxt(address + "du_uni.txt")
-J = np.loadtxt(address + "edge.txt")
-Q = np.loadtxt(address + "du_edge.txt")
-j = np.loadtxt(address + "iso.txt")
-q = np.loadtxt(address + "du_iso.txt")
+X = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/Alive.txt")
+Y = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_Alive.txt")
+Z = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/envi.txt")
+K = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/uni.txt")
+H = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_uni.txt")
+J = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/edge.txt")
+Q = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_edge.txt")
+j = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/iso.txt")
+q = np.loadtxt("./Outputs/st_2000,nn_1000,mu_0.001000,ref_env_=0/numrun_0/du_iso.txt")
+#for i in range (0,len(X)):
+#    X[i][1] = X[i][1] / 10000
 
+#for i in range (0,len(Y)):
+#    Y[i][1]  = Y[i][1] / 10000
 plt.scatter([i[0] for i in X], [i[1] for i in X],label='non-duplicated',color='blue', alpha=0.7, s=1)
 plt.scatter([i[0] for i in Y], [i[1] for i in Y],label='duplicated',color='orange', alpha=0.3, s=1)
 
@@ -75,8 +66,6 @@ plt.ylabel("Edges")
 plt.grid()
 plt.savefig('./diagrams/edge.png',dpi=400)
 plt.close()
-
-
 
 plt.scatter([i[0] for i in j], [i[1] for i in j],label='non-duplicated_n_iso',color='blue', s=2)
 plt.scatter([i[0] for i in q], [i[1] for i in q],label='duplicated_n_iso',color='orange', alpha=0.6, s=2)

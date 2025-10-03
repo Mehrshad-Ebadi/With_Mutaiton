@@ -1,6 +1,6 @@
 BASE = $(shell pwd)
 
-CC=g++
+CC=mpicxx
 #OBJFLAGS+=-Wall -Wextra -O0 -g -D_GLIBCXX_DEBUG -c
 OBJFLAGS+=-O0 -g -D_GLIBCXX_DEBUG -c
 

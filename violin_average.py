@@ -3,25 +3,25 @@ import numpy as np
 
 a = list()
 b = list()
+numb_run = 1
 
-for i in range (0,10):
-    addres = './Outputs/st_10000,nn_10000,mu_0.000100,ref_env_=0.200000/runnum_'
-    addres = addres + str(i)
-    addres = addres + '/Alive.txt'
-    # Load data from the "Alive.txt" file
+for i in range(numb_run):
+    addres = f'./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_{i}/Alive.txt'
     alive_data = np.loadtxt(addres)
-    
-    # Load data from the "du_Alive.txt" file
-    du_alive_file_path = './Outputs/du_Alive.txt'
-    du_alive_data = np.loadtxt(du_alive_file_path)
-    a += alive_data
-    b += du_alive_data
 
-a = a / 10
-b = b / 10
+    du_addres = f'./Outputs/st_2000,nn_1000,mu_0.100000,ref_env_=0.000000/numrun_{i}/du_Alive.txt'
+    du_alive_data = np.loadtxt(du_addres)
+
+    a.append(alive_data)
+    b.append(du_alive_data)
+
+a = np.mean(a, axis=0)
+b = np.mean(b, axis=0)
+print (a)
+u = input("thanks")
 # Organize the data into groups of 500 steps for both datasets
-alive_grouped_data = [alive_data[i:i + 500, 1] for i in range(0, len(alive_data), 500)]
-du_alive_grouped_data = [du_alive_data[i:i + 500, 1] for i in range(0, len(du_alive_data), 500)]
+alive_grouped_data = [a[i:i + 500, 1] for i in range(0, len(a), 500)]
+du_alive_grouped_data = [b[i:i + 500, 1] for i in range(0, len(b), 500)]
 
 # Set the width of each violin
 width = 0.4
@@ -46,3 +46,10 @@ plt.ylabel('S')
 
 # Show the plot
 plt.savefig('./diagrams/violin.png', dpi=700)
+
+
+plt.scatter([i[0] for i in a], [i[1] for i in a],label='non-duplicated',color='blue', alpha=0.7, s=1)
+plt.scatter([i[0] for i in b], [i[1] for i in b],label='duplicated',color='orange', alpha=0.3, s=1)
+plt.xlabel("Time Steps")
+plt.ylabel("S")
+plt.savefig('./diagrams/scatter.png', dpi=700)
