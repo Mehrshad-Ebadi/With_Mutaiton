@@ -8,7 +8,6 @@ After duplication, the package creates four different environments and places th
 The key differences from the previous package are:  
 - **Mutation mechanism:** Each node can add or remove a downstream connection, or change the weight of an existing connection.  
 - **Self-regulation & feedback loops:** This package introduces a new method to model these, which was not possible in the previous version.  
-
 ---
 
 ## Requirements
