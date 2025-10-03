@@ -22,15 +22,9 @@ The key differences from the previous package are:
 On **Linux**:  
 1. Navigate to the project directory.  
 2. Compile the code by running:  
-   ```bash
    make
-   ```  
 3. After compilation, the executable will be saved at:  
-   ```
-   ./../(all versions)/Exe/Final.out
-   ```
-
----
+   ./Exe/Final.out
 
 ## Workflow
 1. **Generate networks:**  
@@ -53,9 +47,7 @@ On **Linux**:
    - **Number of runs**, depending on your needs and available CPU cores  
 
 3. **Compile the code:**  
-   ```bash
    make
-   ```
 
 4. **Run the executable:**  
    ```bash
